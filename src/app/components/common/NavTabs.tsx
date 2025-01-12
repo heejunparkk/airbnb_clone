@@ -1,30 +1,30 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+import { useState } from 'react';
 
 export default function NavTabs() {
-  const [activeTab, setActiveTab] = useState("stays");
+  const [activeTab, setActiveTab] = useState('stays');
 
   return (
-    <div className="flex gap-6">
+    <div className="flex">
       <button
         type="button"
-        onClick={() => setActiveTab("stays")}
-        className={`pb-2 ${
-          activeTab === "stays"
-            ? "border-b-2 border-black text-black"
-            : "text-gray-500"
+        onClick={() => setActiveTab('stays')}
+        className={`px-4 py-2 ${
+          activeTab === 'stays'
+            ? 'hidden md:block text-black hover:bg-gray-100 rounded-full'
+            : 'text-gray-500'
         }`}
       >
         숙소
       </button>
       <button
         type="button"
-        onClick={() => setActiveTab("experiences")}
-        className={`pb-2 ${
-          activeTab === "experiences"
-            ? "border-b-2 border-black text-black"
-            : "text-gray-500"
+        onClick={() => setActiveTab('experiences')}
+        className={`px-4 py-2 ${
+          activeTab === 'experiences'
+            ? 'hidden md:block text-black hover:bg-gray-100 rounded-full'
+            : 'text-gray-500'
         }`}
       >
         체험

@@ -5,12 +5,25 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --explore_padding-inline: 80px;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+  }
+}
+
+@media (max-width: 1440px) {
+  :root {
+    --explore_padding-inline: 40px;
+  }
+}
+
+@media (max-width: 744px) {
+  :root {
+    --explore_padding-inline: 24px;
   }
 }
 
