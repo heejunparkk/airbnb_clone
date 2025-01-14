@@ -1,42 +1,133 @@
 'use client';
 
+import { useState, useEffect, useRef } from 'react';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
 interface SearchBarProps {
   isScrolled: boolean;
 }
 
+type TabType = '여행지' | '체크인' | '체크아웃' | '여행자' | null;
+
 export default function SearchBar({ isScrolled }: SearchBarProps) {
+  const [activeTab, setActiveTab] = useState<TabType>(null);
+  const searchBarRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        searchBarRef.current &&
+        !searchBarRef.current.contains(event.target as Node)
+      ) {
+        setActiveTab(null);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (activeTab) {
+        setActiveTab(null);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [activeTab]);
+
+  const handleTabClick = (tab: TabType) => {
+    setActiveTab(activeTab === tab ? null : tab);
+  };
+
   return (
-    <div className="transform transition-all duration-300">
+    <div
+      ref={searchBarRef}
+      className="transform transition-all duration-300 relative"
+    >
       <div
         className={`
           border rounded-full shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer transform
-          ${isScrolled ? 'h-12 scale-90' : 'h-[66px] scale-100'}
+          ${isScrolled ? 'h-12 max-w-[400px]' : 'h-[66px] max-w-[850px]'}
         `}
       >
         <div className="flex items-center justify-between h-full px-6">
           <div
             className={`
-            flex items-center divide-x transition-all duration-300
-            ${isScrolled ? 'text-sm' : 'text-base'}
-          `}
+              flex items-center divide-x transition-all duration-300
+              ${isScrolled ? 'text-sm' : 'text-base'}
+            `}
           >
-            <div
-              className={`transition-all duration-300 ${isScrolled ? 'pr-4' : 'pr-6'}`}
-            >
-              어디든지
-            </div>
-            <div
-              className={`transition-all duration-300 ${isScrolled ? 'px-4' : 'px-6'}`}
-            >
-              언제든 일주일
-            </div>
-            <div
-              className={`transition-all duration-300 ${isScrolled ? 'pl-4' : 'pl-6'}`}
-            >
-              게스트 추가
-            </div>
+            {isScrolled ? (
+              <>
+                <button
+                  type="button"
+                  onClick={() => handleTabClick('여행지')}
+                  className="pr-4"
+                >
+                  어디든지
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleTabClick('체크인')}
+                  className="px-4"
+                >
+                  언제든
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleTabClick('여행자')}
+                  className="pl-4"
+                >
+                  게스트 추가
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  type="button"
+                  onClick={() => handleTabClick('여행지')}
+                  className={`transition-all duration-300 pr-6
+                    ${activeTab === '여행지' ? 'text-rose-500' : ''}
+                  `}
+                >
+                  여행지
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleTabClick('체크인')}
+                  className={`transition-all duration-300 px-6
+                    ${activeTab === '체크인' ? 'text-rose-500' : ''}
+                  `}
+                >
+                  체크인
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleTabClick('체크아웃')}
+                  className={`transition-all duration-300 px-6
+                    ${activeTab === '체크아웃' ? 'text-rose-500' : ''}
+                  `}
+                >
+                  체크아웃
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleTabClick('여행자')}
+                  className={`transition-all duration-300 pl-6
+                    ${activeTab === '여행자' ? 'text-rose-500' : ''}
+                  `}
+                >
+                  여행자
+                </button>
+              </>
+            )}
           </div>
           <button
             className={`
@@ -48,13 +139,43 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
           >
             <MagnifyingGlassIcon
               className={`
-              transition-all duration-300
-              ${isScrolled ? 'h-4 w-4' : 'h-5 w-5'}
-            `}
+                transition-all duration-300
+                ${isScrolled ? 'h-4 w-4' : 'h-5 w-5'}
+              `}
             />
           </button>
         </div>
       </div>
+
+      {/* 팝업 메뉴 */}
+      {!isScrolled && activeTab && (
+        <div className="absolute top-full left-0 w-full mt-3 bg-white rounded-3xl shadow-lg border p-6">
+          {activeTab === '여행지' && (
+            <div>
+              <h3 className="text-lg font-semibold mb-4">여행지 검색</h3>
+              {/* 여여행지 검색 내용 */}
+            </div>
+          )}
+          {activeTab === '체크인' && (
+            <div>
+              <h3 className="text-lg font-semibold mb-4">체크인 날짜 선택</h3>
+              {/* 체크인 달력 */}
+            </div>
+          )}
+          {activeTab === '체크아웃' && (
+            <div>
+              <h3 className="text-lg font-semibold mb-4">체크아웃 날짜 선택</h3>
+              {/* 체크아웃 달력 */}
+            </div>
+          )}
+          {activeTab === '여행자' && (
+            <div>
+              <h3 className="text-lg font-semibold mb-4">인원 선택</h3>
+              {/* 인원 선택 컨트롤 */}
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }

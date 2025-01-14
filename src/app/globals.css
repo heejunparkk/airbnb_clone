@@ -5,7 +5,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --explore_padding-inline: 80px;
+  /* --explore_padding-inline: 60px; */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -15,7 +15,7 @@
   }
 }
 
-@media (max-width: 1440px) {
+/* @media (max-width: 1440px) {
   :root {
     --explore_padding-inline: 40px;
   }
@@ -25,7 +25,7 @@
   :root {
     --explore_padding-inline: 24px;
   }
-}
+} */
 
 body {
   color: var(--foreground);

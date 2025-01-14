@@ -48,9 +48,9 @@ export default function Header() {
           </div>
 
           {/* 중앙 검색바 */}
-          <div className="w-1/3 flex justify-center">
+          <div className="w-1/3 flex justify-center items-center">
             {isScrolled ? (
-              <div className="hidden md:block w-full max-w-2xl">
+              <div className="hidden md:block w-full max-w-2xl mx-auto">
                 <SearchBar isScrolled={isScrolled} />
               </div>
             ) : (
@@ -69,7 +69,10 @@ export default function Header() {
               </button>
 
               <Menu as="div" className="relative inline-block">
-                <MenuButton className="flex items-center gap-3 p-2 border rounded-full hover:shadow-md">
+                <MenuButton
+                  as="button"
+                  className="flex items-center gap-3 p-2 border rounded-full hover:shadow-md"
+                >
                   <UserCircleIcon className="h-6 w-6" />
                 </MenuButton>
 
@@ -114,7 +117,7 @@ export default function Header() {
           ${isScrolled ? 'hidden' : 'block'}
         `}
       >
-        <div className="hidden md:block">
+        <div className="hidden md:block max-w-2xl mx-auto">
           <SearchBar isScrolled={isScrolled} />
         </div>
       </div>
