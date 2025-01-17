@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { useSearchStore } from '@/store/useSearchStore';
 
 interface SearchBarProps {
   isScrolled: boolean;
@@ -12,6 +13,7 @@ type TabType = '여행지' | '체크인' | '체크아웃' | '여행자' | null;
 export default function SearchBar({ isScrolled }: SearchBarProps) {
   const [activeTab, setActiveTab] = useState<TabType>(null);
   const searchBarRef = useRef<HTMLDivElement>(null);
+  const { searchMode } = useSearchStore();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -99,24 +101,38 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
                 >
                   여행지
                 </button>
-                <button
-                  type="button"
-                  onClick={() => handleTabClick('체크인')}
-                  className={`transition-all duration-300 px-6
-                    ${activeTab === '체크인' ? 'text-rose-500' : ''}
-                  `}
-                >
-                  체크인
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleTabClick('체크아웃')}
-                  className={`transition-all duration-300 px-6
-                    ${activeTab === '체크아웃' ? 'text-rose-500' : ''}
-                  `}
-                >
-                  체크아웃
-                </button>
+                {searchMode === 'stays' ? (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => handleTabClick('체크인')}
+                      className={`transition-all duration-300 px-6
+                        ${activeTab === '체크인' ? 'text-rose-500' : ''}
+                      `}
+                    >
+                      체크인
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleTabClick('체크아웃')}
+                      className={`transition-all duration-300 px-6
+                        ${activeTab === '체크아웃' ? 'text-rose-500' : ''}
+                      `}
+                    >
+                      체크아웃
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => handleTabClick('체크인')}
+                    className={`transition-all duration-300 px-6
+                      ${activeTab === '체크인' ? 'text-rose-500' : ''}
+                    `}
+                  >
+                    날짜
+                  </button>
+                )}
                 <button
                   type="button"
                   onClick={() => handleTabClick('여행자')}

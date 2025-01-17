@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { UserCircleIcon } from '@heroicons/react/24/outline';
 import SearchBar from '../common/SearchBar';
 import Image from 'next/image';
@@ -10,6 +9,9 @@ import NavTabs from '../common/NavTabs';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,6 +25,17 @@ export default function Header() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    const closeMenu = (e: MouseEvent) => {
+      if (isMenuOpen && !(e.target as Element).closest('.relative')) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('click', closeMenu);
+    return () => document.removeEventListener('click', closeMenu);
+  }, [isMenuOpen]);
 
   return (
     <header
@@ -68,43 +81,41 @@ export default function Header() {
                 당신의 공간을 에어비앤비하세요
               </button>
 
-              <Menu as="div" className="relative inline-block">
-                <MenuButton
-                  as="button"
+              <div className="relative inline-block">
+                <button
+                  onClick={() => setIsMenuOpen(!isMenuOpen)}
                   className="flex items-center gap-3 p-2 border rounded-full hover:shadow-md"
+                  aria-label="사용자 메뉴"
+                  title="사용자 메뉴"
                 >
                   <UserCircleIcon className="h-6 w-6" />
-                </MenuButton>
+                </button>
 
-                <MenuItems className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-lg border">
-                  <div className="py-1">
-                    <MenuItem as="div">
-                      {({ active }: { active: boolean }) => (
-                        <Link
-                          href="/login"
-                          className={`block px-4 py-2 ${
-                            active ? 'bg-gray-100' : ''
-                          }`}
-                        >
-                          로그인
-                        </Link>
-                      )}
-                    </MenuItem>
-                    <MenuItem as="div">
-                      {({ active }: { active: boolean }) => (
-                        <Link
-                          href="/signup"
-                          className={`block px-4 py-2 ${
-                            active ? 'bg-gray-100' : ''
-                          }`}
-                        >
-                          회원가입
-                        </Link>
-                      )}
-                    </MenuItem>
+                {isMenuOpen && (
+                  <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-lg border">
+                    <div className="py-1">
+                      <button
+                        onClick={() => {
+                          setIsLoginModalOpen(true);
+                          setIsMenuOpen(false);
+                        }}
+                        className="w-full text-left px-4 py-2 hover:bg-gray-100"
+                      >
+                        로그인
+                      </button>
+                      <button
+                        onClick={() => {
+                          setIsSignupModalOpen(true);
+                          setIsMenuOpen(false);
+                        }}
+                        className="w-full text-left px-4 py-2 hover:bg-gray-100"
+                      >
+                        회원가입
+                      </button>
+                    </div>
                   </div>
-                </MenuItems>
-              </Menu>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -121,6 +132,60 @@ export default function Header() {
           <SearchBar isScrolled={isScrolled} />
         </div>
       </div>
+
+      {isLoginModalOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-30 z-50 flex items-center justify-center p-4"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              setIsLoginModalOpen(false);
+            }
+          }}
+        >
+          <div
+            className="bg-white rounded-lg p-4 sm:p-8 w-full max-w-xl mx-auto 
+            min-h-[500px] sm:min-h-[600px] md:min-h-[745px]
+            max-h-[745px] overflow-y-auto
+            animate-modal relative"
+          >
+            <h2 className="text-xl sm:text-2xl font-bold mb-4">로그인</h2>
+            <button
+              onClick={() => setIsLoginModalOpen(false)}
+              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+            >
+              ✕
+            </button>
+            {/* 로그인 폼 내용 */}
+          </div>
+        </div>
+      )}
+
+      {isSignupModalOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-30 z-50 flex items-center justify-center p-4"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              setIsSignupModalOpen(false);
+            }
+          }}
+        >
+          <div
+            className="bg-white rounded-lg p-4 sm:p-8 w-full max-w-xl mx-auto 
+            min-h-[500px] sm:min-h-[600px] md:min-h-[745px]
+            max-h-[745px] overflow-y-auto
+            animate-modal relative"
+          >
+            <h2 className="text-xl sm:text-2xl font-bold mb-4">회원가입</h2>
+            <button
+              onClick={() => setIsSignupModalOpen(false)}
+              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+            >
+              ✕
+            </button>
+            {/* 회원가입 폼 내용 */}
+          </div>
+        </div>
+      )}
     </header>
   );
 }

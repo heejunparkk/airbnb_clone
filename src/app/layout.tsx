@@ -1,9 +1,9 @@
-import { Inter } from "next/font/google";
-import "./globals.css";
-import Header from "@/app/components/layout/Header";
+import { Inter } from 'next/font/google';
+import './globals.css';
+import Header from '@/app/components/layout/Header';
 // import Footer from "@/app/components/layout/Footer";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] });
 
 export default function RootLayout({
   children,

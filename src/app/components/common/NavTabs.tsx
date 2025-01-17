@@ -1,29 +1,27 @@
 'use client';
 
-import { useState } from 'react';
+import { useSearchStore } from '@/store/useSearchStore';
 
 export default function NavTabs() {
-  const [activeTab, setActiveTab] = useState('stays');
+  const { searchMode, setSearchMode } = useSearchStore();
 
   return (
-    <div className="flex">
+    <div className="flex gap-6">
       <button
-        type="button"
-        onClick={() => setActiveTab('stays')}
-        className={`px-4 py-2 ${
-          activeTab === 'stays'
-            ? 'hidden md:block text-black hover:bg-gray-100 rounded-full'
+        onClick={() => setSearchMode('stays')}
+        className={`pb-2 ${
+          searchMode === 'stays'
+            ? 'border-b-2 border-black text-black'
             : 'text-gray-500'
         }`}
       >
         숙소
       </button>
       <button
-        type="button"
-        onClick={() => setActiveTab('experiences')}
-        className={`px-4 py-2 ${
-          activeTab === 'experiences'
-            ? 'hidden md:block text-black hover:bg-gray-100 rounded-full'
+        onClick={() => setSearchMode('experiences')}
+        className={`pb-2 ${
+          searchMode === 'experiences'
+            ? 'border-b-2 border-black text-black'
             : 'text-gray-500'
         }`}
       >
