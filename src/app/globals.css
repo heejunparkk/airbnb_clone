@@ -15,29 +15,8 @@
   }
 }
 
-/* @media (max-width: 1440px) {
-  :root {
-    --explore_padding-inline: 40px;
-  }
-}
-
-@media (max-width: 744px) {
-  :root {
-    --explore_padding-inline: 24px;
-  }
-} */
-
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
-
-/* .scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
-} */
