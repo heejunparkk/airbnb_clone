@@ -1,9 +1,7 @@
 export default function Home() {
   return (
-    <div className="container mx-auto px-4">
-      <h1 className="text-3xl font-bold pt-24">
-        에어비앤비에서 숙소를 찾아보세요
-      </h1>
+    <div className="px-20 pt-[232px]">
+      <h1 className="text-3xl font-bold">에어비앤비에서 숙소를 찾아보세요</h1>
 
       {/* 임시 스크롤 테스트용 컨텐츠 */}
       <div className="mt-10 space-y-20">

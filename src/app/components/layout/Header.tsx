@@ -40,12 +40,12 @@ export default function Header() {
   return (
     <header
       className={`
-        fixed w-full bg-white border-b z-10 transition-all duration-300
+        fixed w-full px-20 bg-white border-b z-10 transition-all duration-300
         ${isScrolled ? 'h-16' : 'h-[168px]'}
       `}
     >
       {/* 상단 영역 - 고정 높이 */}
-      <div className="container mx-auto px-4 h-16">
+      <div className="h-16">
         <div className="flex items-center justify-between h-full">
           {/* 로고 */}
           <div className="w-1/3 flex justify-start">
@@ -63,7 +63,7 @@ export default function Header() {
           {/* 중앙 검색바 */}
           <div className="w-1/3 flex justify-center items-center">
             {isScrolled ? (
-              <div className="hidden md:block w-full max-w-2xl mx-auto">
+              <div className="hidden md:block w-full">
                 <SearchBar isScrolled={isScrolled} />
               </div>
             ) : (
@@ -124,7 +124,7 @@ export default function Header() {
       {/* 하단 영역 - 스크롤에 따라 변화 */}
       <div
         className={`
-          container mx-auto px-4 transition-all duration-300
+          mx-auto px-4 transition-all duration-300
           ${isScrolled ? 'hidden' : 'block'}
         `}
       >
