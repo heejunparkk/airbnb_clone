@@ -17,15 +17,20 @@ const Divider = () => (
 );
 
 export default function SearchBar({ isScrolled }: SearchBarProps) {
-  const [activeTab, setActiveTab] = useState<TabType>(null);
   const searchBarRef = useRef<HTMLDivElement>(null);
   const { searchMode, setSearchMode } = useSearchStore();
+  const [activeTab, setActiveTab] = useState<TabType>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
+      const searchBarElement = searchBarRef.current;
+      const popupElement = document.querySelector('.search-popup');
+
       if (
-        searchBarRef.current &&
-        !searchBarRef.current.contains(event.target as Node)
+        searchBarElement &&
+        !searchBarElement.contains(event.target as Node) &&
+        popupElement &&
+        !popupElement.contains(event.target as Node)
       ) {
         setActiveTab(null);
       }
@@ -55,18 +60,15 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
   };
 
   return (
-    <div
-      ref={searchBarRef}
-      className="flex flex-col items-center justify-center transform transition-all duration-300 relative"
-    >
+    <div className="flex flex-col items-center justify-center transform transition-all duration-200 relative">
       {!isScrolled && (
-        <div className="flex gap-1 mb-4">
+        <div ref={searchBarRef} className="flex gap-1 mb-4">
           <button
             onClick={() => setSearchMode('stays')}
             className={`py-3 px-4 rounded-full ${
               searchMode === 'stays'
                 ? 'text-black'
-                : 'text-gray-500 hover:bg-gray-100'
+                : 'text-gray-500 hover:text-black hover:bg-gray-100'
             }`}
           >
             숙소
@@ -76,7 +78,7 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
             className={`py-3 px-4 rounded-full ${
               searchMode === 'experiences'
                 ? 'text-black'
-                : 'text-gray-500 hover:bg-gray-100'
+                : 'text-gray-500 hover:text-black hover:bg-gray-100'
             }`}
           >
             체험
@@ -85,14 +87,14 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
       )}
       <div
         className={`
-          border rounded-full shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer transform
+          border rounded-full shadow-md hover:shadow-lg transition-all duration-200 cursor-pointer transform
           ${isScrolled ? 'h-12 max-w-[400px]' : 'h-[66px] w-[850px]'}
         `}
       >
         <div className="flex items-center h-full w-full">
           <div
             className={`
-              flex items-center transition-all duration-300
+              flex items-center transition-all duration-200
               ${isScrolled ? 'text-sm' : 'text-base'}
             `}
           >
@@ -101,7 +103,7 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
                 <button
                   type="button"
                   onClick={() => handleTabClick('여행지')}
-                  className={`pr-4 rounded-full px-4 py-2 transition-all duration-300
+                  className={`pr-4 rounded-full px-4 py-2 transition-all duration-200
                     ${activeTab === '여행지' ? 'bg-gray-100 font-medium' : 'hover:bg-gray-50'}`}
                 >
                   어디든지
@@ -110,7 +112,7 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
                 <button
                   type="button"
                   onClick={() => handleTabClick('체크인')}
-                  className={`rounded-full px-4 py-2 transition-all duration-300
+                  className={`rounded-full px-4 py-2 transition-all duration-200
                     ${activeTab === '체크인' ? 'bg-gray-100 font-medium' : 'hover:bg-gray-50'}`}
                 >
                   언제든
@@ -119,7 +121,7 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
                 <button
                   type="button"
                   onClick={() => handleTabClick('여행자')}
-                  className={`pl-4 rounded-full px-4 py-2 transition-all duration-300
+                  className={`pl-4 rounded-full px-4 py-2 transition-all duration-200
                     ${activeTab === '여행자' ? 'bg-gray-100 font-medium' : 'hover:bg-gray-50'}`}
                 >
                   게스트 추가
@@ -127,25 +129,34 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
               </>
             ) : (
               <>
-                <button
-                  type="button"
-                  onClick={() => handleTabClick('여행지')}
-                  className={`transition-all duration-300 rounded-full pl-5 pr-20 py-5
+                <div
+                  className={`transition-all duration-200 rounded-full py-3 px-8
                     ${
                       activeTab === '여행지'
                         ? 'bg-gray-100 text-rose-500 font-medium'
                         : 'hover:bg-gray-200'
                     }`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setActiveTab('여행지');
+                  }}
                 >
-                  여행지
-                </button>
+                  <div className="text-xs">여행지</div>
+                  <input
+                    type="text"
+                    placeholder="여행지 검색"
+                    className={`bg-transparent outline-none w-full ${
+                      isScrolled ? 'hidden' : 'text-sm text-gray-600'
+                    }`}
+                  />
+                </div>
                 <Divider />
                 {searchMode === 'stays' ? (
                   <>
                     <button
                       type="button"
                       onClick={() => handleTabClick('체크인')}
-                      className={`transition-all duration-300 rounded-full px-4 py-5
+                      className={`transition-all duration-200 rounded-full px-4 py-5
                         ${
                           activeTab === '체크인'
                             ? 'bg-gray-100 text-rose-500 font-medium'
@@ -158,7 +169,7 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
                     <button
                       type="button"
                       onClick={() => handleTabClick('체크아웃')}
-                      className={`transition-all duration-300 rounded-full px-4 py-5
+                      className={`transition-all duration-200 rounded-full px-4 py-5
                         ${
                           activeTab === '체크아웃'
                             ? 'bg-gray-100 text-rose-500 font-medium'
@@ -172,7 +183,7 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
                   <button
                     type="button"
                     onClick={() => handleTabClick('체크인')}
-                    className={`transition-all duration-300 rounded-full px-4 py-5
+                    className={`transition-all duration-200 rounded-full px-4 py-5
                       ${
                         activeTab === '체크인'
                           ? 'bg-gray-100 text-rose-500 font-medium'
@@ -186,7 +197,7 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
                 <button
                   type="button"
                   onClick={() => handleTabClick('여행자')}
-                  className={`transition-all duration-300 pl-6 rounded-full px-4 py-5
+                  className={`transition-all duration-200 pl-6 rounded-full px-4 py-5
                     ${
                       activeTab === '여행자'
                         ? 'bg-gray-100 text-rose-500 font-medium'
@@ -200,7 +211,7 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
           </div>
           <button
             className={`
-              bg-rose-500 rounded-full text-white transition-all duration-300 mr-2
+              bg-rose-500 rounded-full text-white transition-all duration-200 mr-2
               ${isScrolled ? 'p-2' : 'p-3'}
             `}
             aria-label="검색"
@@ -208,7 +219,7 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
           >
             <MagnifyingGlassIcon
               className={`
-                transition-all duration-300
+                transition-all duration-200
                 ${isScrolled ? 'h-4 w-4' : 'h-5 w-5'}
               `}
             />
@@ -218,11 +229,11 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
 
       {/* 팝업 메뉴 */}
       {!isScrolled && activeTab && (
-        <div className="absolute top-full left-0 w-full mt-3 bg-white rounded-3xl shadow-lg border p-6">
+        <div className="search-popup absolute top-full left-0 w-full mt-3 bg-white rounded-3xl shadow-lg border p-6">
           {activeTab === '여행지' && (
             <div>
               <h3 className="text-lg font-semibold mb-4">여행지 검색</h3>
-              {/* 여여행지 검색 내용 */}
+              {/* 여행지 검색 내용 */}
             </div>
           )}
           {activeTab === '체크인' && (

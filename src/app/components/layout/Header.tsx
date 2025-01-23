@@ -39,7 +39,7 @@ export default function Header() {
   return (
     <header
       className={`
-        fixed w-full px-20 bg-white border-b z-10 transition-all duration-300
+        fixed w-full px-20 bg-white border-b z-10 transition-all duration-200
         ${isScrolled ? 'h-[80px]' : 'h-[168px]'}
       `}
     >
