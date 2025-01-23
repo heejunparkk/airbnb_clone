@@ -3,18 +3,13 @@
 import { useState, useEffect, useRef } from 'react';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { useSearchStore } from '@/store/useSearchStore';
+import Divider from '../common/Divider';
 
 interface SearchBarProps {
   isScrolled: boolean;
 }
 
 type TabType = '여행지' | '체크인' | '체크아웃' | '여행자' | null;
-
-const Divider = () => (
-  <svg viewBox="0 0 1 12" className="h-5 w-px" aria-hidden="true">
-    <path fill="currentColor" d="M0 0h1v12H0z" fillOpacity="0.25" />
-  </svg>
-);
 
 export default function SearchBar({ isScrolled }: SearchBarProps) {
   const searchBarRef = useRef<HTMLDivElement>(null);
@@ -87,11 +82,12 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
       )}
       <div
         className={`
-          border rounded-full shadow-md hover:shadow-lg transition-all duration-200 cursor-pointer transform
+          border border-gray-300 rounded-full shadow-md hover:shadow-lg transition-all duration-200 cursor-pointer transform
           ${isScrolled ? 'h-12 max-w-[400px]' : 'h-[66px] w-[850px]'}
+          ${activeTab ? 'bg-gray-200' : 'bg-white'}
         `}
       >
-        <div className="flex items-center h-full w-full">
+        <div className="flex items-center justify-between h-full w-full">
           <div
             ref={searchBarRef}
             className={`
@@ -131,82 +127,95 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
             ) : (
               <>
                 <div
-                  className={`transition-all duration-200 rounded-full py-3 px-8
+                  className={`flex flex-col transition-all duration-200 rounded-full py-3.5 px-8
                     ${
                       activeTab === '여행지'
-                        ? 'bg-gray-100 text-rose-500 font-medium'
-                        : 'hover:bg-gray-200'
+                        ? 'bg-white text-rose-500 font-medium shadow-md'
+                        : activeTab
+                          ? 'bg-gray-200 hover:bg-gray-300'
+                          : 'hover:bg-gray-200'
                     }`}
                   onClick={(e) => {
                     e.stopPropagation();
                     setActiveTab('여행지');
                   }}
                 >
-                  <div className="text-xs">여행지</div>
+                  <span className="text-xs">여행지</span>
                   <input
                     type="text"
                     placeholder="여행지 검색"
-                    className={`bg-transparent outline-none w-full ${
-                      isScrolled ? 'hidden' : 'text-sm text-gray-600'
+                    className={`bg-transparent outline-none w-full placeholder:text-gray-500 ${
+                      isScrolled ? 'hidden' : 'text-sm text-gray-500'
                     }`}
                   />
                 </div>
                 <Divider />
                 {searchMode === 'stays' ? (
                   <>
-                    <button
-                      type="button"
-                      onClick={() => handleTabClick('체크인')}
-                      className={`transition-all duration-200 rounded-full px-4 py-5
+                    <div
+                      className={`flex flex-col transition-all duration-200 rounded-full py-3.5 px-8
                         ${
                           activeTab === '체크인'
-                            ? 'bg-gray-100 text-rose-500 font-medium'
-                            : 'hover:bg-gray-200'
+                            ? 'bg-white text-rose-500 font-medium shadow-md'
+                            : activeTab
+                              ? 'bg-gray-200 hover:bg-gray-300'
+                              : 'hover:bg-gray-200'
                         }`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleTabClick('체크인');
+                      }}
                     >
-                      체크인
-                    </button>
+                      <span className="text-xs">체크인</span>
+                      <span className="text-sm text-gray-500">날짜 추가</span>
+                    </div>
                     <Divider />
-                    <button
-                      type="button"
+                    <div
                       onClick={() => handleTabClick('체크아웃')}
-                      className={`transition-all duration-200 rounded-full px-4 py-5
+                      className={`flex flex-col transition-all duration-200 rounded-full px-8 py-3.5
                         ${
                           activeTab === '체크아웃'
-                            ? 'bg-gray-100 text-rose-500 font-medium'
-                            : 'hover:bg-gray-200'
+                            ? 'bg-white text-rose-500 font-medium shadow-md'
+                            : activeTab
+                              ? 'bg-gray-200 hover:bg-gray-300'
+                              : 'hover:bg-gray-200'
                         }`}
                     >
-                      체크아웃
-                    </button>
+                      <span className="text-xs">체크아웃</span>
+                      <span className="text-sm text-gray-500">날짜 추가</span>
+                    </div>
                   </>
                 ) : (
-                  <button
-                    type="button"
+                  <div
                     onClick={() => handleTabClick('체크인')}
-                    className={`transition-all duration-200 rounded-full px-4 py-5
+                    className={`flex flex-col transition-all duration-200 rounded-full px-8 py-3.5
                       ${
                         activeTab === '체크인'
-                          ? 'bg-gray-100 text-rose-500 font-medium'
-                          : 'hover:bg-gray-200'
+                          ? 'bg-white text-rose-500 font-medium shadow-md'
+                          : activeTab
+                            ? 'bg-gray-200 hover:bg-gray-300'
+                            : 'hover:bg-gray-200'
                       }`}
                   >
-                    날짜
-                  </button>
+                    <span className="text-xs">날짜</span>
+                    <span className="text-sm text-gray-500">날짜 추가</span>
+                  </div>
                 )}
                 <Divider />
-                <button
-                  type="button"
+                <div
                   onClick={() => handleTabClick('여행자')}
-                  className={`transition-all duration-200 pl-6 rounded-full px-4 py-5
+                  className={`flex flex-col transition-all duration-200 pl-6 rounded-full px-8 py-3.5
                     ${
                       activeTab === '여행자'
-                        ? 'bg-gray-100 text-rose-500 font-medium'
-                        : 'hover:bg-gray-200'
+                        ? 'bg-white text-rose-500 font-medium shadow-md'
+                        : activeTab
+                          ? 'bg-gray-200 hover:bg-gray-300'
+                          : 'hover:bg-gray-200'
                     }`}
                 >
-                  여행자
-                </button>
+                  <span className="text-xs">여행자</span>
+                  <span className="text-sm text-gray-500">게스트 추가</span>
+                </div>
               </>
             )}
           </div>

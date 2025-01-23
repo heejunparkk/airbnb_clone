@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { UserCircleIcon } from '@heroicons/react/24/outline';
-import SearchBar from '../common/SearchBar';
+import SearchBar from './SearchBar';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 
