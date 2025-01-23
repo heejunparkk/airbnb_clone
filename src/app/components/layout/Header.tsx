@@ -5,7 +5,6 @@ import { UserCircleIcon } from '@heroicons/react/24/outline';
 import SearchBar from '../common/SearchBar';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
-import NavTabs from '../common/NavTabs';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -41,12 +40,12 @@ export default function Header() {
     <header
       className={`
         fixed w-full px-20 bg-white border-b z-10 transition-all duration-300
-        ${isScrolled ? 'h-16' : 'h-[168px]'}
+        ${isScrolled ? 'h-[80px]' : 'h-[168px]'}
       `}
     >
       {/* 상단 영역 - 고정 높이 */}
-      <div className="h-16">
-        <div className="flex items-center justify-between h-full">
+      <div className="h-[80px]">
+        <div className="flex items-center justify-between h-full relative">
           {/* 로고 */}
           <div className="w-1/3 flex justify-start">
             <Link href="/" className="text-rose-500">
@@ -61,14 +60,10 @@ export default function Header() {
           </div>
 
           {/* 중앙 검색바 */}
-          <div className="w-1/3 flex justify-center items-center">
-            {isScrolled ? (
-              <div className="hidden md:block w-full">
-                <SearchBar isScrolled={isScrolled} />
-              </div>
-            ) : (
-              <NavTabs />
-            )}
+          <div
+            className={`w-1/3 flex justify-center items-center ${isScrolled ? '' : 'absolute left-1/2 top-4 -translate-x-1/2'}`}
+          >
+            <SearchBar isScrolled={isScrolled} />
           </div>
 
           {/* 사용자 메뉴 */}
@@ -118,18 +113,6 @@ export default function Header() {
               </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* 하단 영역 - 스크롤에 따라 변화 */}
-      <div
-        className={`
-          mx-auto px-4 transition-all duration-300
-          ${isScrolled ? 'hidden' : 'block'}
-        `}
-      >
-        <div className="hidden md:block max-w-2xl mx-auto">
-          <SearchBar isScrolled={isScrolled} />
         </div>
       </div>
 

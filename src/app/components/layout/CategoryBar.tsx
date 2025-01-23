@@ -24,6 +24,7 @@ import {
 import { IoIosArrowBack } from 'react-icons/io';
 import { IoIosArrowForward } from 'react-icons/io';
 import { useScrollStore } from '@/store/useScrollStore';
+import { useRouter, usePathname } from 'next/navigation';
 
 const categories = [
   { name: '인기 급상승', icon: FireIcon },
@@ -58,6 +59,8 @@ const categories = [
 ];
 
 export default function CategoryBar() {
+  const router = useRouter();
+  const pathname = usePathname();
   const { isScrolled } = useScrollStore();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [isAtStart, setIsAtStart] = useState(true);
@@ -92,6 +95,20 @@ export default function CategoryBar() {
     }
   };
 
+  const handleCategoryClick = (categoryName: string) => {
+    if (categoryName === '인기 급상승') {
+      router.push('/');
+    } else {
+      const encodedCategory = encodeURIComponent(categoryName);
+      router.push(`/category/${encodedCategory}`);
+    }
+  };
+
+  const isSelected = (categoryName: string) => {
+    if (categoryName === '인기 급상승' && pathname === '/') return true;
+    return pathname === `/category/${encodeURIComponent(categoryName)}`;
+  };
+
   useEffect(() => {
     const container = scrollContainerRef.current;
     if (container) {
@@ -108,14 +125,14 @@ export default function CategoryBar() {
   return (
     <div
       className={`fixed px-20 left-0 right-0 bg-white transition-all duration-200 ${
-        isScrolled ? 'shadow-md top-16' : 'top-[168px]'
+        isScrolled ? 'shadow-md top-[80px]' : 'top-[168px]'
       }`}
     >
       <div className="relative">
         {/* 왼쪽 화살표 */}
         <button
           onClick={() => scroll('left')}
-          className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 border-2 bg-white rounded-full p-2 shadow-md hover:scale-105 transition-all duration-200 ${
+          className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 border border-gray-400 bg-white rounded-full p-2 hover:scale-105 transition-all duration-200 ${
             isAtStart ? 'opacity-0 invisible' : 'opacity-100 visible'
           }`}
           aria-label="Scroll left"
@@ -137,7 +154,13 @@ export default function CategoryBar() {
           {categories.map((category) => (
             <button
               key={category.name}
-              className="flex flex-col items-center my-3 py-1 gap-2 min-w-[56px] text-gray-700 hover:text-black border-b-2 border-transparent hover:border-gray-300 pb-2 transition-colors"
+              onClick={() => handleCategoryClick(category.name)}
+              className={`flex flex-col items-center mt-4 gap-2 min-w-[56px] pb-3 transition-colors
+                ${
+                  isSelected(category.name)
+                    ? 'text-black border-b-2 border-black'
+                    : 'text-gray-700 hover:text-black border-b-2 border-transparent hover:border-gray-300'
+                }`}
             >
               <category.icon className="h-6 w-6" />
               <span className="text-xs whitespace-nowrap">{category.name}</span>
@@ -154,7 +177,7 @@ export default function CategoryBar() {
         {/* 오른쪽 화살표 */}
         <button
           onClick={() => scroll('right')}
-          className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 border-2 bg-white rounded-full p-2 shadow-md hover:scale-105 transition-all duration-200 ${
+          className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 border border-gray-400 bg-white rounded-full p-2 hover:scale-105 transition-all duration-200 ${
             isAtEnd ? 'opacity-0 invisible' : 'opacity-100 visible'
           }`}
           aria-label="Scroll right"
