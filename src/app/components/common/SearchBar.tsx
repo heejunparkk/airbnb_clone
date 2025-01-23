@@ -93,6 +93,7 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
       >
         <div className="flex items-center h-full w-full">
           <div
+            ref={searchBarRef}
             className={`
               flex items-center transition-all duration-200
               ${isScrolled ? 'text-sm' : 'text-base'}
