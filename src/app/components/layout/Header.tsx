@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { UserCircleIcon } from '@heroicons/react/24/outline';
 import SearchBar from './SearchBar';
-import Image from 'next/image';
+// import Image from 'next/image';
 import { useState, useEffect } from 'react';
 
 export default function Header() {
@@ -49,13 +49,13 @@ export default function Header() {
           {/* 로고 */}
           <div className="w-1/3 flex justify-start">
             <Link href="/" className="text-rose-500">
-              <Image
+              {/* <Image
                 src="/Airbnb_Logo.svg"
                 alt="Airbnb"
                 width={102}
                 height={32}
                 priority
-              />
+              /> */}
             </Link>
           </div>
 

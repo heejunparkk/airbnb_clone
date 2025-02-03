@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { IoSearch } from 'react-icons/io5';
 import { useSearchStore } from '@/store/useSearchStore';
 import Divider from '../common/Divider';
 
@@ -9,12 +9,17 @@ interface SearchBarProps {
   isScrolled: boolean;
 }
 
-type TabType = '여행지' | '체크인' | '체크아웃' | '여행자' | null;
+type TabType = '여행지' | '체크인' | '체크아웃' | '여행자' | '날짜' | null;
 
 export default function SearchBar({ isScrolled }: SearchBarProps) {
   const searchBarRef = useRef<HTMLDivElement>(null);
   const { searchMode, setSearchMode } = useSearchStore();
   const [activeTab, setActiveTab] = useState<TabType>(null);
+  const [hoveredLocation, setHoveredLocation] = useState(false);
+  const [hoveredCheckin, setHoveredCheckin] = useState(false);
+  const [hoveredCheckout, setHoveredCheckout] = useState(false);
+  const [hoveredGuest, setHoveredGuest] = useState(false);
+  const [hoveredDate, setHoveredDate] = useState(false);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -87,7 +92,7 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
           ${activeTab ? 'bg-gray-200' : 'bg-white'}
         `}
       >
-        <div className="flex items-center justify-between h-full w-full">
+        <div className="flex items-center h-full w-full">
           <div
             ref={searchBarRef}
             className={`
@@ -112,22 +117,22 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
                   className={`rounded-full px-4 py-2 transition-all duration-200
                     ${activeTab === '체크인' ? 'bg-gray-100 font-medium' : 'hover:bg-gray-50'}`}
                 >
-                  언제든
+                  언제든 일주일
                 </button>
                 <Divider />
                 <button
                   type="button"
                   onClick={() => handleTabClick('여행자')}
-                  className={`pl-4 rounded-full px-4 py-2 transition-all duration-200
+                  className={`pl-4 pr-12 rounded-full px-4 py-2 transition-all duration-200
                     ${activeTab === '여행자' ? 'bg-gray-100 font-medium' : 'hover:bg-gray-50'}`}
                 >
                   게스트 추가
                 </button>
               </>
             ) : (
-              <>
+              <div className="flex items-center">
                 <div
-                  className={`flex flex-col transition-all duration-200 rounded-full py-3.5 px-8
+                  className={`flex flex-col transition-all duration-200 rounded-full py-3.5 px-8 pr-10
                     ${
                       activeTab === '여행지'
                         ? 'bg-white text-rose-500 font-medium shadow-md'
@@ -139,6 +144,8 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
                     e.stopPropagation();
                     setActiveTab('여행지');
                   }}
+                  onMouseEnter={() => setHoveredLocation(true)}
+                  onMouseLeave={() => setHoveredLocation(false)}
                 >
                   <span className="text-xs">여행지</span>
                   <input
@@ -149,11 +156,23 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
                     }`}
                   />
                 </div>
-                <Divider />
+                <Divider
+                  className={`${
+                    !hoveredLocation &&
+                    !hoveredCheckin &&
+                    !hoveredDate &&
+                    activeTab !== '여행지' &&
+                    activeTab !== '체크인' &&
+                    activeTab !== '날짜'
+                      ? 'opacity-100'
+                      : 'opacity-0'
+                  }`}
+                />
                 {searchMode === 'stays' ? (
                   <>
-                    <div
-                      className={`flex flex-col transition-all duration-200 rounded-full py-3.5 px-8
+                    <div className="flex bg-gray-200 hover:bg-gray-300">
+                      <div
+                        className={`flex flex-col rounded-full py-3.5 px-5 pr-10 w-[150px]
                         ${
                           activeTab === '체크인'
                             ? 'bg-white text-rose-500 font-medium shadow-md'
@@ -161,18 +180,29 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
                               ? 'bg-gray-200 hover:bg-gray-300'
                               : 'hover:bg-gray-200'
                         }`}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleTabClick('체크인');
-                      }}
-                    >
-                      <span className="text-xs">체크인</span>
-                      <span className="text-sm text-gray-500">날짜 추가</span>
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleTabClick('체크인');
+                        }}
+                        onMouseEnter={() => setHoveredCheckin(true)}
+                        onMouseLeave={() => setHoveredCheckin(false)}
+                      >
+                        <span className="text-xs">체크인</span>
+                        <span className="text-sm text-gray-500">날짜 추가</span>
+                      </div>
                     </div>
-                    <Divider />
+                    <Divider
+                      className={`${
+                        !hoveredCheckin &&
+                        !hoveredCheckout &&
+                        activeTab !== '체크인' &&
+                        activeTab !== '체크아웃'
+                          ? 'opacity-100'
+                          : 'opacity-0'
+                      }`}
+                    />
                     <div
-                      onClick={() => handleTabClick('체크아웃')}
-                      className={`flex flex-col transition-all duration-200 rounded-full px-8 py-3.5
+                      className={`flex flex-col transition-all duration-200 rounded-full px-5 py-3.5 pr-10 w-[150px]
                         ${
                           activeTab === '체크아웃'
                             ? 'bg-white text-rose-500 font-medium shadow-md'
@@ -180,6 +210,9 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
                               ? 'bg-gray-200 hover:bg-gray-300'
                               : 'hover:bg-gray-200'
                         }`}
+                      onClick={() => handleTabClick('체크아웃')}
+                      onMouseEnter={() => setHoveredCheckout(true)}
+                      onMouseLeave={() => setHoveredCheckout(false)}
                     >
                       <span className="text-xs">체크아웃</span>
                       <span className="text-sm text-gray-500">날짜 추가</span>
@@ -187,24 +220,36 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
                   </>
                 ) : (
                   <div
-                    onClick={() => handleTabClick('체크인')}
-                    className={`flex flex-col transition-all duration-200 rounded-full px-8 py-3.5
-                      ${
-                        activeTab === '체크인'
-                          ? 'bg-white text-rose-500 font-medium shadow-md'
-                          : activeTab
-                            ? 'bg-gray-200 hover:bg-gray-300'
-                            : 'hover:bg-gray-200'
-                      }`}
+                    className={`flex flex-col transition-all duration-200 rounded-full px-5 py-3.5 pr-10 w-[150px]
+                    ${
+                      activeTab === '날짜'
+                        ? 'bg-white text-rose-500 font-medium shadow-md'
+                        : activeTab
+                          ? 'bg-gray-200 hover:bg-gray-300'
+                          : 'hover:bg-gray-200'
+                    }`}
+                    onClick={() => handleTabClick('날짜')}
+                    onMouseEnter={() => setHoveredDate(true)}
+                    onMouseLeave={() => setHoveredDate(false)}
                   >
                     <span className="text-xs">날짜</span>
                     <span className="text-sm text-gray-500">날짜 추가</span>
                   </div>
                 )}
-                <Divider />
+                <Divider
+                  className={`${
+                    !hoveredCheckout &&
+                    !hoveredGuest &&
+                    !hoveredDate &&
+                    activeTab !== '체크아웃' &&
+                    activeTab !== '여행자' &&
+                    activeTab !== '날짜'
+                      ? 'opacity-100'
+                      : 'opacity-0'
+                  }`}
+                />
                 <div
-                  onClick={() => handleTabClick('여행자')}
-                  className={`flex flex-col transition-all duration-200 pl-6 rounded-full px-8 py-3.5
+                  className={`flex flex-col transition-all duration-200 rounded-full px-5 py-3.5 pr-[110px] w-[300px]
                     ${
                       activeTab === '여행자'
                         ? 'bg-white text-rose-500 font-medium shadow-md'
@@ -212,27 +257,27 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
                           ? 'bg-gray-200 hover:bg-gray-300'
                           : 'hover:bg-gray-200'
                     }`}
+                  onClick={() => handleTabClick('여행자')}
+                  onMouseEnter={() => setHoveredGuest(true)}
+                  onMouseLeave={() => setHoveredGuest(false)}
                 >
                   <span className="text-xs">여행자</span>
                   <span className="text-sm text-gray-500">게스트 추가</span>
                 </div>
-              </>
+              </div>
             )}
           </div>
           <button
             className={`
-              bg-rose-500 rounded-full text-white transition-all duration-200 mr-2
-              ${isScrolled ? 'p-2' : 'p-3'}
-            `}
+            bg-rose-500 hover:bg-rose-600 rounded-full text-white transition-all duration-200 mr-2 absolute right-0 flex items-center justify-center gap-2
+            ${isScrolled ? 'h-9 w-9' : 'h-12 w-12'}
+            ${activeTab ? 'w-28' : ''}
+          `}
             aria-label="검색"
             type="button"
           >
-            <MagnifyingGlassIcon
-              className={`
-                transition-all duration-200
-                ${isScrolled ? 'h-4 w-4' : 'h-5 w-5'}
-              `}
-            />
+            <IoSearch size={isScrolled ? 16 : 18} />
+            {activeTab && <span className="font-medium text-nowrap">검색</span>}
           </button>
         </div>
       </div>
@@ -256,6 +301,12 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
             <div>
               <h3 className="text-lg font-semibold mb-4">체크아웃 날짜 선택</h3>
               {/* 체크아웃 달력 */}
+            </div>
+          )}
+          {activeTab === '날짜' && (
+            <div>
+              <h3 className="text-lg font-semibold mb-4">날짜 선택</h3>
+              {/* 날짜 선택 달력 */}
             </div>
           )}
           {activeTab === '여행자' && (
