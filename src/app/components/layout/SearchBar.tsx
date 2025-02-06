@@ -14,6 +14,7 @@ type TabType = '여행지' | '체크인' | '체크아웃' | '여행자' | '날�
 export default function SearchBar({ isScrolled }: SearchBarProps) {
   const searchBarRef = useRef<HTMLDivElement>(null);
   const { searchMode, setSearchMode } = useSearchStore();
+
   const [activeTab, setActiveTab] = useState<TabType>(null);
   const [hoveredLocation, setHoveredLocation] = useState(false);
   const [hoveredCheckin, setHoveredCheckin] = useState(false);
@@ -89,7 +90,7 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
         className={`
           border border-gray-300 rounded-full shadow-md hover:shadow-lg transition-all duration-200 cursor-pointer transform
           ${isScrolled ? 'h-12 max-w-[400px]' : 'h-[66px] w-[850px]'}
-          ${activeTab ? 'bg-gray-200' : 'bg-white'}
+          ${activeTab ? 'bg-gray-200 duration-0' : 'bg-white'}
         `}
       >
         <div className="flex items-center h-full w-full">
@@ -132,7 +133,10 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
             ) : (
               <div className="flex items-center">
                 <div
-                  className={`flex flex-col transition-all duration-200 rounded-full py-3.5 px-8 pr-10
+                  className={`flex ${hoveredCheckin && activeTab === '여행지' ? 'bg-gray-300 rounded-l-full' : ''}`}
+                >
+                  <div
+                    className={`flex flex-col transition-all duration-200 rounded-full py-3.5 px-8 pr-10
                     ${
                       activeTab === '여행지'
                         ? 'bg-white text-rose-500 font-medium shadow-md'
@@ -140,22 +144,24 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
                           ? 'bg-gray-200 hover:bg-gray-300'
                           : 'hover:bg-gray-200'
                     }`}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setActiveTab('여행지');
-                  }}
-                  onMouseEnter={() => setHoveredLocation(true)}
-                  onMouseLeave={() => setHoveredLocation(false)}
-                >
-                  <span className="text-xs">여행지</span>
-                  <input
-                    type="text"
-                    placeholder="여행지 검색"
-                    className={`bg-transparent outline-none w-full placeholder:text-gray-500 ${
-                      isScrolled ? 'hidden' : 'text-sm text-gray-500'
-                    }`}
-                  />
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setActiveTab('여행지');
+                    }}
+                    onMouseEnter={() => setHoveredLocation(true)}
+                    onMouseLeave={() => setHoveredLocation(false)}
+                  >
+                    <span className="text-xs">여행지</span>
+                    <input
+                      type="text"
+                      placeholder="여행지 검색"
+                      className={`bg-transparent outline-none w-full placeholder:text-gray-500 ${
+                        isScrolled ? 'hidden' : 'text-sm text-gray-500'
+                      }`}
+                    />
+                  </div>
                 </div>
+
                 <Divider
                   className={`${
                     !hoveredLocation &&
@@ -165,19 +171,22 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
                     activeTab !== '체크인' &&
                     activeTab !== '날짜'
                       ? 'opacity-100'
-                      : 'opacity-0'
+                      : 'opacity-0 h-0'
                   }`}
                 />
+
                 {searchMode === 'stays' ? (
                   <>
-                    <div className="flex bg-gray-200 hover:bg-gray-300">
+                    <div
+                      className={`flex ${hoveredCheckin && activeTab === '여행지' ? 'hover:bg-gray-300 rounded-r-full' : ''}`}
+                    >
                       <div
                         className={`flex flex-col rounded-full py-3.5 px-5 pr-10 w-[150px]
                         ${
                           activeTab === '체크인'
                             ? 'bg-white text-rose-500 font-medium shadow-md'
                             : activeTab
-                              ? 'bg-gray-200 hover:bg-gray-300'
+                              ? 'bg-gray-200 hover:bg-gray-300 hover:border-gray-300'
                               : 'hover:bg-gray-200'
                         }`}
                         onClick={(e) => {
@@ -191,6 +200,7 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
                         <span className="text-sm text-gray-500">날짜 추가</span>
                       </div>
                     </div>
+
                     <Divider
                       className={`${
                         !hoveredCheckin &&
@@ -198,9 +208,10 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
                         activeTab !== '체크인' &&
                         activeTab !== '체크아웃'
                           ? 'opacity-100'
-                          : 'opacity-0'
+                          : 'opacity-0 h-full bg-red-500'
                       }`}
                     />
+
                     <div
                       className={`flex flex-col transition-all duration-200 rounded-full px-5 py-3.5 pr-10 w-[150px]
                         ${
@@ -236,6 +247,7 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
                     <span className="text-sm text-gray-500">날짜 추가</span>
                   </div>
                 )}
+
                 <Divider
                   className={`${
                     !hoveredCheckout &&
@@ -248,6 +260,7 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
                       : 'opacity-0'
                   }`}
                 />
+
                 <div
                   className={`flex flex-col transition-all duration-200 rounded-full px-5 py-3.5 pr-[110px] w-[300px]
                     ${
