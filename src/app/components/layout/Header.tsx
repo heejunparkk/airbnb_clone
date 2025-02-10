@@ -49,13 +49,7 @@ export default function Header() {
           {/* 로고 */}
           <div className="w-1/3 flex justify-start">
             <Link href="/" className="text-rose-500">
-              {/* <Image
-                src="/Airbnb_Logo.svg"
-                alt="Airbnb"
-                width={102}
-                height={32}
-                priority
-              /> */}
+              {/* <Image src="/Airbnb_Logo.svg" alt="Airbnb" width={102} height={32} priority /> */}
             </Link>
           </div>
 
@@ -69,10 +63,7 @@ export default function Header() {
           {/* 사용자 메뉴 */}
           <div className="w-1/3 flex justify-end">
             <div className="flex items-center gap-4">
-              <button
-                type="button"
-                className="hidden md:block hover:bg-gray-100 px-4 py-2 rounded-full text-sm"
-              >
+              <button type="button" className="hidden md:block hover:bg-gray-100 px-4 py-2 rounded-full text-sm">
                 당신의 공간을 에어비앤비하세요
               </button>
 

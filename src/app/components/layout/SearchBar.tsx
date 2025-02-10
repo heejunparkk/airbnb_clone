@@ -46,7 +46,7 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (!isScrolled && activeTab) {
+      if (activeTab) {
         setActiveTab(null);
       }
     };
@@ -55,7 +55,7 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [activeTab, isScrolled]);
+  }, [activeTab]);
 
   const handleTabClick = (tab: TabType) => {
     setActiveTab(activeTab === tab ? null : tab);
@@ -124,12 +124,11 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
                   어디든지
                 </button>
                 <Divider />
-                <button type="button" onClick={() => handleTabClick('체크인')} className="px-4 py-3">
+                <button type="button" onClick={() => handleTabClick('체크인')} className="pr-4 pl-4 py-3">
                   언제든 일주일
                 </button>
-
                 <Divider />
-                <button type="button" onClick={() => handleTabClick('여행자')} className="px-4 py-3">
+                <button type="button" onClick={() => handleTabClick('여행자')} className="pr-4 pl-4 py-3">
                   게스트 추가
                 </button>
               </>
@@ -234,7 +233,7 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
                 ) : (
                   <div className="flex">
                     <div
-                      className={`flex flex-col rounded-full px-5 py-3.5 pr-10 w-[300px]
+                      className={`flex flex-col rounded-full px-5 py-3.5 pr-10 w-[301px]
                     ${
                       activeTab === '날짜'
                         ? 'bg-white text-rose-500 font-medium shadow-md'
