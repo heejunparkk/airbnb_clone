@@ -72,9 +72,7 @@ export default function CategoryBar() {
 
     const scrollAmount = 600; // 스크롤 단위 조절
     const targetScroll =
-      direction === 'left'
-        ? container.scrollLeft - scrollAmount
-        : container.scrollLeft + scrollAmount;
+      direction === 'left' ? container.scrollLeft - scrollAmount : container.scrollLeft + scrollAmount;
 
     container.scrollTo({
       left: targetScroll,
@@ -87,10 +85,7 @@ export default function CategoryBar() {
     if (container) {
       setIsAtStart(container.scrollLeft <= 0);
       // 스크롤이 끝에 도달했는지 확인
-      const isEnd =
-        Math.abs(
-          container.scrollWidth - container.clientWidth - container.scrollLeft
-        ) < 1;
+      const isEnd = Math.abs(container.scrollWidth - container.clientWidth - container.scrollLeft) < 1;
       setIsAtEnd(isEnd);
     }
   };
@@ -124,7 +119,7 @@ export default function CategoryBar() {
 
   return (
     <div
-      className={`fixed px-20 left-0 right-0 bg-white transition-all duration-200 ${
+      className={`fixed px-20 left-0 right-0 bg-white transition-all duration-200 z-10 ${
         isScrolled ? 'shadow-md top-[80px]' : 'top-[168px]'
       }`}
     >

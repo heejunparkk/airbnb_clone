@@ -8,7 +8,12 @@ export const accommodations: Accommodation[] = [
     location: '제주시, 제주도',
     price: 150000,
     rating: 4.9,
-    images: ['/images/house1.jpg'],
+    images: [
+      'https://images.unsplash.com/photo-1507089947368-19c1da9775ae',
+      'https://images.unsplash.com/photo-1613977257363-707ba9348227',
+      'https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4',
+      'https://images.unsplash.com/photo-1613977257365-aaae5a9817ff',
+    ],
     category: '한옥',
   },
   {
@@ -17,7 +22,12 @@ export const accommodations: Accommodation[] = [
     location: '종로구, 서울',
     price: 200000,
     rating: 4.8,
-    images: ['/images/house2.jpg'],
+    images: [
+      'https://images.unsplash.com/photo-1613977257365-aaae5a9817ff',
+      'https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4',
+      'https://images.unsplash.com/photo-1613977257363-707ba9348227',
+      'https://images.unsplash.com/photo-1507089947368-19c1da9775ae',
+    ],
     category: '한옥',
   },
   {
