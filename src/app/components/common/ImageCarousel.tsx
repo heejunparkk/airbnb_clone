@@ -22,13 +22,22 @@ export default function ImageCarousel({ images, alt }: ImageCarouselProps) {
 
   return (
     <div className="relative aspect-square rounded-xl overflow-hidden group">
-      <Image
-        src={images[currentIndex]}
-        alt={alt}
-        fill
-        className="object-cover transition-transform duration-300 group-hover:scale-105"
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-      />
+      <div
+        className="absolute w-full h-full transition-transform duration-300 ease-in-out"
+        style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+      >
+        {images.map((image, index) => (
+          <div key={index} className="absolute w-full h-full" style={{ left: `${index * 100}%` }}>
+            <Image
+              src={image}
+              alt={`${alt} ${index + 1}`}
+              fill
+              className="object-cover transition-transform duration-300"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+          </div>
+        ))}
+      </div>
 
       {/* 이미지가 2장 이상일 때만 화살표 버튼 표시 */}
       {images.length > 1 && (
