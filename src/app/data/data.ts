@@ -36,7 +36,12 @@ export const accommodations: Accommodation[] = [
     location: '해운대구, 부산',
     price: 350000,
     rating: 4.95,
-    images: ['/images/house3.jpg'],
+    images: [
+      'https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6',
+      'https://images.unsplash.com/photo-1505873242700-f289a29e1e0f',
+      'https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd',
+      'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af',
+    ],
     category: '해변 근처',
   },
   {
@@ -45,7 +50,12 @@ export const accommodations: Accommodation[] = [
     location: '강릉시, 강원도',
     price: 280000,
     rating: 4.7,
-    images: ['/images/house4.jpg'],
+    images: [
+      'https://images.unsplash.com/photo-1566073771259-6a8506099945',
+      'https://images.unsplash.com/photo-1564078516393-cf04bd966897',
+      'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267',
+      'https://images.unsplash.com/photo-1560185127-6ed189bf02f4',
+    ],
     category: '해변 근처',
   },
   {
@@ -54,7 +64,12 @@ export const accommodations: Accommodation[] = [
     location: '경주시, 경상북도',
     price: 180000,
     rating: 4.85,
-    images: ['/images/house5.jpg'],
+    images: [
+      'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb',
+      'https://images.unsplash.com/photo-1566665797739-1674de7a421a',
+      'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf',
+      'https://images.unsplash.com/photo-1584132967334-10e028bd69f7',
+    ],
     category: '료칸',
   },
   {
@@ -63,7 +78,12 @@ export const accommodations: Accommodation[] = [
     location: '용산구, 서울',
     price: 250000,
     rating: 4.9,
-    images: ['/images/house6.jpg'],
+    images: [
+      'https://images.unsplash.com/photo-1578683010236-d716f9a3f461',
+      'https://images.unsplash.com/photo-1591825729269-caeb344f6df2',
+      'https://images.unsplash.com/photo-1568605114967-8130f3a36994',
+      'https://images.unsplash.com/photo-1484154218962-a197022b5858',
+    ],
     category: '최고의 전망',
   },
   {
@@ -72,7 +92,12 @@ export const accommodations: Accommodation[] = [
     location: '속초시, 강원도',
     price: 150000,
     rating: 4.75,
-    images: ['/images/house7.jpg'],
+    images: [
+      'https://images.unsplash.com/photo-1501876725168-00c445821c9e',
+      'https://images.unsplash.com/photo-1564013799919-ab600027ffc6',
+      'https://images.unsplash.com/photo-1507089947368-19c1da9775ae',
+      'https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6',
+    ],
     category: '통나무집',
   },
   {
@@ -81,7 +106,12 @@ export const accommodations: Accommodation[] = [
     location: '서귀포시, 제주도',
     price: 170000,
     rating: 4.88,
-    images: ['/images/house8.jpg'],
+    images: [
+      'https://images.unsplash.com/photo-1595521624992-48a59aef95e3',
+      'https://images.unsplash.com/photo-1596394516093-501ba68a0ba6',
+      'https://images.unsplash.com/photo-1566195992011-5f6b21e539aa',
+      'https://images.unsplash.com/photo-1567636788276-40a47795ba4d',
+    ],
     category: '한옥',
   },
   {
@@ -90,7 +120,12 @@ export const accommodations: Accommodation[] = [
     location: '강화군, 인천',
     price: 220000,
     rating: 4.92,
-    images: ['/images/house9.jpg'],
+    images: [
+      'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4',
+      'https://images.unsplash.com/photo-1584132905271-512c958d674a',
+      'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b',
+      'https://images.unsplash.com/photo-1585779034823-7e9ac8faec70',
+    ],
     category: '섬',
   },
   {
@@ -99,7 +134,12 @@ export const accommodations: Accommodation[] = [
     location: '구례군, 전라남도',
     price: 130000,
     rating: 4.7,
-    images: ['/images/house10.jpg'],
+    images: [
+      'https://images.unsplash.com/photo-1578683010236-d716f9a3f461',
+      'https://images.unsplash.com/photo-1598928506311-c55ded91a20c',
+      'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85',
+      'https://images.unsplash.com/photo-1501876725168-00c445821c9e',
+    ],
     category: '캠핑장',
   },
   {
@@ -108,7 +148,12 @@ export const accommodations: Accommodation[] = [
     location: '평창군, 강원도',
     price: 400000,
     rating: 4.95,
-    images: ['/images/house11.jpg'],
+    images: [
+      'https://images.unsplash.com/photo-1647891940243-77a6483a152e',
+      'https://images.unsplash.com/photo-1593604572577-1c6c44fa246b',
+      'https://images.unsplash.com/photo-1647891941746-fe06f2d7f866',
+      'https://images.unsplash.com/photo-1647891940746-ec13738eb404',
+    ],
     category: '스키장',
   },
   {
@@ -117,7 +162,12 @@ export const accommodations: Accommodation[] = [
     location: '마포구, 서울',
     price: 300000,
     rating: 4.85,
-    images: ['/images/house12.jpg'],
+    images: [
+      'https://images.unsplash.com/photo-1580587771525-78b9dba3b914',
+      'https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83',
+      'https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf',
+      'https://images.unsplash.com/photo-1564013799919-ab600027ffc6',
+    ],
     category: '최고의 전망',
   },
   {

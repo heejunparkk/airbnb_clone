@@ -34,7 +34,7 @@ export default function CategoryPage({ params }: { params: { category: string } 
   // const accommodations = await getCategoryAccommodations(params.category);
 
   return (
-    <main className="pt-[250px] px-20">
+    <main className="pt-[200px] px-20">
       <h1 className="text-2xl font-bold mb-6">{decodedCategory}</h1>
       <Suspense fallback={<LoadingSkeleton />}>
         <AccommodationList accommodations={accommodations} />

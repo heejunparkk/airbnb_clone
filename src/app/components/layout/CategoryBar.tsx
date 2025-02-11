@@ -119,7 +119,7 @@ export default function CategoryBar() {
 
   return (
     <div
-      className={`fixed px-20 left-0 right-0 bg-white transition-all duration-200 z-10 ${
+      className={`fixed px-20 left-0 right-0 bg-white transition-all duration-200 z-[1] ${
         isScrolled ? 'shadow-md top-[80px]' : 'top-[168px]'
       }`}
     >

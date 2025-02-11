@@ -66,10 +66,10 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
       <AnimatePresence>
         {!isScrolled && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 1, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2 }}
+            exit={{ opacity: 1, y: -20 }}
+            transition={{ duration: 0.3 }}
             ref={searchBarRef}
             className="flex gap-1 mb-4"
           >
@@ -134,7 +134,7 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
               </>
             ) : (
               <div className="flex items-center">
-                <div className={`flex rounded-full py-3.5 w-[250px] grow-[25vw]`}>
+                <div className={`flex rounded-full py-3.5 w-[250px]`}>
                   <div
                     className={`flex flex-col rounded-full py-3.5 pl-8 pr-10
                     ${
