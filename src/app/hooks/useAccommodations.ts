@@ -1,6 +1,6 @@
 import { useQuery, type UseQueryResult } from '@tanstack/react-query';
 // import { accommodationApi } from '../api/accommodation';
-import { queries } from '../types/query';
+import { queries } from '../api/query';
 import type { Accommodation } from '../types/accommodation';
 
 // 전체 숙소 조회 훅

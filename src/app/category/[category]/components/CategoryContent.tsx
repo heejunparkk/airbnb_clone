@@ -11,7 +11,7 @@ export default function CategoryContent({ category }: { category: string }) {
 
   return (
     <main className="pt-[200px] px-20">
-      <h1 className="text-2xl font-bold mb-6">{category}</h1>
+      {/* <h1 className="text-2xl font-bold mb-6">{category}</h1> */}
       {isLoading ? (
         <LoadingSkeleton count={12} />
       ) : (

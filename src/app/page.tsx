@@ -2,24 +2,23 @@
 
 import { useAccommodations } from '@/app/hooks/useAccommodations';
 import ImageCarousel from '@/app/components/common/ImageCarousel';
-import { Suspense } from 'react';
 import LoadingSkeleton from '@/app/components/common/LoadingSkeleton';
 
 export default function HomePage() {
-  const { data: accommodations, isLoading } = useAccommodations();
+  const { data: accommodations, isLoading, error } = useAccommodations();
 
-  if (isLoading) return <div>로딩 중...</div>;
-  if (!accommodations) return <div>데이터가 없습니다</div>;
+  if (error) throw error;
 
   return (
     <main className="pt-[200px] px-20">
-      <h1 className="text-2xl font-bold mb-6">인기 급상승</h1>
-      <Suspense fallback={<LoadingSkeleton />}>
+      {/* <h1 className="text-2xl font-bold mb-6">인기 급상승</h1> */}
+      {isLoading ? (
+        <LoadingSkeleton count={12} />
+      ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
-          {accommodations.map((accommodation) => (
+          {accommodations?.map((accommodation) => (
             <div key={accommodation.id} className="group cursor-pointer">
               <ImageCarousel images={accommodation.images} alt={accommodation.title} />
-
               <div className="space-y-1">
                 <div className="flex justify-between">
                   <span className="font-medium">{accommodation.location}</span>
@@ -34,7 +33,7 @@ export default function HomePage() {
             </div>
           ))}
         </div>
-      </Suspense>
+      )}
     </main>
   );
 }
