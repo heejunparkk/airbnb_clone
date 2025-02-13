@@ -5,8 +5,10 @@ import { UserCircleIcon } from '@heroicons/react/24/outline';
 import SearchBar from './SearchBar';
 // import Image from 'next/image';
 import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 
 export default function Header() {
+  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -36,11 +38,16 @@ export default function Header() {
     return () => document.removeEventListener('click', closeMenu);
   }, [isMenuOpen]);
 
+  // accommodation 페이지에서는 헤더를 숨김
+  if (pathname?.startsWith('/accommodation/')) {
+    return null;
+  }
+
   return (
     <header
       className={`
         fixed w-full px-20 bg-white border-b z-10 transition-all duration-200
-        ${isScrolled ? 'h-[80px]' : 'h-[168px]'}
+        ${isScrolled || pathname?.startsWith('/accommodation/') ? 'h-[80px]' : 'h-[168px]'}
       `}
     >
       {/* 상단 영역 - 고정 높이 */}

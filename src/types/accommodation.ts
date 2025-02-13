@@ -6,4 +6,5 @@ export interface Accommodation {
   rating: number;
   images: string[];
   category: string;
+  description: string;
 }

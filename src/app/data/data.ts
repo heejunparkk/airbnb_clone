@@ -1,4 +1,4 @@
-import { Accommodation } from '../types/accommodation';
+import { Accommodation } from '../../types/accommodation';
 
 // 임시 데이터 (실제로는 DB나 API에서 가져올 데이터)
 export const accommodations: Accommodation[] = [
@@ -15,6 +15,7 @@ export const accommodations: Accommodation[] = [
       'https://images.unsplash.com/photo-1613977257365-aaae5a9817ff',
     ],
     category: '한옥',
+    description: '제주도의 아름다운 한옥',
   },
   {
     id: 2,
@@ -29,6 +30,7 @@ export const accommodations: Accommodation[] = [
       'https://images.unsplash.com/photo-1507089947368-19c1da9775ae',
     ],
     category: '한옥',
+    description: '서울의 모던 한옥',
   },
   {
     id: 3,
@@ -43,6 +45,7 @@ export const accommodations: Accommodation[] = [
       'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af',
     ],
     category: '해변 근처',
+    description: '부산 해변가 풀빌라',
   },
   {
     id: 4,
@@ -57,6 +60,7 @@ export const accommodations: Accommodation[] = [
       'https://images.unsplash.com/photo-1560185127-6ed189bf02f4',
     ],
     category: '해변 근처',
+    description: '강릉 오션뷰 펜션',
   },
   {
     id: 5,
@@ -71,6 +75,7 @@ export const accommodations: Accommodation[] = [
       'https://images.unsplash.com/photo-1584132967334-10e028bd69f7',
     ],
     category: '료칸',
+    description: '일본식 전통 료칸',
   },
   {
     id: 6,
@@ -85,6 +90,7 @@ export const accommodations: Accommodation[] = [
       'https://images.unsplash.com/photo-1484154218962-a197022b5858',
     ],
     category: '최고의 전망',
+    description: '남산뷰 럭셔리 아파트',
   },
   {
     id: 7,
@@ -99,6 +105,7 @@ export const accommodations: Accommodation[] = [
       'https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6',
     ],
     category: '통나무집',
+    description: '설악산 통나무집',
   },
   {
     id: 8,
@@ -113,6 +120,7 @@ export const accommodations: Accommodation[] = [
       'https://images.unsplash.com/photo-1567636788276-40a47795ba4d',
     ],
     category: '한옥',
+    description: '제주 돌담집 독채',
   },
   {
     id: 9,
@@ -127,6 +135,7 @@ export const accommodations: Accommodation[] = [
       'https://images.unsplash.com/photo-1585779034823-7e9ac8faec70',
     ],
     category: '섬',
+    description: '인천 작은 섬의 휴양지',
   },
   {
     id: 10,
@@ -141,6 +150,7 @@ export const accommodations: Accommodation[] = [
       'https://images.unsplash.com/photo-1501876725168-00c445821c9e',
     ],
     category: '캠핑장',
+    description: '지리산 글램핑장',
   },
   {
     id: 11,
@@ -155,6 +165,7 @@ export const accommodations: Accommodation[] = [
       'https://images.unsplash.com/photo-1647891940746-ec13738eb404',
     ],
     category: '스키장',
+    description: '알프스 스타일 샬레',
   },
   {
     id: 12,
@@ -169,6 +180,7 @@ export const accommodations: Accommodation[] = [
       'https://images.unsplash.com/photo-1564013799919-ab600027ffc6',
     ],
     category: '최고의 전망',
+    description: '한강뷰 스카이하우스',
   },
   {
     id: 13,
@@ -178,6 +190,7 @@ export const accommodations: Accommodation[] = [
     rating: 4.78,
     images: ['/images/house13.jpg'],
     category: '한옥',
+    description: '전주 한옥마을 게스트하우스',
   },
   {
     id: 14,
@@ -187,6 +200,7 @@ export const accommodations: Accommodation[] = [
     rating: 4.82,
     images: ['/images/house14.jpg'],
     category: '해변 근처',
+    description: '태안 비치하우스',
   },
   {
     id: 15,
@@ -196,5 +210,6 @@ export const accommodations: Accommodation[] = [
     rating: 4.7,
     images: ['/images/house15.jpg'],
     category: '섬',
+    description: '울릉도 바다전망 펜션',
   },
 ];

@@ -117,6 +117,11 @@ export default function CategoryBar() {
     };
   }, []);
 
+  // accommodation 페이지에서는 카테고리바를 숨김
+  if (pathname?.startsWith('/accommodation/')) {
+    return null;
+  }
+
   return (
     <div
       className={`fixed px-20 left-0 right-0 bg-white transition-all duration-200 z-[1] ${
