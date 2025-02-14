@@ -5,7 +5,7 @@ import { IoSearch } from 'react-icons/io5';
 
 export default function AccommodationHeader() {
   return (
-    <header className="px-8 py-4">
+    <header className="max-w-7xl mx-auto px-8 py-4">
       <div className="flex items-center justify-between">
         <Link href="/" className="text-rose-500">
           <svg width="30" height="32" fill="currentColor">
