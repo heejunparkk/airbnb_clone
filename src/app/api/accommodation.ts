@@ -1,4 +1,4 @@
-import { Accommodation } from '@/types/accommodation';
+import { Accommodation } from '@/types/types';
 import { accommodations } from '@/app/data/data';
 
 // API 함수들

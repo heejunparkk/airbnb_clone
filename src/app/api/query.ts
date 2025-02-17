@@ -1,6 +1,6 @@
 import { accommodations } from '../data/data'; // 임시 데이터 import
 import { createQueryKeys } from '@lukemorales/query-key-factory';
-import type { Accommodation } from '../../types/accommodation';
+import type { Accommodation } from '@/types/types';
 
 export const accommodationQueries = createQueryKeys('accommodations', {
   all: () => ({

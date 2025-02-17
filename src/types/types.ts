@@ -8,3 +8,9 @@ export interface Accommodation {
   category: string;
   description: string;
 }
+
+export interface SearchBarProps {
+  isScrolled: boolean;
+}
+
+export type TabType = 'location' | 'checkin' | 'checkout' | 'guest' | 'date' | null;

@@ -6,7 +6,7 @@ interface LoadingSkeletonProps {
 
 export default function LoadingSkeleton({ count }: LoadingSkeletonProps) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6">
       {[...Array(count)].map((_, index) => (
         <div key={index} className="space-y-4 animate-pulse">
           {/* 이미지 스켈레톤 */}

@@ -1,16 +1,11 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { IoSearch } from 'react-icons/io5';
 import { useSearchStore } from '@/store/useSearchStore';
 import Divider from '../common/Divider';
 import { motion, AnimatePresence } from 'framer-motion';
-
-interface SearchBarProps {
-  isScrolled: boolean;
-}
-
-type TabType = '여행지' | '체크인' | '체크아웃' | '여행자' | '날짜' | null;
+import { SearchBarProps, TabType } from '@/types/types';
 
 export default function SearchBar({ isScrolled }: SearchBarProps) {
   const searchBarRef = useRef<HTMLDivElement>(null);
@@ -55,11 +50,14 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [activeTab]);
+  }, [activeTab, isScrolled]);
 
-  const handleTabClick = (tab: TabType) => {
-    setActiveTab(activeTab === tab ? null : tab);
-  };
+  const handleTabClick = useCallback(
+    (tab: TabType) => {
+      setActiveTab(activeTab === tab ? null : tab);
+    },
+    [activeTab]
+  );
 
   return (
     <div className="flex flex-col items-center justify-center transform relative">
@@ -121,35 +119,35 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
           >
             {isScrolled ? (
               <>
-                <button type="button" onClick={() => handleTabClick('여행지')} className="pr-4 pl-4 py-3">
+                <button type="button" onClick={() => handleTabClick('location')} className="pr-4 pl-4 py-3">
                   어디든지
                 </button>
                 <Divider />
-                <button type="button" onClick={() => handleTabClick('체크인')} className="pr-4 pl-4 py-3">
+                <button type="button" onClick={() => handleTabClick('checkin')} className="pr-4 pl-4 py-3">
                   언제든 일주일
                 </button>
                 <Divider />
-                <button type="button" onClick={() => handleTabClick('여행자')} className="pr-4 pl-4 py-3">
+                <button type="button" onClick={() => handleTabClick('guest')} className="pr-4 pl-4 py-3">
                   게스트 추가
                 </button>
               </>
             ) : (
               <div className="flex items-center">
-                <div className={`flex rounded-full py-3.5 w-[250px]`}>
+                <div className="flex rounded-full">
                   <div
-                    className={`flex flex-col rounded-full py-3.5 pl-8 pr-10
+                    className={`flex flex-col rounded-full py-3.5 pl-8 w-[250px]
                     ${
-                      activeTab === '여행지'
+                      activeTab === 'location'
                         ? 'bg-white text-rose-500 font-medium shadow-md'
-                        : activeTab === '체크인'
+                        : activeTab === 'checkin'
                           ? 'hover:bg-gray-300'
-                          : activeTab === '체크아웃' || activeTab === '여행자'
+                          : activeTab === 'checkout' || activeTab === 'guest'
                             ? 'hover:bg-gray-300'
                             : 'hover:bg-gray-200'
                     }`}
                     onClick={(e) => {
                       e.stopPropagation();
-                      setActiveTab('여행지');
+                      setActiveTab('location');
                     }}
                     onMouseEnter={() => setHoveredLocation(true)}
                     onMouseLeave={() => setHoveredLocation(false)}
@@ -170,9 +168,9 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
                     !hoveredLocation &&
                     !hoveredCheckin &&
                     !hoveredDate &&
-                    activeTab !== '여행지' &&
-                    activeTab !== '체크인' &&
-                    activeTab !== '날짜'
+                    activeTab !== 'location' &&
+                    activeTab !== 'checkin' &&
+                    activeTab !== 'date'
                       ? 'opacity-100'
                       : 'opacity-0'
                   }`}
@@ -180,21 +178,21 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
 
                 {searchMode === 'stays' ? (
                   <div className="flex items-center">
-                    <div className={`flex rounded-full`}>
+                    <div className="flex rounded-full">
                       <div
                         className={`flex flex-col rounded-full py-3.5 px-5 w-[150px]
                         ${
-                          activeTab === '체크인'
+                          activeTab === 'checkin'
                             ? 'bg-white text-rose-500 font-medium shadow-md'
-                            : activeTab === '여행지'
+                            : activeTab === 'location'
                               ? 'hover:bg-gray-300'
-                              : activeTab === '체크아웃' || activeTab === '여행자'
+                              : activeTab === 'checkout' || activeTab === 'guest'
                                 ? 'hover:bg-gray-300'
                                 : 'hover:bg-gray-200'
                         }`}
                         onClick={(e) => {
                           e.stopPropagation();
-                          handleTabClick('체크인');
+                          handleTabClick('checkin');
                         }}
                         onMouseEnter={() => setHoveredCheckin(true)}
                         onMouseLeave={() => setHoveredCheckin(false)}
@@ -206,7 +204,7 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
 
                     <Divider
                       className={`${
-                        !hoveredCheckin && !hoveredCheckout && activeTab !== '체크인' && activeTab !== '체크아웃'
+                        !hoveredCheckin && !hoveredCheckout && activeTab !== 'checkin' && activeTab !== 'checkout'
                           ? 'opacity-100'
                           : 'opacity-0'
                       }`}
@@ -216,13 +214,13 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
                       <div
                         className={`flex flex-col rounded-full py-3.5 px-5 w-[150px]
                         ${
-                          activeTab === '체크아웃'
+                          activeTab === 'checkout'
                             ? 'bg-white text-rose-500 font-medium shadow-md'
                             : activeTab
                               ? 'bg-gray-200 hover:bg-gray-300'
                               : 'hover:bg-gray-200'
                         }`}
-                        onClick={() => handleTabClick('체크아웃')}
+                        onClick={() => handleTabClick('checkout')}
                         onMouseEnter={() => setHoveredCheckout(true)}
                         onMouseLeave={() => setHoveredCheckout(false)}
                       >
@@ -236,13 +234,13 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
                     <div
                       className={`flex flex-col rounded-full px-5 py-3.5 pr-10 w-[301px]
                     ${
-                      activeTab === '날짜'
+                      activeTab === 'date'
                         ? 'bg-white text-rose-500 font-medium shadow-md'
                         : activeTab
                           ? 'bg-gray-200 hover:bg-gray-300'
                           : 'hover:bg-gray-200'
                     }`}
-                      onClick={() => handleTabClick('날짜')}
+                      onClick={() => handleTabClick('date')}
                       onMouseEnter={() => setHoveredDate(true)}
                       onMouseLeave={() => setHoveredDate(false)}
                     >
@@ -257,9 +255,9 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
                     !hoveredCheckout &&
                     !hoveredGuest &&
                     !hoveredDate &&
-                    activeTab !== '체크아웃' &&
-                    activeTab !== '여행자' &&
-                    activeTab !== '날짜'
+                    activeTab !== 'checkout' &&
+                    activeTab !== 'guest' &&
+                    activeTab !== 'date'
                       ? 'opacity-100'
                       : 'opacity-0'
                   }`}
@@ -269,13 +267,13 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
                   <div
                     className={`flex flex-col rounded-full pl-5 py-3.5 w-[295px]
                     ${
-                      activeTab === '여행자'
+                      activeTab === 'guest'
                         ? 'bg-white text-rose-500 font-medium shadow-md'
                         : activeTab
                           ? 'bg-gray-200 hover:bg-gray-300'
                           : 'hover:bg-gray-200'
                     }`}
-                    onClick={() => handleTabClick('여행자')}
+                    onClick={() => handleTabClick('guest')}
                     onMouseEnter={() => setHoveredGuest(true)}
                     onMouseLeave={() => setHoveredGuest(false)}
                   >
@@ -304,31 +302,31 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
       {/* 팝업 메뉴 */}
       {!isScrolled && activeTab && (
         <div className="search-popup absolute top-full left-0 w-full mt-3 bg-white rounded-3xl shadow-lg border p-6">
-          {activeTab === '여행지' && (
+          {activeTab === 'location' && (
             <div>
               <h3 className="text-lg font-semibold mb-4">여행지 검색</h3>
               {/* 여행지 검색 내용 */}
             </div>
           )}
-          {activeTab === '체크인' && (
+          {activeTab === 'checkin' && (
             <div>
               <h3 className="text-lg font-semibold mb-4">체크인 날짜 선택</h3>
               {/* 체크인 달력 */}
             </div>
           )}
-          {activeTab === '체크아웃' && (
+          {activeTab === 'checkout' && (
             <div>
               <h3 className="text-lg font-semibold mb-4">체크아웃 날짜 선택</h3>
               {/* 체크아웃 달력 */}
             </div>
           )}
-          {activeTab === '날짜' && (
+          {activeTab === 'date' && (
             <div>
               <h3 className="text-lg font-semibold mb-4">날짜 선택</h3>
               {/* 날짜 선택 달력 */}
             </div>
           )}
-          {activeTab === '여행자' && (
+          {activeTab === 'guest' && (
             <div>
               <h3 className="text-lg font-semibold mb-4">인원 선택</h3>
               {/* 인원 선택 컨트롤 */}

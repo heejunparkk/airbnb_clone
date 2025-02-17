@@ -1,4 +1,4 @@
-import { Accommodation } from '../../types/accommodation';
+import { Accommodation } from '../../types/types';
 
 // 임시 데이터 (실제로는 DB나 API에서 가져올 데이터)
 export const accommodations: Accommodation[] = [
