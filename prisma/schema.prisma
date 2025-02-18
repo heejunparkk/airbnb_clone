@@ -12,3 +12,16 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Accommodation {
+  id          Int      @id @default(autoincrement())
+  title       String
+  location    String
+  price       Int
+  rating      Int
+  images      String[]
+  category    String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
