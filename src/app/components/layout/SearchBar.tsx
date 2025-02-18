@@ -2,10 +2,10 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { IoSearch } from 'react-icons/io5';
-import { useSearchStore } from '@/store/useSearchStore';
-import Divider from '../common/Divider';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useSearchStore } from '@/store/useSearchStore';
 import { SearchBarProps, TabType } from '@/types/types';
+import Divider from '@/app/components/common/Divider';
 
 export default function SearchBar({ isScrolled }: SearchBarProps) {
   const searchBarRef = useRef<HTMLDivElement>(null);
@@ -50,7 +50,7 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [activeTab, isScrolled]);
+  }, [activeTab]);
 
   const handleTabClick = useCallback(
     (tab: TabType) => {
