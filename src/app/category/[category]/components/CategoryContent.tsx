@@ -1,6 +1,6 @@
 'use client';
 
-import { useAccommodations } from '@/hooks/useAccommodations';
+import { useAccommodationsByCategory } from '@/hooks/useAccommodations';
 import LoadingSkeleton from '@/app/components/common/LoadingSkeleton';
 import ImageCarousel from '@/app/components/common/ImageCarousel';
 import Link from 'next/link';
@@ -11,7 +11,7 @@ interface CategoryContentProps {
 }
 
 export default function CategoryContent({ category }: CategoryContentProps) {
-  const { data: accommodations, isLoading, error } = useAccommodations();
+  const { data: accommodations, isLoading, error } = useAccommodationsByCategory(category);
 
   if (error) throw error;
 

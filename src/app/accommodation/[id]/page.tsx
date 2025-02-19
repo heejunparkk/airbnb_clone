@@ -1,4 +1,4 @@
-import { accommodationApi } from '@/app/api/accommodation';
+import { accommodationApi } from '@/app/api/query';
 import Image from 'next/image';
 import AccommodationHeader from './components/AccommodationHeader';
 

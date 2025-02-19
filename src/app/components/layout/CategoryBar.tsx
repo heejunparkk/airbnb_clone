@@ -21,10 +21,10 @@ import {
   TrophyIcon,
   SparklesIcon,
 } from '@heroicons/react/24/outline';
-import { IoIosArrowBack } from 'react-icons/io';
-import { IoIosArrowForward } from 'react-icons/io';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { useScrollStore } from '@/store/useScrollStore';
 import { useRouter, usePathname } from 'next/navigation';
+// import { accommodationApi } from '@/app/api/query';
 
 const categories = [
   { name: '인기 급상승', icon: FireIcon },
@@ -56,7 +56,10 @@ const categories = [
   { name: 'B&B', icon: CakeIcon },
   { name: '우주정거장', icon: SparklesIcon },
   { name: '기상천외한 숙소', icon: BeakerIcon },
-];
+].map((category) => ({
+  ...category,
+  value: category.name === '인기 급상승' ? 'trending' : encodeURIComponent(category.name),
+}));
 
 export default function CategoryBar() {
   const router = useRouter();
@@ -90,18 +93,17 @@ export default function CategoryBar() {
     }
   };
 
-  const handleCategoryClick = (categoryName: string) => {
+  const handleCategoryClick = async (categoryName: string, categoryValue: string) => {
     if (categoryName === '인기 급상승') {
       router.push('/');
     } else {
-      const encodedCategory = encodeURIComponent(categoryName);
-      router.push(`/category/${encodedCategory}`);
+      router.push(`/category/${categoryValue}`);
     }
   };
 
-  const isSelected = (categoryName: string) => {
-    if (categoryName === '인기 급상승' && pathname === '/') return true;
-    return pathname === `/category/${encodeURIComponent(categoryName)}`;
+  const isSelected = (categoryValue: string) => {
+    if (categoryValue === 'trending' && pathname === '/') return true;
+    return pathname === `/category/${categoryValue}`;
   };
 
   useEffect(() => {
@@ -153,11 +155,11 @@ export default function CategoryBar() {
         >
           {categories.map((category) => (
             <button
-              key={category.name}
-              onClick={() => handleCategoryClick(category.name)}
+              key={category.value}
+              onClick={() => handleCategoryClick(category.name, category.value)}
               className={`flex flex-col items-center mt-4 gap-2 min-w-[56px] pb-3 transition-colors
                 ${
-                  isSelected(category.name)
+                  isSelected(category.value)
                     ? 'text-black border-b-2 border-black'
                     : 'text-gray-700 hover:text-black border-b-2 border-transparent hover:border-gray-300'
                 }`}
