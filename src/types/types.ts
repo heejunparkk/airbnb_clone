@@ -9,6 +9,10 @@ export interface Accommodation {
   description: string;
 }
 
+export interface AccommodationsResponse {
+  accommodations: Accommodation[];
+}
+
 export interface SearchBarProps {
   isScrolled: boolean;
 }
