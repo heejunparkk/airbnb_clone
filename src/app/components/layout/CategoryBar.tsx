@@ -24,7 +24,6 @@ import {
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { useScrollStore } from '@/store/useScrollStore';
 import { useRouter, usePathname } from 'next/navigation';
-// import { accommodationApi } from '@/app/api/query';
 
 const categories = [
   { name: '인기 급상승', icon: FireIcon },
