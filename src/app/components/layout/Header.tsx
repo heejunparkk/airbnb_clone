@@ -7,13 +7,15 @@ import SearchBar from './SearchBar';
 // import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
+import { useModalStore } from '@/store/useModalStore';
+import AuthModal from '../modals/AuthModal';
 
 export default function Header() {
+  const { isAuthModalOpen, openAuthModal, closeAuthModal } = useModalStore();
+
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -113,7 +115,7 @@ export default function Header() {
                     <div className="py-1">
                       <button
                         onClick={() => {
-                          setIsLoginModalOpen(true);
+                          openAuthModal();
                           setIsMenuOpen(false);
                         }}
                         className="w-full text-left px-4 py-2 hover:bg-gray-100"
@@ -122,7 +124,7 @@ export default function Header() {
                       </button>
                       <button
                         onClick={() => {
-                          setIsSignupModalOpen(true);
+                          openAuthModal();
                           setIsMenuOpen(false);
                         }}
                         className="w-full text-left px-4 py-2 hover:bg-gray-100"
@@ -138,59 +140,8 @@ export default function Header() {
         </div>
       </div>
 
-      {isLoginModalOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-30 z-50 flex items-center justify-center p-4"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) {
-              setIsLoginModalOpen(false);
-            }
-          }}
-        >
-          <div
-            className="bg-white rounded-lg p-4 sm:p-8 w-full max-w-xl mx-auto 
-            min-h-[500px] sm:min-h-[600px] md:min-h-[745px]
-            max-h-[745px] overflow-y-auto
-            animate-modal relative"
-          >
-            <h2 className="text-xl sm:text-2xl font-bold mb-4">로그인</h2>
-            <button
-              onClick={() => setIsLoginModalOpen(false)}
-              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
-            >
-              ✕
-            </button>
-            {/* 로그인 폼 내용 */}
-          </div>
-        </div>
-      )}
-
-      {isSignupModalOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-30 z-50 flex items-center justify-center p-4"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) {
-              setIsSignupModalOpen(false);
-            }
-          }}
-        >
-          <div
-            className="bg-white rounded-lg p-4 sm:p-8 w-full max-w-xl mx-auto 
-            min-h-[500px] sm:min-h-[600px] md:min-h-[745px]
-            max-h-[745px] overflow-y-auto
-            animate-modal relative"
-          >
-            <h2 className="text-xl sm:text-2xl font-bold mb-4">회원가입</h2>
-            <button
-              onClick={() => setIsSignupModalOpen(false)}
-              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
-            >
-              ✕
-            </button>
-            {/* 회원가입 폼 내용 */}
-          </div>
-        </div>
-      )}
+      {/* AuthModal 추가 */}
+      <AuthModal isOpen={isAuthModalOpen} onClose={closeAuthModal} />
     </header>
   );
 }
