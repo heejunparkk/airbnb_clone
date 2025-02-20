@@ -1,21 +1,15 @@
 import { createYoga } from 'graphql-yoga';
-import { makeExecutableSchema } from '@graphql-tools/schema';
-import { readFileSync } from 'fs';
-import { join } from 'path';
+import { typeDefs } from '@/graphql/schema';
 import { resolvers } from '@/graphql/resolvers';
+import { makeExecutableSchema } from '@graphql-tools/schema';
 
-const typeDefs = readFileSync(join(process.cwd(), 'src/graphql/schema.graphql'), 'utf-8');
-
-const schema = makeExecutableSchema({
-  typeDefs,
-  resolvers,
-});
-
-const { handleRequest } = createYoga({
-  schema,
+const yogaApp = createYoga({
+  schema: makeExecutableSchema({
+    typeDefs,
+    resolvers,
+  }),
   graphqlEndpoint: '/api/graphql',
   fetchAPI: { Response },
-  cors: true,
 });
 
-export { handleRequest as GET, handleRequest as POST };
+export { yogaApp as GET, yogaApp as POST };

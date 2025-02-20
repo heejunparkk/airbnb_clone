@@ -14,14 +14,37 @@ datasource db {
 }
 
 model Accommodation {
-  id          Int      @id @default(autoincrement())
-  title       String
-  location    String
-  price       Int
-  rating      Int
-  images      String[]
-  category    String
-  description String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id            String   @id @default(cuid())
+  title         String
+  location      String
+  price         Int
+  images        String[]
+  category      String
+  description   String
+  rating        Float
+  
+  // 1단계에서 추가할 기본 필드들
+  bedrooms      Int
+  beds          Int
+  baths         Int
+  maxGuests     Int
+  amenities     String[]  // 편의시설 목록
+  
+  // 시간 관련 필드
+  checkInTime   String    @default("15:00")
+  checkOutTime  String    @default("11:00")
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model User {
+  id            String      @id @default(cuid())
+  email         String      @unique
+  password      String
+  name          String
+  profileImage  String?
+  phoneNumber   String?
+  isHost        Boolean     @default(false)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
 }

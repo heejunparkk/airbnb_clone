@@ -1,17 +1,9 @@
-type Accommodation {
-  id: Int!
-  title: String!
-  location: String!
-  price: Int!
-  rating: Int!
-  images: [String!]!
-  category: String!
-  description: String!
-}
+scalar DateTime
 
 type Query {
   accommodations: [Accommodation!]!
-  accommodation(id: Int!): Accommodation
+  accommodation(id: String!): Accommodation
+  me: User
 }
 
 type Mutation {
@@ -19,9 +11,11 @@ type Mutation {
     title: String!
     location: String!
     price: Int!
-    rating: Int!
+    rating: Float!
     images: [String!]!
     category: String!
     description: String!
   ): Accommodation!
+  signUp(input: SignUpInput!): AuthPayload!
+  signIn(email: String!, password: String!): AuthPayload!
 }
