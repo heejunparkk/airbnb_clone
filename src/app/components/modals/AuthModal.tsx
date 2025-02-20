@@ -26,7 +26,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
 
     try {
       if (isLogin) {
-        await signIn(email, password);
+        await signIn({ email, password });
         toast.success('로그인되었습니다!');
         onClose();
       } else {

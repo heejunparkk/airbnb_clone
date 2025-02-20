@@ -24,6 +24,11 @@ export const accommodationResolvers = {
         images: string[];
         category: string;
         description: string;
+        bedrooms: number;
+        beds: number;
+        baths: number;
+        maxGuests: number;
+        amenities: string[];
       }
     ) => {
       return await prisma.accommodation.create({

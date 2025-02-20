@@ -1,14 +1,26 @@
 'use client';
 
-import { ApolloProvider } from '@apollo/client';
-import { client } from '@/lib/apollo';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'react-hot-toast';
+import { useState } from 'react';
 
 export function Providers({ children }: { children: React.ReactNode }) {
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            staleTime: 60 * 1000,
+            retry: 1,
+          },
+        },
+      })
+  );
+
   return (
-    <ApolloProvider client={client}>
+    <QueryClientProvider client={queryClient}>
       {children}
       <Toaster position="top-center" />
-    </ApolloProvider>
+    </QueryClientProvider>
   );
 }

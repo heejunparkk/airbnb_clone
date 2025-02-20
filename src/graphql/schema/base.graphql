@@ -15,6 +15,13 @@ type Mutation {
     images: [String!]!
     category: String!
     description: String!
+    bedrooms: Int!
+    beds: Int!
+    baths: Int!
+    maxGuests: Int!
+    amenities: [String!]!
+    checkInTime: String
+    checkOutTime: String
   ): Accommodation!
   signUp(input: SignUpInput!): AuthPayload!
   signIn(email: String!, password: String!): AuthPayload!
