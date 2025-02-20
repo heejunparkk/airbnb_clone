@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import { Dialog, DialogPanel } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { useAuth } from '@/hooks/useAuth';
+import { toast } from 'react-hot-toast';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -10,11 +12,39 @@ interface AuthModalProps {
 }
 
 export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
+  const { signUp, signIn } = useAuth();
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    try {
+      if (isLogin) {
+        await signIn(email, password);
+        toast.success('로그인되었습니다!');
+        onClose();
+      } else {
+        await signUp({
+          email,
+          password,
+          name,
+          phoneNumber,
+        });
+        toast.success('회원가입이 완료되었습니다!');
+        onClose();
+      }
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : '오류가 발생했습니다.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <Dialog open={isOpen} onClose={onClose} className="relative z-50">
@@ -30,7 +60,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
             <div className="w-5" /> {/* 오른쪽 여백 맞추기 용 */}
           </div>
 
-          <div className="mt-6 space-y-4">
+          <form onSubmit={handleSubmit} className="mt-6 space-y-4">
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                 이메일
@@ -95,8 +125,13 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
               </>
             )}
 
-            <button className="w-full rounded-lg bg-rose-500 px-4 py-2 text-white hover:bg-rose-600">
-              {isLogin ? '로그인' : '회원가입'}
+            <button
+              type="submit"
+              disabled={isLoading}
+              className={`w-full rounded-lg bg-rose-500 px-4 py-2 text-white hover:bg-rose-600 
+                ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+            >
+              {isLoading ? '처리 중...' : isLogin ? '로그인' : '회원가입'}
             </button>
 
             <div className="text-center text-sm">
@@ -116,7 +151,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                 </p>
               )}
             </div>
-          </div>
+          </form>
         </DialogPanel>
       </div>
     </Dialog>
