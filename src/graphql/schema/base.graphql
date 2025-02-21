@@ -25,4 +25,5 @@ type Mutation {
   ): Accommodation!
   signUp(input: SignUpInput!): AuthPayload!
   signIn(email: String!, password: String!): AuthPayload!
+  signOut: Boolean!
 }

@@ -1,5 +1,3 @@
-scalar DateTime
-
 type User {
   id: String!
   email: String!
@@ -19,6 +17,5 @@ input SignUpInput {
 }
 
 type AuthPayload {
-  token: String!
   user: User!
 }

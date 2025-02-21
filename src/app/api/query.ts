@@ -14,7 +14,7 @@ export const accommodationApi = {
     });
   },
 
-  getById: async (id: number): Promise<Accommodation | null> => {
+  getById: async (id: string): Promise<Accommodation | null> => {
     return prisma.accommodation.findUnique({
       where: { id },
     });

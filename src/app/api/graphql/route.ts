@@ -9,7 +9,17 @@ const yogaApp = createYoga({
     resolvers,
   }),
   graphqlEndpoint: '/api/graphql',
-  fetchAPI: { Response },
+  fetchAPI: { Response, Request },
+  landingPage: false,
+  cors: false,
+  batching: true,
+  plugins: [
+    {
+      onRequest({ request }) {
+        console.log('Incoming request:', request);
+      },
+    },
+  ],
 });
 
 export { yogaApp as GET, yogaApp as POST };

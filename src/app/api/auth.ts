@@ -5,22 +5,32 @@ interface SignUpInput {
   phoneNumber?: string;
 }
 
+interface ApiError {
+  message: string;
+  code?: string;
+}
+
 export const authApi = {
   signUp: async (input: SignUpInput) => {
-    const response = await fetch('/api/auth/signup', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(input),
-    });
+    try {
+      const response = await fetch('/api/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(input),
+      });
 
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message);
+      if (!response.ok) {
+        const error = (await response.json()) as ApiError;
+        throw new Error(error.message || '회원가입 중 오류가 발생했습니다.');
+      }
+
+      return response.json();
+    } catch (error) {
+      console.error('SignUp error:', error);
+      throw error;
     }
-
-    return response.json();
   },
 
   signIn: async (email: string, password: string) => {

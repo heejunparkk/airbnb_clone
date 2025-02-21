@@ -16,7 +16,7 @@ export const GET_ACCOMMODATIONS = gql`
 `;
 
 export const GET_ACCOMMODATION = gql`
-  query GetAccommodation($id: Int!) {
+  query GetAccommodation($id: String!) {
     accommodation(id: $id) {
       id
       title

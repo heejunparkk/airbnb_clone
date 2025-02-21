@@ -1,6 +1,6 @@
 import { prisma } from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+import { createSession, deleteSession } from '@/lib/session';
 
 interface SignUpInput {
   email: string;
@@ -38,13 +38,9 @@ export const authResolvers = {
           },
         });
 
-        // JWT 토큰 생성
-        const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET || 'your-secret-key', { expiresIn: '1d' });
+        await createSession(user.id);
 
-        return {
-          token,
-          user,
-        };
+        return { user };
       } catch (error) {
         console.error('회원가입 에러:', error);
         throw new Error('회원가입 처리 중 오류가 발생했습니다.');
@@ -69,17 +65,19 @@ export const authResolvers = {
           throw new Error('이메일 또는 비밀번호가 잘못되었습니다.');
         }
 
-        // JWT 토큰 생성
-        const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET || 'your-secret-key', { expiresIn: '1d' });
+        await createSession(user.id);
 
-        return {
-          token,
-          user,
-        };
+        return { user };
       } catch (error) {
         console.error('로그인 에러:', error);
         throw new Error('로그인 처리 중 오류가 발생했습니다.');
       }
+    },
+
+    // 로그아웃 mutation 추가
+    signOut: async () => {
+      await deleteSession();
+      return true;
     },
   },
 };

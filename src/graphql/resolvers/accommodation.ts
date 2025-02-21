@@ -1,39 +1,59 @@
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '@/lib/prisma';
+import type { Accommodation } from '@prisma/client';
 
-const prisma = new PrismaClient();
+type CreateAccommodationArgs = Omit<Accommodation, 'id' | 'createdAt' | 'updatedAt'>;
+type UpdateAccommodationArgs = {
+  id: string;
+  images: string[];
+};
 
 export const accommodationResolvers = {
   Query: {
     accommodations: async () => {
-      return await prisma.accommodation.findMany();
+      try {
+        return await prisma.accommodation.findMany();
+      } catch (error) {
+        console.error('Accommodations query error:', error);
+        return [];
+      }
     },
     accommodation: async (_: unknown, { id }: { id: string }) => {
-      return await prisma.accommodation.findUnique({
-        where: { id },
-      });
+      try {
+        if (!id) throw new Error('ID is required');
+        const result = await prisma.accommodation.findUnique({
+          where: { id },
+        });
+        if (!result) throw new Error('Accommodation not found');
+        return result;
+      } catch (error) {
+        console.error('Accommodation query error:', error);
+        throw new Error('Failed to fetch accommodation');
+      }
     },
   },
   Mutation: {
-    createAccommodation: async (
-      _: unknown,
-      args: {
-        title: string;
-        location: string;
-        price: number;
-        rating: number;
-        images: string[];
-        category: string;
-        description: string;
-        bedrooms: number;
-        beds: number;
-        baths: number;
-        maxGuests: number;
-        amenities: string[];
+    createAccommodation: async (_: unknown, args: CreateAccommodationArgs) => {
+      try {
+        const accommodation = await prisma.accommodation.create({
+          data: args,
+        });
+        return accommodation;
+      } catch (error) {
+        console.error('Create accommodation error:', error);
+        throw error;
       }
-    ) => {
-      return await prisma.accommodation.create({
-        data: args,
-      });
+    },
+    updateAccommodation: async (_: unknown, { id, images }: UpdateAccommodationArgs) => {
+      try {
+        const accommodation = await prisma.accommodation.update({
+          where: { id },
+          data: { images },
+        });
+        return accommodation;
+      } catch (error) {
+        console.error('Update accommodation error:', error);
+        throw error;
+      }
     },
   },
 };

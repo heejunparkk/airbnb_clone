@@ -5,10 +5,17 @@ export const CREATE_ACCOMMODATION = gql`
     $title: String!
     $location: String!
     $price: Int!
-    $rating: Int!
+    $rating: Float!
     $images: [String!]!
     $category: String!
     $description: String!
+    $bedrooms: Int!
+    $beds: Int!
+    $baths: Int!
+    $maxGuests: Int!
+    $amenities: [String!]!
+    $checkInTime: String
+    $checkOutTime: String
   ) {
     createAccommodation(
       title: $title
@@ -18,6 +25,13 @@ export const CREATE_ACCOMMODATION = gql`
       images: $images
       category: $category
       description: $description
+      bedrooms: $bedrooms
+      beds: $beds
+      baths: $baths
+      maxGuests: $maxGuests
+      amenities: $amenities
+      checkInTime: $checkInTime
+      checkOutTime: $checkOutTime
     ) {
       id
       title
@@ -27,6 +41,13 @@ export const CREATE_ACCOMMODATION = gql`
       images
       category
       description
+      bedrooms
+      beds
+      baths
+      maxGuests
+      amenities
+      checkInTime
+      checkOutTime
     }
   }
 `;

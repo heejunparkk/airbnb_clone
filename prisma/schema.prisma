@@ -44,7 +44,17 @@ model User {
   name          String
   profileImage  String?
   phoneNumber   String?
-  isHost        Boolean     @default(false)
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
+  isHost        Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+lt(now())
+  updatedAt     DateTime  @updatedAt
+lt(now())
+  updatedAt     DateTime  @updatedAt
+lt(now())
+  updatedAt     DateTime  @updatedAt
+lt(now())
+  updatedAt     DateTime  @updatedAt
+lt(now())
+  updatedAt     DateTime  @updatedAt
 }

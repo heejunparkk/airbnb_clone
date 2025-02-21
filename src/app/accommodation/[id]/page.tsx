@@ -9,7 +9,7 @@ interface AccommodationPageProps {
 }
 
 export default async function AccommodationPage({ params }: AccommodationPageProps) {
-  const accommodation = await accommodationApi.getById(Number(params.id));
+  const accommodation = await accommodationApi.getById(params.id);
 
   return (
     <>
