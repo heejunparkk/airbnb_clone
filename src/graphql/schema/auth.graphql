@@ -16,6 +16,21 @@ input SignUpInput {
   phoneNumber: String
 }
 
+input SignInInput {
+  email: String!
+  password: String!
+}
+
 type AuthPayload {
+  token: String!
   user: User!
+}
+
+type Mutation {
+  signUp(input: SignUpInput!): AuthPayload!
+  signIn(input: SignInInput!): AuthPayload!
+}
+
+type Query {
+  me: User
 }
