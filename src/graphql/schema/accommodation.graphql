@@ -41,5 +41,23 @@ type Mutation {
     checkOutTime: String!
   ): Accommodation!
 
-  updateAccommodation(id: String!, images: [String!]): Accommodation!
+  updateAccommodation(
+    id: String!
+    title: String
+    location: String
+    price: Int
+    rating: Float
+    images: [String!]
+    category: String
+    description: String
+    bedrooms: Int
+    beds: Int
+    baths: Int
+    maxGuests: Int
+    amenities: [String!]
+    checkInTime: String
+    checkOutTime: String
+  ): Accommodation!
+
+  deleteAccommodation(id: String!): Accommodation
 }

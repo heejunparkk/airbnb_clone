@@ -2,10 +2,6 @@ import { prisma } from '@/lib/prisma';
 import type { Accommodation } from '@prisma/client';
 
 type CreateAccommodationArgs = Omit<Accommodation, 'id' | 'createdAt' | 'updatedAt'>;
-type UpdateAccommodationArgs = {
-  id: string;
-  images: string[];
-};
 
 export const accommodationResolvers = {
   Query: {
@@ -43,15 +39,27 @@ export const accommodationResolvers = {
         throw error;
       }
     },
-    updateAccommodation: async (_: unknown, { id, images }: UpdateAccommodationArgs) => {
+    updateAccommodation: async (_: unknown, args: { id: string } & Partial<Accommodation>) => {
+      const { id, ...data } = args;
       try {
         const accommodation = await prisma.accommodation.update({
           where: { id },
-          data: { images },
+          data,
         });
         return accommodation;
       } catch (error) {
         console.error('Update accommodation error:', error);
+        throw error;
+      }
+    },
+    deleteAccommodation: async (_: unknown, { id }: { id: string }) => {
+      try {
+        const accommodation = await prisma.accommodation.delete({
+          where: { id },
+        });
+        return accommodation;
+      } catch (error) {
+        console.error('Delete accommodation error:', error);
         throw error;
       }
     },
