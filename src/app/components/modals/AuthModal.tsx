@@ -25,11 +25,8 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
     setIsLoading(true);
 
     try {
-      if (isLogin) {
-        await signIn({ email, password });
-        toast.success('로그인되었습니다!');
-        onClose();
-      } else {
+      if (!isLogin) {
+        // 회원가입
         await signUp({
           email,
           password,
@@ -37,6 +34,14 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
           phoneNumber,
         });
         toast.success('회원가입이 완료되었습니다!');
+        onClose();
+      } else {
+        // 로그인
+        await signIn({
+          email,
+          password,
+        });
+        toast.success('로그인되었습니다!');
         onClose();
       }
     } catch (error) {
@@ -128,7 +133,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
             <button
               type="submit"
               disabled={isLoading}
-              className={`w-full rounded-lg bg-rose-500 px-4 py-2 text-white hover:bg-rose-600 
+              className={`w-full rounded-lg bg-rose-500 px-4 py-2 text-white hover:bg-rose-600
                 ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
             >
               {isLoading ? '처리 중...' : isLogin ? '로그인' : '회원가입'}
@@ -138,14 +143,14 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
               {isLogin ? (
                 <p>
                   계정이 없으신가요?{' '}
-                  <button onClick={() => setIsLogin(false)} className="text-rose-500 hover:underline">
+                  <button type="button" onClick={() => setIsLogin(false)} className="text-rose-500 hover:underline">
                     회원가입
                   </button>
                 </p>
               ) : (
                 <p>
                   이미 계정이 있으신가요?{' '}
-                  <button onClick={() => setIsLogin(true)} className="text-rose-500 hover:underline">
+                  <button type="button" onClick={() => setIsLogin(true)} className="text-rose-500 hover:underline">
                     로그인
                   </button>
                 </p>

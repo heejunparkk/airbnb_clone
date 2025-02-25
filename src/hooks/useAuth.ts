@@ -1,5 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
-import { graphqlClient } from '@/lib/graphql-client';
+import { signIn, signOut } from 'next-auth/react';
 import { toast } from 'react-hot-toast';
 
 interface SignUpInput {
@@ -9,56 +8,90 @@ interface SignUpInput {
   phoneNumber?: string;
 }
 
-const SIGN_UP = `
-  mutation SignUp($input: SignUpInput!) {
-    signUp(input: $input) {
-      token
-      user {
-        id
-        email
-        name
-      }
-    }
-  }
-`;
-
-const SIGN_IN = `
-  mutation SignIn($email: String!, $password: String!) {
-    signIn(email: $email, password: $password) {
-      token
-      user {
-        id
-        email
-        name
-      }
-    }
-  }
-`;
-
 export function useAuth() {
-  const signUpMutation = useMutation({
-    mutationFn: (input: SignUpInput) => graphqlClient.request(SIGN_UP, { input }),
-    onSuccess: () => {
-      toast.success('회원가입이 완료되었습니다');
-    },
-    onError: (error: Error) => {
-      toast.error(error.message);
-    },
-  });
+  const signUp = async (input: SignUpInput) => {
+    try {
+      // 요청 데이터 로그
+      console.log('Attempting to sign up with:', input);
 
-  const signInMutation = useMutation({
-    mutationFn: (credentials: { email: string; password: string }) => graphqlClient.request(SIGN_IN, credentials),
-    onSuccess: () => {
+      const res = await fetch('/api/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(input),
+      });
+
+      // 응답 상태 로그
+      console.log('Response status:', res.status);
+
+      // 응답 헤더 로그
+      console.log('Response headers:', Object.fromEntries(res.headers.entries()));
+
+      const text = await res.text();
+      console.log('Raw response:', text);
+
+      if (!text) {
+        throw new Error('서버로부터 응답이 없습니다.');
+      }
+
+      const data = JSON.parse(text);
+
+      if (!res.ok) {
+        throw new Error(data.message || '회원가입 중 오류가 발생했습니다');
+      }
+
+      // 회원가입 성공 후 자동 로그인
+      const result = await signIn('credentials', {
+        email: input.email,
+        password: input.password,
+        redirect: false,
+      });
+
+      if (result?.error) {
+        throw new Error(result.error);
+      }
+
+      toast.success('회원가입이 완료되었습니다');
+      return data;
+    } catch (error) {
+      console.error('Sign up error:', error);
+      toast.error(error instanceof Error ? error.message : '회원가입 중 오류가 발생했습니다');
+      throw error;
+    }
+  };
+
+  const signInUser = async (credentials: { email: string; password: string }) => {
+    try {
+      const result = await signIn('credentials', {
+        ...credentials,
+        redirect: false,
+      });
+
+      if (result?.error) {
+        throw new Error(result.error);
+      }
+
       toast.success('로그인되었습니다');
-    },
-    onError: (error: Error) => {
-      toast.error(error.message);
-    },
-  });
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : '로그인 중 오류가 발생했습니다');
+      throw error;
+    }
+  };
+
+  const signOutUser = async () => {
+    try {
+      await signOut();
+      toast.success('로그아웃되었습니다');
+    } catch (error) {
+      toast.error('로그아웃 중 오류가 발생했습니다');
+      throw error;
+    }
+  };
 
   return {
-    signUp: signUpMutation.mutate,
-    signIn: signInMutation.mutate,
-    isLoading: signUpMutation.isPending || signInMutation.isPending,
+    signUp,
+    signIn: signInUser,
+    signOut: signOutUser,
   };
 }
