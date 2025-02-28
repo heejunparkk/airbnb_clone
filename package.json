@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
-    "format": "prettier --write .",
+    "format": "prettier --write ."
+  },
+  "prisma": {
     "seed": "ts-node -P tsconfig-seed.json prisma/seed.ts"
   },
   "dependencies": {
