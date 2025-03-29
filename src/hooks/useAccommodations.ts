@@ -19,6 +19,7 @@ export function useAccommodations() {
         throw error;
       }
     },
+    staleTime: 5 * 60 * 1000, // 5분간 데이터를 "신선"하다고 간주
   });
 }
 
@@ -39,5 +40,6 @@ export function useAccommodationsByCategory(category: string) {
       }
     },
     enabled: Boolean(category),
+    staleTime: 5 * 60 * 1000,
   });
 }

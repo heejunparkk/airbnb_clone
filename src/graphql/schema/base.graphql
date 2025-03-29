@@ -3,6 +3,7 @@ scalar DateTime
 type Query {
   accommodations: [Accommodation!]!
   accommodation(id: String!): Accommodation
+  accommodationsByCategory(category: String!): [Accommodation!]!
   me: User
 }
 
