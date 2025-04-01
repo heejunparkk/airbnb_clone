@@ -1,30 +1,19 @@
 import { Suspense } from 'react';
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
-import { GET_ACCOMMODATIONS } from '@/graphql/queries';
-import { graphqlClient } from '@/lib/graphql-client';
-import { AccommodationsResponse } from '@/types/types';
 import CategoryContent from './components/CategoryContent';
+import { accommodationService } from '@/services/accommodation';
 
 export default async function CategoryPage({ params }: { params: { category: string } }) {
-  const category = decodeURIComponent(params.category);
+  const resolvedParams = await params;
+  const category = decodeURIComponent(resolvedParams.category);
 
-  // 서버에서 데이터를 프리페치합니다
+  // 서버에서 데이터를 프리페치합니다 (최적화된 쿼리 사용)
   const queryClient = new QueryClient();
 
+  // 데이터 프리페치 로직을 별도 함수로 분리하여 메인 렌더링을 차단하지 않도록 함
   await queryClient.prefetchQuery({
     queryKey: ['accommodations', 'category', category],
-    queryFn: async () => {
-      try {
-        const data = await graphqlClient.request<AccommodationsResponse>(GET_ACCOMMODATIONS);
-        if (!data || !data.accommodations) {
-          throw new Error('데이터를 불러오는데 실패했습니다.');
-        }
-        return data.accommodations.filter((acc: { category: string }) => acc.category === category);
-      } catch (error) {
-        console.error('카테고리별 숙소 데이터 조회 중 오류:', error);
-        return [];
-      }
-    },
+    queryFn: () => accommodationService.getByCategory(category),
   });
 
   return (

@@ -37,7 +37,9 @@ export const accommodationResolvers = {
             },
           },
         });
-        return accommodations;
+
+        // 항상 배열 반환 (비어있더라도)
+        return accommodations || [];
       } catch (error) {
         console.error('Category accommodations query error:', error);
         return [];

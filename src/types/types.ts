@@ -20,6 +20,7 @@ export interface Accommodation {
 
 export interface AccommodationsResponse {
   accommodations: Accommodation[];
+  accommodationsByCategory?: Accommodation[];
 }
 
 export interface SearchBarProps {

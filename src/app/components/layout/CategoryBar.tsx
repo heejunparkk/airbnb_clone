@@ -63,10 +63,11 @@ const categories = [
 export default function CategoryBar() {
   const router = useRouter();
   const pathname = usePathname();
-  const { isScrolled } = useScrollStore();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const { isScrolled } = useScrollStore();
   const [isAtStart, setIsAtStart] = useState(true);
   const [isAtEnd, setIsAtEnd] = useState(false);
+  const [prefetchEnabled, setPrefetchEnabled] = useState(true);
 
   const scroll = (direction: 'left' | 'right') => {
     const container = scrollContainerRef.current;
@@ -99,6 +100,24 @@ export default function CategoryBar() {
       router.push(`/category/${categoryValue}`);
     }
   };
+
+  const handleCategoryHover = (categoryValue: string) => {
+    if (prefetchEnabled && categoryValue !== 'trending') {
+      // 마우스 오버 시 해당 카테고리 페이지 미리 로드
+      router.prefetch(`/category/${categoryValue}`);
+    }
+  };
+
+  // 스로틀된 prefetch 활성화/비활성화
+  useEffect(() => {
+    const enablePrefetch = () => setPrefetchEnabled(true);
+    const throttledEnable = throttle(enablePrefetch, 5000);
+
+    // 카테고리 클릭 후 5초간 prefetch 비활성화
+    return () => {
+      throttledEnable.cancel();
+    };
+  }, []);
 
   const isSelected = (categoryValue: string) => {
     if (categoryValue === 'trending' && pathname === '/') return true;
@@ -156,6 +175,7 @@ export default function CategoryBar() {
             <button
               key={category.value}
               onClick={() => handleCategoryClick(category.name, category.value)}
+              onMouseEnter={() => handleCategoryHover(category.value)}
               className={`flex flex-col items-center mt-4 gap-2 min-w-[56px] pb-3 transition-colors
                 ${
                   isSelected(category.value)
@@ -188,4 +208,28 @@ export default function CategoryBar() {
       </div>
     </div>
   );
+}
+
+// 스로틀 함수 구현 (또는 lodash에서 가져올 수 있음)
+function throttle<T extends (...args: unknown[]) => unknown>(func: T, delay: number) {
+  let lastCall = 0;
+  let timeoutId: NodeJS.Timeout | null = null;
+
+  const throttled = function (this: unknown, ...args: Parameters<T>) {
+    const now = new Date().getTime();
+    if (now - lastCall < delay) {
+      return;
+    }
+    lastCall = now;
+    return func.apply(this, args);
+  };
+
+  throttled.cancel = function () {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+      timeoutId = null;
+    }
+  };
+
+  return throttled as T & { cancel: () => void };
 }

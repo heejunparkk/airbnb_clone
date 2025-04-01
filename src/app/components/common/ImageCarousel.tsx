@@ -34,6 +34,7 @@ export default function ImageCarousel({ images, alt }: ImageCarouselProps) {
               src={image}
               alt={`${alt} ${index + 1}`}
               fill
+              loading="lazy"
               className="object-cover transition-transform duration-300"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
