@@ -13,8 +13,10 @@ export function Providers({ children }: { children: React.ReactNode }) {
         defaultOptions: {
           queries: {
             staleTime: 1000 * 60 * 5, // 5분
+            gcTime: 1000 * 60 * 30, // 30분 (캐시 유지 시간 증가)
             refetchOnWindowFocus: false,
             retry: 1,
+            refetchOnMount: false, // 컴포넌트가 마운트될 때 자동 리페치 방지
           },
         },
       })
