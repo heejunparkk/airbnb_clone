@@ -80,7 +80,18 @@ export default function VoiceCommandButton() {
 
         recognitionRef.current.onerror = (event: SpeechRecognitionErrorEvent) => {
           console.error('Speech recognition error', event.error);
-          setFeedback(`오류가 발생했습니다: ${event.error}`);
+          // 오류 유형에 따른 메시지 설정
+          if (event.error === 'no-speech') {
+            setFeedback('음성이 감지되지 않았습니다. 다시 시도해주세요.');
+          } else if (event.error === 'aborted') {
+            setFeedback('음성 인식이 중단되었습니다.');
+          } else if (event.error === 'audio-capture') {
+            setFeedback('마이크를 사용할 수 없습니다. 마이크 설정을 확인해주세요.');
+          } else if (event.error === 'network') {
+            setFeedback('네트워크 오류가 발생했습니다.');
+          } else {
+            setFeedback(`오류가 발생했습니다: ${event.error}`);
+          }
           setIsListening(false);
         };
 
@@ -90,8 +101,18 @@ export default function VoiceCommandButton() {
 
         recognitionRef.current.start();
         setTranscript('');
-        setFeedback('듣고 있습니다...');
+        // setFeedback('듣고 있습니다... (5초 내에 말씀해주세요)');
         setIsListening(true);
+
+        // 타이머 설정
+        const timer = setTimeout(() => {
+          if (isListening && recognitionRef.current) {
+            setFeedback('시간이 초과되었습니다. 다시 시도해주세요.');
+            recognitionRef.current.stop();
+          }
+        }, 7000); // 7초 후 자동 중지 (실제 인식 시간보다 약간 길게 설정)
+
+        return () => clearTimeout(timer);
       } catch (error) {
         console.error('음성 인식 시작 오류:', error);
         setFeedback('음성 인식을 시작할 수 없습니다.');
@@ -112,7 +133,7 @@ export default function VoiceCommandButton() {
     <div className="relative">
       <button
         onClick={toggleListening}
-        className={`fixed bottom-6 right-6 z-20 p-4 rounded-full shadow-lg transition-all ${
+        className={`fixed bottom-6 right-6 z-20 p-4 rounded-full shadow-[0_0_10px_rgba(0,0,0,0.2)] transition-all ${
           isListening ? 'bg-red-500 animate-pulse' : 'bg-white hover:bg-gray-100'
         }`}
         aria-label={isListening ? '음성 인식 중지' : '음성 인식 시작'}
@@ -122,10 +143,10 @@ export default function VoiceCommandButton() {
 
       {/* 음성 피드백 표시 */}
       {(isListening || feedback) && (
-        <div className="fixed bottom-20 right-6 bg-white p-4 rounded-lg shadow-md max-w-xs z-20">
-          {isListening && <p className="text-blue-500 font-medium">듣고 있습니다...</p>}
-          {transcript && <p className="text-gray-700 mt-1">&quot;{transcript}&quot;</p>}
-          {feedback && <p className="text-gray-800 font-medium mt-1">{feedback}</p>}
+        <div className="fixed bottom-24 right-6 bg-white p-4 rounded-lg shadow-[0_0_10px_rgba(0,0,0,0.2)] max-w-xs z-20">
+          {(isListening && <p className="text-blue-500 font-medium">듣고 있습니다... (5초 내에 말씀해주세요)</p>) ||
+            (transcript && <p className="text-gray-700 mt-1">&quot;{transcript}&quot;</p>) ||
+            (feedback && <p className="text-gray-800 font-medium mt-1">{feedback}</p>)}
         </div>
       )}
     </div>
