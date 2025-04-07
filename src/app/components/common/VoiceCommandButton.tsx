@@ -10,6 +10,7 @@ export default function VoiceCommandButton() {
   const [isListening, setIsListening] = useState(false);
   const [transcript, setTranscript] = useState('');
   const [feedback, setFeedback] = useState('');
+  const [isProcessing, setIsProcessing] = useState(false);
   const recognitionRef = useRef<SpeechRecognition | null>(null);
 
   // SpeechRecognition 객체 설정
@@ -26,35 +27,65 @@ export default function VoiceCommandButton() {
     }
   }, []);
 
+  useEffect(() => {
+    return () => {
+      // 컴포넌트가 언마운트될 때 음성 인식 종료
+      if (recognitionRef.current && isListening) {
+        recognitionRef.current.stop();
+      }
+    };
+  }, [isListening]);
+
+  // ChatGPT API로 명령어 처리
+  const processChatGPT = useCallback(
+    async (command: string) => {
+      setIsProcessing(true);
+      try {
+        const response = await fetch('/api/chat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ message: command }),
+        });
+
+        if (!response.ok) {
+          throw new Error('API 요청 실패');
+        }
+
+        const data = await response.json();
+        const { result } = data;
+
+        setFeedback(result.message);
+
+        // 네비게이션 액션이면 해당 카테고리로 이동
+        if (result.action === 'navigate' && result.category) {
+          const targetCategory = categories.find((cat) => cat.name === result.category);
+
+          if (targetCategory) {
+            if (targetCategory.name === '인기 급상승') {
+              router.push('/');
+            } else {
+              router.push(`/category/${targetCategory.value}`);
+            }
+          }
+        }
+      } catch (error) {
+        console.error('API 요청 오류:', error);
+        setFeedback('명령을 처리하는 중 오류가 발생했습니다.');
+      } finally {
+        setIsProcessing(false);
+      }
+    },
+    [router]
+  );
+
   const processVoiceCommand = useCallback(
     (command: string) => {
       setTranscript(command);
-
-      // 카테고리 이동 명령어 처리
-      for (const category of categories) {
-        const regex = new RegExp(`${category.name}.*(?:보여|이동|가|찾아)`, 'i');
-        if (regex.test(command)) {
-          setFeedback(`${category.name} 카테고리로 이동합니다.`);
-
-          if (category.name === '인기 급상승') {
-            router.push('/');
-          } else {
-            router.push(`/category/${category.value}`);
-          }
-          return;
-        }
-      }
-
-      // 홈으로 이동 명령어
-      if (/(?:홈|메인).*(?:가|이동|보여)/i.test(command)) {
-        setFeedback('홈으로 이동합니다.');
-        router.push('/');
-        return;
-      }
-
-      setFeedback('명령어를 인식하지 못했습니다.');
+      processChatGPT(command);
     },
-    [router]
+    [processChatGPT]
   );
 
   const toggleListening = useCallback(() => {
@@ -120,15 +151,6 @@ export default function VoiceCommandButton() {
     }
   }, [isListening, processVoiceCommand]);
 
-  useEffect(() => {
-    return () => {
-      // 컴포넌트가 언마운트될 때 음성 인식 종료
-      if (recognitionRef.current && isListening) {
-        recognitionRef.current.stop();
-      }
-    };
-  }, [isListening]);
-
   return (
     <div className="relative">
       <button
@@ -137,16 +159,23 @@ export default function VoiceCommandButton() {
           isListening ? 'bg-red-500 animate-pulse' : 'bg-white hover:bg-gray-100'
         }`}
         aria-label={isListening ? '음성 인식 중지' : '음성 인식 시작'}
+        disabled={isProcessing}
       >
         {isListening ? <MdMic className="w-6 h-6 text-white" /> : <MdMicOff className="w-6 h-6 text-gray-700" />}
       </button>
 
       {/* 음성 피드백 표시 */}
-      {(isListening || feedback) && (
+      {(isListening || feedback || isProcessing) && (
         <div className="fixed bottom-24 right-6 bg-white p-4 rounded-lg shadow-[0_0_10px_rgba(0,0,0,0.2)] max-w-xs z-20">
           {(isListening && <p className="text-blue-500 font-medium">듣고 있습니다... (5초 내에 말씀해주세요)</p>) ||
-            (transcript && <p className="text-gray-700 mt-1">&quot;{transcript}&quot;</p>) ||
-            (feedback && <p className="text-gray-800 font-medium mt-1">{feedback}</p>)}
+            (transcript && !isProcessing && <p className="text-gray-700 mt-1">&quot;{transcript}&quot;</p>) ||
+            (isProcessing && (
+              <div className="flex items-center text-gray-600">
+                <div className="mr-2 h-4 w-4 rounded-full border-2 border-t-transparent border-blue-500 animate-spin"></div>
+                처리 중...
+              </div>
+            )) ||
+            (feedback && !isProcessing && <p className="text-gray-800 font-medium mt-1">{feedback}</p>)}
         </div>
       )}
     </div>
