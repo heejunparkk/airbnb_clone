@@ -41,7 +41,7 @@ export default function VoiceCommandButton() {
     async (command: string) => {
       setIsProcessing(true);
       try {
-        const response = await fetch('/api/chat', {
+        const response = await fetch('/api/openai', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -50,7 +50,8 @@ export default function VoiceCommandButton() {
         });
 
         if (!response.ok) {
-          throw new Error('API 요청 실패');
+          const errorText = await response.text();
+          throw new Error(`API 요청 실패: ${response.status} ${response.statusText}, ${errorText}`);
         }
 
         const data = await response.json();
