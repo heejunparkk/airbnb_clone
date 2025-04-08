@@ -26,6 +26,25 @@ export const accommodationResolvers = {
         throw new Error('Failed to fetch accommodation');
       }
     },
+    // 카테고리별 숙소 조회 리졸버
+    accommodationsByCategory: async (_: unknown, { category }: { category: string }) => {
+      try {
+        const accommodations = await prisma.accommodation.findMany({
+          where: {
+            category: {
+              equals: category,
+              mode: 'insensitive', // 대소문자 구분 없이
+            },
+          },
+        });
+
+        // 항상 배열 반환 (비어있더라도)
+        return accommodations || [];
+      } catch (error) {
+        console.error('Category accommodations query error:', error);
+        return [];
+      }
+    },
   },
   Mutation: {
     createAccommodation: async (_: unknown, args: CreateAccommodationArgs) => {
