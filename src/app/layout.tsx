@@ -4,7 +4,7 @@ import Header from '@/app/components/layout/Header';
 import CategoryBar from '@/app/components/layout/CategoryBar';
 import { Providers } from './providers';
 import VoiceCommandButton from './components/common/VoiceCommandButton';
-// import Footer from "@/app/components/layout/Footer";
+import Footer from '@/app/components/layout/Footer';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -18,9 +18,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <CategoryBar />
           </div>
           <main>{children}</main>
+          <Footer />
           <VoiceCommandButton />
         </Providers>
-        {/* <Footer /> */}
       </body>
     </html>
   );
