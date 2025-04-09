@@ -1,36 +1,165 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 에어비앤비 클론
 
-## Getting Started
+Next.js와 기타 최신 웹 기술을 활용하여 제작한 에어비앤비 클론 프로젝트입니다.
 
-First, run the development server:
+## 기술 스택
+
+- [Next.js 15](https://nextjs.org/)
+- [React](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Prisma](https://www.prisma.io/)
+- [NextAuth](https://next-auth.js.org/)
+- [React Query](https://tanstack.com/query/latest)
+- [React Icons](https://react-icons.github.io/react-icons/)
+- [React Hot Toast](https://react-hot-toast.com/)
+
+## 주요 기능
+
+- 소셜 로그인 (Google, Facebook, Apple 지원)
+- 이메일 가입 및 로그인
+- 숙소 검색 및 필터링
+- 카테고리 기반 탐색
+- 숙소 상세 정보 보기
+- 반응형 웹 디자인
+
+## 시작하기
+
+### 필수 요구사항
+
+- Node.js 18 이상
+- 데이터베이스 (PostgreSQL 권장)
+
+### 설치
+
+1. 프로젝트 클론
+
+```bash
+git clone https://github.com/your-username/airbnb_clone.git
+cd airbnb_clone
+```
+
+2. 의존성 설치
+
+```bash
+npm install
+```
+
+3. 환경 변수 설정 .env.local 파일을 루트 디렉토리에 생성하고 필요한 환경 변수를 설정하세요.
+
+```
+DATABASE_URL=your_database_connection_string
+NEXTAUTH_SECRET=your_nextauth_secret
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+FACEBOOK_CLIENT_ID=your_facebook_client_id
+FACEBOOK_CLIENT_SECRET=your_facebook_client_secret
+APPLE_CLIENT_ID=your_apple_client_id
+APPLE_CLIENT_SECRET=your_apple_client_secret
+```
+
+4. 데이터베이스 설정
+
+```bash
+npx prisma migrate dev
+npx prisma db seed
+```
+
+5. 개발 서버 실행
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+6. 브라우저에서 http://localhost:3000으로 접속하세요.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 프로젝트 구조
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+airbnb_clone/
+├── .env.local           # 환경 변수 설정 파일
+├── .gitignore           # Git 무시 파일 목록
+├── next.config.js       # Next.js 설정 파일
+├── package.json         # 프로젝트 의존성 및 스크립트
+├── tsconfig.json        # TypeScript 설정
+│
+├── public/              # 정적 파일
+│   ├── images/          # 이미지 파일 저장소
+│   ├── favicon.ico      # 사이트 파비콘
+│   └── ...
+│
+├── prisma/              # Prisma 관련 파일
+│   ├── schema.prisma    # 데이터베이스 스키마 정의
+│   ├── seed.ts          # 초기 데이터 시드 스크립트
+│   └── migrations/      # 데이터베이스 마이그레이션 파일
+│
+└── src/
+    ├── app/             # Next.js App Router 구조
+    │   ├── layout.tsx   # 기본 레이아웃 컴포넌트
+    │   ├── page.tsx     # 메인 페이지
+    │   ├── favicon.ico  # 앱별 파비콘
+    │   │
+    │   ├── api/         # API 라우트 경로
+    │   │   ├── auth/    # 인증 관련 API
+    │   │   ├── listings/ # 숙소 목록 관련 API
+    │   │   └── ...
+    │   │
+    │   └── (routes)/    # 페이지 라우트 그룹
+    │       ├── listings/ # 숙소 관련 페이지
+    │       │   ├── [id]/ # 숙소 상세 페이지
+    │       │   └── ...
+    │       ├── reservations/ # 예약 관련 페이지
+    │       ├── trips/   # 여행 관련 페이지
+    │       └── ...
+    │
+    ├── components/      # 재사용 가능한 컴포넌트
+    │   ├── ui/          # UI 기본 컴포넌트
+    │   │   ├── Button.tsx
+    │   │   ├── Input.tsx
+    │   │   └── ...
+    │   │
+    │   ├── modals/      # 모달 컴포넌트
+    │   │   ├── LoginModal.tsx
+    │   │   ├── RegisterModal.tsx
+    │   │   └── ...
+    │   │
+    │   ├── listings/    # 숙소 관련 컴포넌트
+    │   ├── navbar/      # 네비게이션 바 컴포넌트
+    │   └── ...
+    │
+    ├── hooks/           # 커스텀 훅
+    │   ├── useLogin.ts
+    │   ├── useFavorite.ts
+    │   └── ...
+    │
+    ├── lib/             # 유틸리티 함수 및 라이브러리
+    │   ├── prisma.ts    # Prisma 클라이언트
+    │   └── utils.ts     # 유틸리티 함수
+    │
+    ├── types/           # TypeScript 타입 정의
+    │   ├── index.ts
+    │   └── ...
+    │
+    └── providers/       # 컨텍스트 프로바이더
+        ├── AuthProvider.tsx
+        ├── ToastProvider.tsx
+        └── ...
+```
 
-## Learn More
+## 주요 디렉터리 설명
 
-To learn more about Next.js, take a look at the following resources:
+### src/app
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Next.js 15의 App Router를 사용한 애플리케이션의 주요 경로 구조가 포함되어 있습니다. 각 폴더는 특정 경로를 나타내며, 해당 폴더 내의 `page.tsx` 파일이 해당 경로의 페이지 컴포넌트입니다.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### src/components
 
-## Deploy on Vercel
+재사용 가능한 React 컴포넌트들이 모여 있습니다. UI, 모달, 리스팅 관련 컴포넌트 등이 체계적으로 분류되어 있습니다.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### src/hooks
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+애플리케이션 전체에서 사용되는 커스텀 React 훅들을 포함합니다. 로그인, 즐겨찾기 등의 기능에 대한 로직을 캡슐화합니다.
+
+### prisma
+
+데이터베이스 스키마와 마이그레이션을 관리합니다. `schema.prisma` 파일에서 데이터 모델을 정의하고, 마이그레이션을 통해 데이터베이스 구조를 관리합니다.
