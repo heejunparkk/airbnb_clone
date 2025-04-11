@@ -64,14 +64,15 @@ npm install
 3. 환경 변수 설정 .env.local 파일을 루트 디렉토리에 생성하고 필요한 환경 변수를 설정하세요.
 
 ```
-DATABASE_URL=your_database_connection_string
+# Database connection - replace with your actual credentials
+DATABASE_URL="postgresql://username:password@localhost:5432/database_name?schema=public"
+
+# GraphQL endpoint
+NEXT_PUBLIC_GRAPHQL_ENDPOINT="http://localhost:3000/api/graphql"
+
+# Security - replace with a strong random string
+JWT_SECRET="your-jwt-secret-key-here"
 NEXTAUTH_SECRET=your_nextauth_secret
-GOOGLE_CLIENT_ID=your_google_client_id
-GOOGLE_CLIENT_SECRET=your_google_client_secret
-FACEBOOK_CLIENT_ID=your_facebook_client_id
-FACEBOOK_CLIENT_SECRET=your_facebook_client_secret
-APPLE_CLIENT_ID=your_apple_client_id
-APPLE_CLIENT_SECRET=your_apple_client_secret
 ```
 
 4. 데이터베이스 설정
