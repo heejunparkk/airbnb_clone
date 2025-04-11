@@ -168,11 +168,11 @@ export default function VoiceCommandButton() {
       {/* 음성 피드백 표시 */}
       {(isListening || feedback || isProcessing) && (
         <div className="fixed bottom-24 right-6 bg-white p-4 rounded-lg shadow-[0_0_10px_rgba(0,0,0,0.2)] max-w-xs z-20">
-          {(isListening && <p className="text-blue-500 font-medium">듣고 있습니다... (5초 내에 말씀해주세요)</p>) ||
+          {(isListening && <p className="text-rose-500 font-medium">듣고 있습니다... (5초 내에 말씀해주세요)</p>) ||
             (transcript && !isProcessing && <p className="text-gray-700 mt-1">&quot;{transcript}&quot;</p>) ||
             (isProcessing && (
               <div className="flex items-center text-gray-600">
-                <div className="mr-2 h-4 w-4 rounded-full border-2 border-t-transparent border-blue-500 animate-spin"></div>
+                <div className="mr-2 h-4 w-4 rounded-full border-2 border-t-transparent border-rose-500 animate-spin"></div>
                 처리 중...
               </div>
             )) ||

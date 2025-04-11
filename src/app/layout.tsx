@@ -5,6 +5,7 @@ import CategoryBar from '@/app/components/layout/CategoryBar';
 import { Providers } from './providers';
 import VoiceCommandButton from './components/common/VoiceCommandButton';
 import Footer from '@/app/components/layout/Footer';
+import ChatCommandInput from './components/common/ChatCommandInput';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,6 +21,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main>{children}</main>
           <Footer />
           <VoiceCommandButton />
+          <ChatCommandInput />
         </Providers>
       </body>
     </html>
