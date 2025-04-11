@@ -59,7 +59,11 @@ export const authResolvers = {
         }
 
         // 비밀번호 확인
-        const validPassword = bcrypt.compare(password, user.password);
+        if (!user.password) {
+          throw new Error('이메일 또는 비밀번호가 잘못되었습니다.');
+        }
+
+        const validPassword = await bcrypt.compare(password, user.password);
 
         if (!validPassword) {
           throw new Error('이메일 또는 비밀번호가 잘못되었습니다.');
