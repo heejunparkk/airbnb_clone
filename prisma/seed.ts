@@ -16,20 +16,28 @@ async function main() {
     '/images/house/ann-wallace-biepNX5n7r4-unsplash.jpg',
     '/images/house/aubrey-odom-ITzfgP77DTg-unsplash.jpg',
     '/images/house/avi-werde-hHz4yrvxwlA-unsplash.jpg',
+    '/images/house/bailey-anselme-Bkp3gLygyeA-unsplash.jpg',
+    '/images/house/bernard-hermant-KqOLr8OiQLU-unsplash.jpg',
+    '/images/house/daniel-barnes-RKdLlTyjm5g-unsplash.jpg',
+    '/images/house/derick-mckinney-rah5oKpjMSY-unsplash.jpg',
   ];
 
   // interior 폴더 이미지 파일 목록 (예시)
   const interiorImages = [
-    '/images/interior/beazy-aX1hN4uNd-I-unsplash.jpg',
-    '/images/interior/collov-home-design-js8AQlw71HA-unsplash.jpg',
-    '/images/interior/francesca-tosolini-tHkJAMcO3QE-unsplash.jpg',
-    '/images/interior/kam-idris-kyt0PkBSCNQ-unsplash.jpg',
-    '/images/interior/minh-pham-OtXADkUh3-I-unsplash.jpg',
-    '/images/interior/patrick-perkins-3wylDrjxH-E-unsplash.jpg',
-    '/images/interior/r-architecture-2gDwlIim3Uw-unsplash.jpg',
-    '/images/interior/spacejoy-YI2YkyaREHk-unsplash.jpg',
-    '/images/interior/spacejoy-c0JoR_-2x3E-unsplash.jpg',
-    '/images/interior/timothy-buck-psrloDbaZc8-unsplash.jpg',
+    '/images/interior/andrea-davis-fvQ_WLAs5YQ-unsplash.jpg',
+    '/images/interior/andy-vult-zwZpdhoTbU0-unsplash.jpg',
+    '/images/interior/angelina-cXmER3VNxUA-unsplash.jpg',
+    '/images/interior/annie-spratt-Q2QhOxN5enk-unsplash.jpg',
+    '/images/interior/annie-spratt-tJ8x4oCQ5jE-unsplash.jpg',
+    '/images/interior/arno-smit-iI72r3gSwWY-unsplash.jpg',
+    '/images/interior/aranprime-KbytCpI1i5I-unsplash.jpg',
+    '/images/interior/beazy-aX1TTOuq83M-unsplash.jpg',
+    '/images/interior/beazy-RuCVvjuyNeQ-unsplash.jpg',
+    '/images/interior/behzad-ghaffarian-nhWgZNV85LQ-unsplash.jpg',
+    '/images/interior/billy-jo-catbagan-HR1x0_5dakE-unsplash.jpg',
+    '/images/interior/christian-mackie-cc0Gg3BegjE-unsplash.jpg',
+    '/images/interior/christopher-burns-BdVQU-NDtA8-unsplash.jpg',
+    '/images/interior/cody-weiss-hEMYwIE6GEY-unsplash.jpg',
   ];
 
   // 랜덤 이미지 선택 함수
@@ -37,12 +45,10 @@ async function main() {
     return houseImages[Math.floor(Math.random() * houseImages.length)];
   };
 
+  // 중복되지 않는 랜덤 이미지 선택
   const getRandomInteriorImages = (count = 3) => {
-    const selectedImages = [];
-    for (let i = 0; i < count; i++) {
-      selectedImages.push(interiorImages[Math.floor(Math.random() * interiorImages.length)]);
-    }
-    return selectedImages;
+    const shuffled = [...interiorImages].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, count);
   };
 
   const accommodations = [
