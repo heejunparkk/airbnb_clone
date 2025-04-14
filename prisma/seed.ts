@@ -20,6 +20,17 @@ async function main() {
     '/images/house/bernard-hermant-KqOLr8OiQLU-unsplash.jpg',
     '/images/house/daniel-barnes-RKdLlTyjm5g-unsplash.jpg',
     '/images/house/derick-mckinney-rah5oKpjMSY-unsplash.jpg',
+    '/images/house/dhruv-saran-mehra-EItAcdPP-kk-unsplash.jpg',
+    '/images/house/dillon-kydd-2keCPb73aQY-unsplash.jpg',
+    '/images/house/dillon-kydd-3Ignkeds3w8-unsplash.jpg',
+    '/images/house/dillon-kydd-XGvwt544g8k-unsplash.jpg',
+    '/images/house/emily-campbell-gVG8cRjHF-8-unsplash.jpg',
+    '/images/house/florian-schmidinger-b_79nOqf95I-unsplash.jpg',
+    '/images/house/floris-bronkhorst-OLFA5DgSIFo-unsplash.jpg',
+    '/images/house/greg-rivers-rChFUMwAe7E-unsplash.jpg',
+    '/images/house/ian-macdonald--dcznEJPmsk-unsplash.jpg',
+    '/images/house/ian-macdonald-pmqTJDVbKdM-unsplash.jpg',
+    '/images/house/ibrahim-rifath-wj6Qz24kwUA-unsplash.jpg',
   ];
 
   // interior 폴더 이미지 파일 목록 (예시)
