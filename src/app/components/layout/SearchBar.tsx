@@ -271,7 +271,7 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
             className={`
               flex items-center justify-center gap-2 bg-rose-500 hover:bg-rose-600 text-white rounded-full mr-2 absolute right-0 overflow-hidden
               ${isScrolled ? 'h-9 w-9' : 'h-12 w-12'}
-              ${activeTab && !isScrolled ? 'w-28' : ''} // GSAP으로 제어하므로 초기 너비만 설정
+              ${activeTab && !isScrolled ? 'w-28' : ''}
             `}
             aria-label="검색"
             type="button"
