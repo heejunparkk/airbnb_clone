@@ -1,5 +1,5 @@
 import { signIn, signOut } from 'next-auth/react';
-import { toast } from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 interface SignUpInput {
   email: string;
@@ -9,6 +9,8 @@ interface SignUpInput {
 }
 
 export function useAuth() {
+  const router = useRouter();
+
   const signUp = async (input: SignUpInput) => {
     try {
       // 요청 데이터 로그
@@ -52,11 +54,9 @@ export function useAuth() {
         throw new Error(result.error);
       }
 
-      toast.success('회원가입이 완료되었습니다');
       return data;
     } catch (error) {
       console.error('Sign up error:', error);
-      toast.error(error instanceof Error ? error.message : '회원가입 중 오류가 발생했습니다');
       throw error;
     }
   };
@@ -72,19 +72,26 @@ export function useAuth() {
         throw new Error(result.error);
       }
 
-      toast.success('로그인되었습니다');
+      if (result?.ok) {
+        router.push('/'); // 로그인 성공 시 홈으로 이동
+        router.refresh(); // 페이지 새로고침 (세션 반영 등)
+      } else {
+        // signIn 결과가 ok도 아니고 error도 아닌 경우 (거의 발생하지 않음)
+        throw new Error('로그인에 실패했습니다. 다시 시도해주세요.');
+      }
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : '로그인 중 오류가 발생했습니다');
+      console.error('Signin error:', error);
       throw error;
     }
   };
 
   const signOutUser = async () => {
     try {
-      await signOut();
-      toast.success('로그아웃되었습니다');
+      await signOut({ redirect: false }); // 리다이렉트 없이 로그아웃
+      router.push('/'); // 로그아웃 후 홈으로 이동
+      router.refresh();
     } catch (error) {
-      toast.error('로그아웃 중 오류가 발생했습니다');
+      console.error('Signout error:', error);
       throw error;
     }
   };

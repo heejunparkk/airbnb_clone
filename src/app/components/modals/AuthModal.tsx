@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { Dialog, DialogPanel } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { useAuth } from '@/hooks/useAuth';
-import { toast } from 'react-hot-toast';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -33,7 +32,6 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
           name,
           phoneNumber,
         });
-        toast.success('회원가입이 완료되었습니다!');
         onClose();
       } else {
         // 로그인
@@ -41,11 +39,10 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
           email,
           password,
         });
-        toast.success('로그인되었습니다!');
         onClose();
       }
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : '오류가 발생했습니다.');
+      console.error('Auth Error:', error);
     } finally {
       setIsLoading(false);
     }
