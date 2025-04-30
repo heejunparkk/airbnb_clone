@@ -83,7 +83,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                 placeholder="이메일을 입력하세요"
                 aria-label="이메일"
                 onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm focus:border-rose-500 focus:outline-none focus:ring-1 focus:ring-rose-500"
+                className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-xs focus:border-rose-500 focus:outline-hidden focus:ring-1 focus:ring-rose-500"
               />
             </div>
 
@@ -98,7 +98,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                 placeholder="비밀번호를 입력하세요"
                 aria-label="비밀번호"
                 onChange={(e) => setPassword(e.target.value)}
-                className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm focus:border-rose-500 focus:outline-none focus:ring-1 focus:ring-rose-500"
+                className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-xs focus:border-rose-500 focus:outline-hidden focus:ring-1 focus:ring-rose-500"
               />
             </div>
 
@@ -115,7 +115,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                     placeholder="이름을 입력하세요"
                     aria-label="이름"
                     onChange={(e) => setName(e.target.value)}
-                    className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm focus:border-rose-500 focus:outline-none focus:ring-1 focus:ring-rose-500"
+                    className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-xs focus:border-rose-500 focus:outline-hidden focus:ring-1 focus:ring-rose-500"
                   />
                 </div>
 
@@ -130,7 +130,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                     placeholder="전화번호를 입력하세요"
                     aria-label="전화번호"
                     onChange={(e) => setPhoneNumber(e.target.value)}
-                    className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm focus:border-rose-500 focus:outline-none focus:ring-1 focus:ring-rose-500"
+                    className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-xs focus:border-rose-500 focus:outline-hidden focus:ring-1 focus:ring-rose-500"
                   />
                 </div>
               </>
@@ -190,7 +190,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                   <path fill="#03c75a" d="M19.92 16.77 11.76 5H5v22h7.08V15.22L20.24 27H27V5h-7.08z"></path>
                 </svg>
               </div>
-              <div className="flex-grow text-center">네이버로 로그인하기</div>
+              <div className="grow text-center">네이버로 로그인하기</div>
             </button>
 
             <button
@@ -226,7 +226,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                   </g>
                 </svg>
               </div>
-              <div className="flex-grow text-center">구글로 로그인하기</div>
+              <div className="grow text-center">구글로 로그인하기</div>
             </button>
 
             <button
@@ -245,7 +245,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                   <path d="m13.3 2.1a5.1 5.1 0 0 1 3.8-2.1 5.1 5.1 0 0 1 -1.2 3.8 4.1 4.1 0 0 1 -3.6 1.7 4.5 4.5 0 0 1 1-3.4zm-5 3.7c-2.8 0-5.8 2.5-5.8 7.3 0 4.9 3.5 10.9 6.3 10.9 1 0 2.5-1 4-1s2.6.9 4 .9c3.1 0 5.3-6.4 5.3-6.4a5.3 5.3 0 0 1 -3.2-4.9 5.2 5.2 0 0 1 2.6-4.5 5.4 5.4 0 0 0 -4.7-2.4c-2 0-3.5 1.1-4.3 1.1-.9 0-2.4-1-4.2-1z"></path>
                 </svg>
               </div>
-              <div className="flex-grow text-center">애플로 로그인하기</div>
+              <div className="grow text-center">애플로 로그인하기</div>
             </button>
 
             <button
@@ -264,7 +264,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                   <path d="M30.51 5.88A5.06 5.06 0 0 0 26 3H6a5.06 5.06 0 0 0-4.51 2.88A4.94 4.94 0 0 0 1 8v16a5 5 0 0 0 5 5h20a5 5 0 0 0 5-5V8a4.94 4.94 0 0 0-.49-2.12ZM6 5h20a2.97 2.97 0 0 1 1.77.6L17.95 14a2.98 2.98 0 0 1-3.9 0L4.23 5.6A2.97 2.97 0 0 1 6 5Zm23 19a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V8a2.97 2.97 0 0 1 .1-.74l9.65 8.27a4.97 4.97 0 0 0 6.5 0l9.65-8.27A2.97 2.97 0 0 1 29 8Z"></path>
                 </svg>
               </div>
-              <div className="flex-grow text-center">이메일로 로그인하기</div>
+              <div className="grow text-center">이메일로 로그인하기</div>
             </button>
 
             <button
@@ -283,7 +283,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                   <path d="M22.675 0H1.325C.593 0 0 .593 0 1.325v21.351C0 23.407.593 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.323-.593 1.323-1.325V1.325C24 .593 23.407 0 22.675 0z" />
                 </svg>
               </div>
-              <div className="flex-grow text-center">페이스북으로 로그인하기</div>
+              <div className="grow text-center">페이스북으로 로그인하기</div>
             </button>
           </div>
         </DialogPanel>

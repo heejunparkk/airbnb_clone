@@ -180,7 +180,7 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
                     <input
                       type="text"
                       placeholder="여행지 검색"
-                      className={`bg-transparent outline-none w-full placeholder:text-gray-500 text-sm text-gray-500`}
+                      className={`bg-transparent outline-hidden w-full placeholder:text-gray-500 text-sm text-gray-500`}
                     />
                   </div>
                 </div>
