@@ -24,7 +24,4 @@ type Mutation {
     checkInTime: String
     checkOutTime: String
   ): Accommodation!
-  # signUp(input: SignUpInput!): AuthPayload!
-  # signIn(email: String!, password: String!): AuthPayload!
-  # signOut: Boolean!
 }
