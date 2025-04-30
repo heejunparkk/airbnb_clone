@@ -87,6 +87,4 @@ model VerificationToken {
 model Category {
   id          String   @id @default(cuid())
   name        String
-  // 기타 필요한 필드
-  // 관계 설정 등
 }
