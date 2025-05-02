@@ -6,6 +6,7 @@ import { Providers } from '@/providers';
 import VoiceCommandButton from './components/common/VoiceCommandButton';
 import Footer from '@/app/components/layout/Footer';
 import ChatCommandInput from './components/common/ChatCommandInput';
+import { Toaster } from '@/components/ui/sonner';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -14,6 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ko">
       <body className={inter.className} suppressHydrationWarning>
         <Providers>
+          <Toaster richColors />
           <Header />
           <div className="pt-20">
             <CategoryBar />

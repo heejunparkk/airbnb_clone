@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Dialog, DialogPanel } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { useAuth } from '@/hooks/useAuth';
+import { toast } from 'sonner';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -42,7 +43,11 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
         onClose();
       }
     } catch (error) {
-      console.error('Auth Error:', error);
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error('알 수 없는 오류가 발생했습니다.');
+      }
     } finally {
       setIsLoading(false);
     }

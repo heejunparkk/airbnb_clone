@@ -80,7 +80,6 @@ export function useAuth() {
         throw new Error('로그인에 실패했습니다. 다시 시도해주세요.');
       }
     } catch (error) {
-      console.error('Signin error:', error);
       throw error;
     }
   };
@@ -91,7 +90,6 @@ export function useAuth() {
       router.push('/'); // 로그아웃 후 홈으로 이동
       router.refresh();
     } catch (error) {
-      console.error('Signout error:', error);
       throw error;
     }
   };
