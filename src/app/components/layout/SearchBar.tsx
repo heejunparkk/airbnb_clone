@@ -180,10 +180,11 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
                     <input
                       type="text"
                       placeholder="여행지 검색"
-                      className={`bg-transparent outline-none w-full placeholder:text-gray-500 text-sm text-gray-500`}
+                      className={`bg-transparent outline-hidden w-full placeholder:text-gray-500 text-sm text-gray-500`}
                     />
                   </div>
                 </div>
+
                 <Divider
                   className={`${activeTab === 'location' || activeTab === 'checkin' ? 'opacity-0' : 'opacity-100'} transition-opacity`}
                 />
@@ -207,9 +208,11 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
                         <span className="text-sm text-gray-500">날짜 추가</span>
                       </div>
                     </div>
+
                     <Divider
                       className={`${activeTab === 'checkin' || activeTab === 'checkout' ? 'opacity-0' : 'opacity-100'} transition-opacity`}
                     />
+
                     {/* 체크아웃 */}
                     <div className={`flex rounded-full`}>
                       <div
@@ -245,6 +248,7 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
                     </div>
                   </div>
                 )}
+
                 <Divider
                   className={`${activeTab === 'checkout' || activeTab === 'guest' || activeTab === 'date' ? 'opacity-0' : 'opacity-100'} transition-opacity`}
                 />
@@ -269,19 +273,15 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
           <button
             ref={searchButtonRef}
             className={`
-              flex items-center justify-center gap-2 bg-rose-500 hover:bg-rose-600 text-white rounded-full mr-2 absolute right-0 overflow-hidden
-              ${isScrolled ? 'h-9 w-9' : 'h-12 w-12'}
-              ${activeTab && !isScrolled ? 'w-28' : ''}
+              flex items-center justify-center gap-2 bg-rose-500 hover:bg-rose-600 text-white rounded-full mr-2 right-0
+              ${isScrolled ? 'h-9 w-9' : 'absolute h-12 w-12'}
+              ${activeTab ? 'w-28' : ''}
             `}
             aria-label="검색"
             type="button"
           >
             <IoSearch size={isScrolled ? 16 : 18} />
-            <span
-              className={`font-medium text-nowrap ${isScrolled ? 'hidden' : ''} ${activeTab ? 'opacity-100' : 'opacity-0'} transition-opacity duration-200`}
-            >
-              검색
-            </span>
+            {!isScrolled && activeTab && <span className="font-medium text-nowrap">검색</span>}
           </button>
         </div>
       </div>

@@ -71,7 +71,7 @@ export default function CategoryBar() {
 
   return (
     <div
-      className={`fixed px-20 left-0 right-0 bg-white transition-all duration-200 z-[1] ${
+      className={`fixed px-20 left-0 right-0 bg-white transition-all duration-200 z-1 ${
         isScrolled ? 'shadow-md top-[80px]' : 'top-[168px]'
       }`}
     >
@@ -88,7 +88,7 @@ export default function CategoryBar() {
         </button>
         {/* 왼쪽 그라데이션 */}
         <div
-          className={`absolute top-0 bottom-0 left-0 w-20 bg-gradient-to-r from-white via-white to-transparent pointer-events-none z-[5] transition-all duration-200 ${
+          className={`absolute top-0 bottom-0 left-0 w-20 bg-linear-to-r from-white via-white to-transparent pointer-events-none z-5 transition-all duration-200 ${
             isAtStart ? 'opacity-0 invisible' : 'opacity-100 visible'
           }`}
         />
@@ -117,7 +117,7 @@ export default function CategoryBar() {
 
         {/* 오른쪽 그라데이션 */}
         <div
-          className={`absolute top-0 bottom-0 right-0 w-20 bg-gradient-to-l from-white via-white to-transparent pointer-events-none z-[5] transition-all duration-200 ${
+          className={`absolute top-0 bottom-0 right-0 w-20 bg-linear-to-l from-white via-white to-transparent pointer-events-none z-5 transition-all duration-200 ${
             isAtEnd ? 'opacity-0 invisible' : 'opacity-100 visible'
           }`}
         />
