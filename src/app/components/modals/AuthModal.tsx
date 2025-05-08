@@ -5,6 +5,7 @@ import { Dialog, DialogPanel } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { useAuth } from '@/hooks/useAuth';
 import { toast } from 'sonner';
+import { signIn as nextAuthSignIn } from 'next-auth/react';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -55,6 +56,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
 
   const handleSocialLogin = (provider: string) => {
     // 소셜 로그인 구현
+    nextAuthSignIn(provider, { callbackUrl: '/' });
     console.log(`${provider} 로그인`);
   };
 
