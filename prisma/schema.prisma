@@ -14,27 +14,27 @@ datasource db {
 }
 
 model Accommodation {
-  id            String   @id @default(cuid())
-  title         String
-  location      String
-  price         Int
-  images        String[]
-  category      String
-  description   String
-  rating        Float
-  
+  id          String   @id @default(cuid())
+  title       String
+  location    String
+  price       Int
+  images      String[]
+  category    String
+  description String
+  rating      Float
+
   // 1단계에서 추가할 기본 필드들
-  bedrooms      Int
-  beds          Int
-  baths         Int
-  maxGuests     Int
-  amenities     String[]  // 편의시설 목록
-  
+  bedrooms  Int
+  beds      Int
+  baths     Int
+  maxGuests Int
+  amenities String[] // 편의시설 목록
+
   // 시간 관련 필드
-  checkInTime   String    @default("15:00")
-  checkOutTime  String    @default("11:00")
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  checkInTime  String   @default("15:00")
+  checkOutTime String   @default("11:00")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
 model Account {
@@ -66,12 +66,15 @@ model Session {
 
 model User {
   id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
+  name          String
+  email         String    @unique
   password      String?
   phoneNumber   String?
+  isHost        Boolean   @default(false)
+  image         String?
+  emailVerified DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
   accounts      Account[]
   sessions      Session[]
 }
@@ -85,8 +88,6 @@ model VerificationToken {
 }
 
 model Category {
-  id          String   @id @default(cuid())
-  name        String
-  // 기타 필요한 필드
-  // 관계 설정 등
+  id   String @id @default(cuid())
+  name String
 }

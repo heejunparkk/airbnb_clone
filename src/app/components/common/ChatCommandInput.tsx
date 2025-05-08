@@ -100,7 +100,7 @@ export default function ChatCommandInput() {
             value={chatInput}
             onChange={(e) => setChatInput(e.target.value)}
             placeholder="명령어를 입력하세요... (예: 한옥 카테고리 열어줘)"
-            className="flex-grow p-3 rounded-l-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-rose-500"
+            className="grow p-3 rounded-l-lg border border-gray-300 focus:outline-hidden focus:ring-2 focus:ring-rose-500"
             autoFocus
           />
           <button

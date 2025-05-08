@@ -34,7 +34,7 @@ export interface User {
   email: string;
   password: string;
   name: string;
-  profileImage?: string;
+  image?: string;
   phoneNumber?: string;
   isHost: boolean;
   createdAt: Date;
