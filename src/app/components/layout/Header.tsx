@@ -9,8 +9,12 @@ import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { useModalStore } from '@/store/useModalStore';
 import AuthModal from '../modals/AuthModal';
+import { useSession } from 'next-auth/react';
+import { useAuth } from '@/hooks/useAuth';
 
 export default function Header() {
+  const { data: session } = useSession();
+  const { signOut } = useAuth();
   const { isAuthModalOpen, openAuthModal, closeAuthModal } = useModalStore();
 
   const pathname = usePathname();
@@ -45,6 +49,12 @@ export default function Header() {
   if (pathname?.startsWith('/accommodation/')) {
     return null;
   }
+
+  // 로그아웃 핸들러
+  const handleLogout = async () => {
+    await signOut();
+    setIsMenuOpen(false);
+  };
 
   return (
     <header
@@ -113,24 +123,44 @@ export default function Header() {
                 {isMenuOpen && (
                   <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-lg border">
                     <div className="py-1">
-                      <button
-                        onClick={() => {
-                          openAuthModal();
-                          setIsMenuOpen(false);
-                        }}
-                        className="w-full text-left px-4 py-2 hover:bg-gray-100"
-                      >
-                        로그인
-                      </button>
-                      <button
-                        onClick={() => {
-                          openAuthModal();
-                          setIsMenuOpen(false);
-                        }}
-                        className="w-full text-left px-4 py-2 hover:bg-gray-100"
-                      >
-                        회원가입
-                      </button>
+                      {session ? (
+                        <>
+                          <div className="px-4 py-2 text-sm text-gray-700 border-b border-gray-100">
+                            {session.user?.name || session.user?.email}님 안녕하세요!
+                          </div>
+                          <button onClick={handleLogout} className="w-full text-left px-4 py-2 hover:bg-gray-100">
+                            로그아웃
+                          </button>
+                          <Link
+                            href="/profile"
+                            className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                            onClick={() => setIsMenuOpen(false)}
+                          >
+                            프로필
+                          </Link>
+                        </>
+                      ) : (
+                        <>
+                          <button
+                            onClick={() => {
+                              openAuthModal();
+                              setIsMenuOpen(false);
+                            }}
+                            className="w-full text-left px-4 py-2 hover:bg-gray-100"
+                          >
+                            로그인
+                          </button>
+                          <button
+                            onClick={() => {
+                              openAuthModal();
+                              setIsMenuOpen(false);
+                            }}
+                            className="w-full text-left px-4 py-2 hover:bg-gray-100"
+                          >
+                            회원가입
+                          </button>
+                        </>
+                      )}
                     </div>
                   </div>
                 )}

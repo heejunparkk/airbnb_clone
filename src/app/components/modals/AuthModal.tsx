@@ -54,10 +54,24 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
     }
   };
 
-  const handleSocialLogin = (provider: string) => {
-    // 소셜 로그인 구현
-    nextAuthSignIn(provider, { callbackUrl: '/' });
-    console.log(`${provider} 로그인`);
+  const handleSocialLogin = async (provider: string) => {
+    try {
+      setIsLoading(true);
+      // 소셜 로그인 구현
+      const result = await nextAuthSignIn(provider, { callbackUrl: '/' });
+      if (result?.error) {
+        toast.error('로그인 중 오류가 발생했습니다.');
+      }
+      // 성공 시 모달 닫기
+      if (result?.ok) {
+        onClose();
+      }
+    } catch (error) {
+      console.error(`${provider} 로그인 오류:`, error);
+      toast.error('로그인 중 오류가 발생했습니다.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
