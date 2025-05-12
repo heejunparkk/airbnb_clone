@@ -71,43 +71,42 @@ export default function CategoryBar() {
 
   return (
     <div
-      className={`fixed px-20 left-0 right-0 bg-white transition-all duration-200 z-1 ${
-        isScrolled ? 'shadow-md top-[80px]' : 'top-[168px]'
+      className={`fixed right-0 left-0 z-1 bg-white px-20 transition-all duration-200 ${
+        isScrolled ? 'top-[80px] shadow-md' : 'top-[168px]'
       }`}
     >
       <div className="relative">
         {/* 왼쪽 화살표 */}
         <button
           onClick={() => scroll('left')}
-          className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 border border-gray-400 bg-white rounded-full p-2 hover:scale-105 transition-all duration-200 cursor-pointer ${
-            isAtStart ? 'opacity-0 invisible' : 'opacity-100 visible'
+          className={`absolute top-1/2 left-0 z-10 -translate-y-1/2 cursor-pointer rounded-full border border-gray-400 bg-white p-2 transition-all duration-200 hover:scale-105 ${
+            isAtStart ? 'invisible opacity-0' : 'visible opacity-100'
           }`}
           aria-label="Scroll left"
         >
-          <IoIosArrowBack className="w-4 h-4" />
+          <IoIosArrowBack className="h-4 w-4" />
         </button>
         {/* 왼쪽 그라데이션 */}
         <div
-          className={`absolute top-0 bottom-0 left-0 w-20 bg-linear-to-r from-white via-white to-transparent pointer-events-none z-5 transition-all duration-200 ${
-            isAtStart ? 'opacity-0 invisible' : 'opacity-100 visible'
+          className={`pointer-events-none absolute top-0 bottom-0 left-0 z-5 w-20 bg-linear-to-r from-white via-white to-transparent transition-all duration-200 ${
+            isAtStart ? 'invisible opacity-0' : 'visible opacity-100'
           }`}
         />
 
         {/* 카테고리 컨테이너 */}
         <div
           ref={scrollContainerRef}
-          className="flex items-center gap-8 overflow-x-auto scrollbar-hide scroll-smooth pl-1"
+          className="scrollbar-hide flex items-center gap-8 overflow-x-auto scroll-smooth pl-1"
         >
           {categories.map((category) => (
             <button
               key={category.value}
               onClick={() => handleCategoryClick(category.name, category.value)}
-              className={`flex flex-col items-center mt-4 gap-2 min-w-[56px] pb-3 transition-colors cursor-pointer
-                ${
-                  isSelected(category.value)
-                    ? 'text-black border-b-2 border-black'
-                    : 'text-gray-700 hover:text-black border-b-2 border-transparent hover:border-gray-300'
-                }`}
+              className={`mt-4 flex min-w-[56px] cursor-pointer flex-col items-center gap-2 pb-3 transition-colors ${
+                isSelected(category.value)
+                  ? 'border-b-2 border-black text-black'
+                  : 'border-b-2 border-transparent text-gray-700 hover:border-gray-300 hover:text-black'
+              }`}
             >
               <category.icon className="h-6 w-6" />
               <span className="text-xs whitespace-nowrap">{category.name}</span>
@@ -117,19 +116,19 @@ export default function CategoryBar() {
 
         {/* 오른쪽 그라데이션 */}
         <div
-          className={`absolute top-0 bottom-0 right-0 w-20 bg-linear-to-l from-white via-white to-transparent pointer-events-none z-5 transition-all duration-200 ${
-            isAtEnd ? 'opacity-0 invisible' : 'opacity-100 visible'
+          className={`pointer-events-none absolute top-0 right-0 bottom-0 z-5 w-20 bg-linear-to-l from-white via-white to-transparent transition-all duration-200 ${
+            isAtEnd ? 'invisible opacity-0' : 'visible opacity-100'
           }`}
         />
         {/* 오른쪽 화살표 */}
         <button
           onClick={() => scroll('right')}
-          className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 border border-gray-400 bg-white rounded-full p-2 hover:scale-105 transition-all duration-200 cursor-pointer ${
-            isAtEnd ? 'opacity-0 invisible' : 'opacity-100 visible'
+          className={`absolute top-1/2 right-0 z-10 -translate-y-1/2 cursor-pointer rounded-full border border-gray-400 bg-white p-2 transition-all duration-200 hover:scale-105 ${
+            isAtEnd ? 'invisible opacity-0' : 'visible opacity-100'
           }`}
           aria-label="Scroll right"
         >
-          <IoIosArrowForward className="w-4 h-4" />
+          <IoIosArrowForward className="h-4 w-4" />
         </button>
       </div>
     </div>

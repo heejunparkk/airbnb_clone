@@ -25,13 +25,13 @@ export default function ImageCarousel({ images, alt }: ImageCarouselProps) {
   };
 
   return (
-    <div className="relative aspect-square rounded-xl overflow-hidden group">
+    <div className="group relative aspect-square overflow-hidden rounded-xl">
       <div
-        className="absolute w-full h-full transition-transform duration-300 ease-in-out"
+        className="absolute h-full w-full transition-transform duration-300 ease-in-out"
         style={{ transform: `translateX(-${currentIndex * 100}%)` }}
       >
         {images.map((image, index) => (
-          <div key={index} className="absolute w-full h-full" style={{ left: `${index * 100}%` }}>
+          <div key={index} className="absolute h-full w-full" style={{ left: `${index * 100}%` }}>
             <Image
               src={image}
               alt={`${alt} ${index + 1}`}
@@ -51,10 +51,10 @@ export default function ImageCarousel({ images, alt }: ImageCarouselProps) {
           {!isFirstImage && (
             <button
               onClick={handlePrevious}
-              className="absolute left-2 top-1/2 -translate-y-1/2 bg-white rounded-full p-1.5 opacity-0 group-hover:opacity-80 hover:scale-105 transition-all duration-200 cursor-pointer shadow-md"
+              className="absolute top-1/2 left-2 -translate-y-1/2 cursor-pointer rounded-full bg-white p-1.5 opacity-0 shadow-md transition-all duration-200 group-hover:opacity-80 hover:scale-105"
               aria-label="이전 이미지"
             >
-              <IoIosArrowBack className="w-4 h-4" />
+              <IoIosArrowBack className="h-4 w-4" />
             </button>
           )}
 
@@ -62,19 +62,19 @@ export default function ImageCarousel({ images, alt }: ImageCarouselProps) {
           {!isLastImage && (
             <button
               onClick={handleNext}
-              className="absolute right-2 top-1/2 -translate-y-1/2 bg-white rounded-full p-1.5 opacity-0 group-hover:opacity-80 hover:scale-105 transition-all duration-200 cursor-pointer shadow-md"
+              className="absolute top-1/2 right-2 -translate-y-1/2 cursor-pointer rounded-full bg-white p-1.5 opacity-0 shadow-md transition-all duration-200 group-hover:opacity-80 hover:scale-105"
               aria-label="다음 이미지"
             >
-              <IoIosArrowForward className="w-4 h-4" />
+              <IoIosArrowForward className="h-4 w-4" />
             </button>
           )}
 
           {/* 인디케이터 */}
-          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
+          <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 gap-1">
             {images.map((_, index) => (
               <div
                 key={index}
-                className={`w-1.5 h-1.5 rounded-full ${index === currentIndex ? 'bg-white' : 'bg-white/50'}`}
+                className={`h-1.5 w-1.5 rounded-full ${index === currentIndex ? 'bg-white' : 'bg-white/50'}`}
               />
             ))}
           </div>

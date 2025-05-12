@@ -27,14 +27,14 @@ export default function CategoryContent({ category }: CategoryContentProps) {
       <div className="group cursor-pointer space-y-3">
         <ImageCarousel images={accommodation.images} alt={accommodation.title} />
         <div className="space-y-2">
-          <div className="flex justify-between items-center">
+          <div className="flex items-center justify-between">
             <span className="font-medium">{accommodation.location}</span>
             <span className="flex items-center gap-1">
               <span className="text-rose-500">★</span>
               {accommodation.rating}
             </span>
           </div>
-          <h3 className="text-gray-500 truncate">{accommodation.title}</h3>
+          <h3 className="truncate text-gray-500">{accommodation.title}</h3>
           <p className="flex items-center gap-1">
             <span className="font-semibold">₩{accommodation.price.toLocaleString()}</span>
             <span className="text-gray-500">/박</span>
@@ -45,9 +45,9 @@ export default function CategoryContent({ category }: CategoryContentProps) {
   );
 
   return (
-    <main className="pt-[200px] px-20">
-      <h1 className="text-2xl font-bold mb-8 capitalize">{category}</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6">
+    <main className="px-20 pt-[200px]">
+      <h1 className="mb-8 text-2xl font-bold capitalize">{category}</h1>
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
         {accommodations?.map(renderAccommodationCard)}
       </div>
     </main>

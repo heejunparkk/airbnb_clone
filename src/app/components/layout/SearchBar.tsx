@@ -100,20 +100,20 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
   );
 
   return (
-    <div ref={containerRef} className="flex flex-col items-center justify-center transform relative">
-      <div ref={topButtonsRef} className="flex gap-1 mb-4">
+    <div ref={containerRef} className="relative flex transform flex-col items-center justify-center">
+      <div ref={topButtonsRef} className="mb-4 flex gap-1">
         <button
           onClick={() => setSearchMode('stays')}
-          className={`py-3 px-4 rounded-full cursor-pointer ${
-            searchMode === 'stays' ? 'text-black' : 'text-gray-500 hover:text-black hover:bg-gray-100'
+          className={`cursor-pointer rounded-full px-4 py-3 ${
+            searchMode === 'stays' ? 'text-black' : 'text-gray-500 hover:bg-gray-100 hover:text-black'
           }`}
         >
           숙소
         </button>
         <button
           onClick={() => setSearchMode('experiences')}
-          className={`py-3 px-4 rounded-full cursor-pointer ${
-            searchMode === 'experiences' ? 'text-black' : 'text-gray-500 hover:text-black hover:bg-gray-100'
+          className={`cursor-pointer rounded-full px-4 py-3 ${
+            searchMode === 'experiences' ? 'text-black' : 'text-gray-500 hover:bg-gray-100 hover:text-black'
           }`}
         >
           체험
@@ -122,27 +122,18 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
 
       <div
         ref={searchBarShellRef}
-        className={`
-          border border-gray-300 rounded-full shadow-md hover:shadow-lg cursor-pointer w-full overflow-hidden
-          ${isScrolled ? 'h-12 max-w-[400px]' : 'h-[66px] max-w-[850px]'}
-          ${activeTab ? 'bg-gray-200' : 'bg-white'} // duration-0 제거
-        `}
+        className={`w-full cursor-pointer overflow-hidden rounded-full border border-gray-300 shadow-md hover:shadow-lg ${isScrolled ? 'h-12 max-w-[400px]' : 'h-[66px] max-w-[850px]'} ${activeTab ? 'bg-gray-200' : 'bg-white'}`}
       >
-        <div className="flex items-center h-full w-full relative">
+        <div className="relative flex h-full w-full items-center">
           {' '}
-          <div
-            className={`
-              flex items-center w-full
-              ${isScrolled ? 'text-sm' : 'text-base'}
-            `}
-          >
+          <div className={`flex w-full items-center ${isScrolled ? 'text-sm' : 'text-base'} `}>
             {isScrolled ? (
               <>
                 {/* 스크롤 시 버튼들 */}
                 <button
                   type="button"
                   onClick={() => handleTabClick('location')}
-                  className="pr-4 pl-4 py-3 whitespace-nowrap"
+                  className="py-3 pr-4 pl-4 whitespace-nowrap"
                 >
                   어디든지
                 </button>
@@ -150,7 +141,7 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
                 <button
                   type="button"
                   onClick={() => handleTabClick('checkin')}
-                  className="pr-4 pl-4 py-3 whitespace-nowrap"
+                  className="py-3 pr-4 pl-4 whitespace-nowrap"
                 >
                   언제든 일주일
                 </button>
@@ -158,19 +149,18 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
                 <button
                   type="button"
                   onClick={() => handleTabClick('guest')}
-                  className="pr-4 pl-4 py-3 whitespace-nowrap"
+                  className="py-3 pr-4 pl-4 whitespace-nowrap"
                 >
                   게스트 추가
                 </button>
               </>
             ) : (
               // 스크롤 아닐 시 탭 구조
-              <div className="flex items-center w-full">
+              <div className="flex w-full items-center">
                 {/* 여행지 탭 */}
                 <div className="flex rounded-full">
                   <div
-                    className={`flex flex-col rounded-full py-3.5 pl-8 w-[250px] transition-colors duration-200
-                    ${activeTab === 'location' ? 'bg-white text-rose-500 font-medium shadow-md' : 'hover:bg-gray-100'}`}
+                    className={`flex w-[250px] flex-col rounded-full py-3.5 pl-8 transition-colors duration-200 ${activeTab === 'location' ? 'bg-white font-medium text-rose-500 shadow-md' : 'hover:bg-gray-100'}`}
                     onClick={(e) => {
                       e.stopPropagation();
                       setActiveTab('location');
@@ -180,7 +170,7 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
                     <input
                       type="text"
                       placeholder="여행지 검색"
-                      className={`bg-transparent outline-hidden w-full placeholder:text-gray-500 text-sm text-gray-500`}
+                      className={`w-full bg-transparent text-sm text-gray-500 outline-hidden placeholder:text-gray-500`}
                     />
                   </div>
                 </div>
@@ -195,9 +185,8 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
                     {/* 체크인 */}
                     <div className="flex rounded-full">
                       <div
-                        className={`flex flex-col rounded-full py-3.5 px-5 w-[150px] transition-colors duration-200
-                        ${
-                          activeTab === 'checkin' ? 'bg-white text-rose-500 font-medium shadow-md' : 'hover:bg-gray-100'
+                        className={`flex w-[150px] flex-col rounded-full px-5 py-3.5 transition-colors duration-200 ${
+                          activeTab === 'checkin' ? 'bg-white font-medium text-rose-500 shadow-md' : 'hover:bg-gray-100'
                         }`}
                         onClick={(e) => {
                           e.stopPropagation();
@@ -216,10 +205,9 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
                     {/* 체크아웃 */}
                     <div className={`flex rounded-full`}>
                       <div
-                        className={`flex flex-col rounded-full py-3.5 px-5 w-[150px] transition-colors duration-200
-                        ${
+                        className={`flex w-[150px] flex-col rounded-full px-5 py-3.5 transition-colors duration-200 ${
                           activeTab === 'checkout'
-                            ? 'bg-white text-rose-500 font-medium shadow-md'
+                            ? 'bg-white font-medium text-rose-500 shadow-md'
                             : 'hover:bg-gray-100'
                         }`}
                         onClick={(e) => {
@@ -236,8 +224,7 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
                   // 체험 날짜
                   <div className="flex">
                     <div
-                      className={`flex flex-col rounded-full px-5 py-3.5 pr-10 w-[301px] transition-colors duration-200
-                      ${activeTab === 'date' ? 'bg-white text-rose-500 font-medium shadow-md' : 'hover:bg-gray-100'}`}
+                      className={`flex w-[301px] flex-col rounded-full px-5 py-3.5 pr-10 transition-colors duration-200 ${activeTab === 'date' ? 'bg-white font-medium text-rose-500 shadow-md' : 'hover:bg-gray-100'}`}
                       onClick={(e) => {
                         e.stopPropagation();
                         handleTabClick('date');
@@ -256,8 +243,7 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
                 {/* 여행자 탭 */}
                 <div className="flex">
                   <div
-                    className={`flex flex-col rounded-full pl-5 py-3.5 w-[295px] transition-colors duration-200
-                    ${activeTab === 'guest' ? 'bg-white text-rose-500 font-medium shadow-md' : 'hover:bg-gray-100'}`}
+                    className={`flex w-[295px] flex-col rounded-full py-3.5 pl-5 transition-colors duration-200 ${activeTab === 'guest' ? 'bg-white font-medium text-rose-500 shadow-md' : 'hover:bg-gray-100'}`}
                     onClick={(e) => {
                       e.stopPropagation();
                       handleTabClick('guest');
@@ -272,11 +258,7 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
           </div>
           <button
             ref={searchButtonRef}
-            className={`
-              flex items-center justify-center gap-2 bg-rose-500 hover:bg-rose-600 text-white rounded-full mr-2 right-0
-              ${isScrolled ? 'h-9 w-9' : 'absolute h-12 w-12'}
-              ${activeTab ? 'w-28' : ''}
-            `}
+            className={`right-0 mr-2 flex items-center justify-center gap-2 rounded-full bg-rose-500 text-white hover:bg-rose-600 ${isScrolled ? 'h-9 w-9' : 'absolute h-12 w-12'} ${activeTab ? 'w-28' : ''} `}
             aria-label="검색"
             type="button"
           >
@@ -289,31 +271,31 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
       {!isScrolled && activeTab && (
         <div
           ref={popupRef}
-          className="search-popup absolute top-full left-0 w-full mt-3 bg-white rounded-3xl shadow-lg border p-6 z-20"
+          className="search-popup absolute top-full left-0 z-20 mt-3 w-full rounded-3xl border bg-white p-6 shadow-lg"
         >
           {activeTab === 'location' && (
             <div>
-              <h3 className="text-lg font-semibold mb-4">여행지 검색</h3>
+              <h3 className="mb-4 text-lg font-semibold">여행지 검색</h3>
             </div>
           )}
           {activeTab === 'checkin' && (
             <div>
-              <h3 className="text-lg font-semibold mb-4">체크인 날짜 선택</h3>
+              <h3 className="mb-4 text-lg font-semibold">체크인 날짜 선택</h3>
             </div>
           )}
           {activeTab === 'checkout' && (
             <div>
-              <h3 className="text-lg font-semibold mb-4">체크아웃 날짜 선택</h3>
+              <h3 className="mb-4 text-lg font-semibold">체크아웃 날짜 선택</h3>
             </div>
           )}
           {activeTab === 'date' && (
             <div>
-              <h3 className="text-lg font-semibold mb-4">날짜 선택</h3>
+              <h3 className="mb-4 text-lg font-semibold">날짜 선택</h3>
             </div>
           )}
           {activeTab === 'guest' && (
             <div>
-              <h3 className="text-lg font-semibold mb-4">인원 선택</h3>
+              <h3 className="mb-4 text-lg font-semibold">인원 선택</h3>
             </div>
           )}
         </div>

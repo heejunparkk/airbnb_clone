@@ -156,27 +156,27 @@ export default function VoiceCommandButton() {
     <div className="relative">
       <button
         onClick={toggleListening}
-        className={`fixed bottom-6 right-6 z-20 p-4 rounded-full shadow-[0_0_10px_rgba(0,0,0,0.2)] transition-all ${
-          isListening ? 'bg-red-500 animate-pulse' : 'bg-white hover:bg-gray-100'
+        className={`fixed right-6 bottom-6 z-20 rounded-full p-4 shadow-[0_0_10px_rgba(0,0,0,0.2)] transition-all ${
+          isListening ? 'animate-pulse bg-red-500' : 'bg-white hover:bg-gray-100'
         }`}
         aria-label={isListening ? '음성 인식 중지' : '음성 인식 시작'}
         disabled={isProcessing}
       >
-        {isListening ? <MdMic className="w-6 h-6 text-white" /> : <MdMicOff className="w-6 h-6 text-gray-700" />}
+        {isListening ? <MdMic className="h-6 w-6 text-white" /> : <MdMicOff className="h-6 w-6 text-gray-700" />}
       </button>
 
       {/* 음성 피드백 표시 */}
       {(isListening || feedback || isProcessing) && (
-        <div className="fixed bottom-24 right-6 bg-white p-4 rounded-lg shadow-[0_0_10px_rgba(0,0,0,0.2)] max-w-xs z-20">
-          {(isListening && <p className="text-rose-500 font-medium">듣고 있습니다... (5초 내에 말씀해주세요)</p>) ||
-            (transcript && !isProcessing && <p className="text-gray-700 mt-1">&quot;{transcript}&quot;</p>) ||
+        <div className="fixed right-6 bottom-24 z-20 max-w-xs rounded-lg bg-white p-4 shadow-[0_0_10px_rgba(0,0,0,0.2)]">
+          {(isListening && <p className="font-medium text-rose-500">듣고 있습니다... (5초 내에 말씀해주세요)</p>) ||
+            (transcript && !isProcessing && <p className="mt-1 text-gray-700">&quot;{transcript}&quot;</p>) ||
             (isProcessing && (
               <div className="flex items-center text-gray-600">
-                <div className="mr-2 h-4 w-4 rounded-full border-2 border-t-transparent border-rose-500 animate-spin"></div>
+                <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-rose-500 border-t-transparent"></div>
                 처리 중...
               </div>
             )) ||
-            (feedback && !isProcessing && <p className="text-gray-800 font-medium mt-1">{feedback}</p>)}
+            (feedback && !isProcessing && <p className="mt-1 font-medium text-gray-800">{feedback}</p>)}
         </div>
       )}
     </div>

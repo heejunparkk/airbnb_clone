@@ -79,7 +79,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
       <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
 
       <div className="fixed inset-0 flex items-center justify-center p-4">
-        <DialogPanel className="w-full max-w-xl transform overflow-hidden rounded-3xl bg-white p-6 text-left align-middle shadow-xl transition-all animate-modal">
+        <DialogPanel className="animate-modal w-full max-w-xl transform overflow-hidden rounded-3xl bg-white p-6 text-left align-middle shadow-xl transition-all">
           <div className="flex items-center justify-between border-b pb-4">
             <button onClick={onClose} className="rounded-full p-1 hover:bg-gray-100" aria-label="닫기">
               <XMarkIcon className="h-5 w-5" />
@@ -104,7 +104,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                 placeholder="이메일을 입력하세요"
                 aria-label="이메일"
                 onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-xs focus:border-rose-500 focus:outline-hidden focus:ring-1 focus:ring-rose-500"
+                className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-xs focus:border-rose-500 focus:ring-1 focus:ring-rose-500 focus:outline-hidden"
               />
             </div>
 
@@ -119,7 +119,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                 placeholder="비밀번호를 입력하세요"
                 aria-label="비밀번호"
                 onChange={(e) => setPassword(e.target.value)}
-                className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-xs focus:border-rose-500 focus:outline-hidden focus:ring-1 focus:ring-rose-500"
+                className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-xs focus:border-rose-500 focus:ring-1 focus:ring-rose-500 focus:outline-hidden"
               />
             </div>
 
@@ -136,7 +136,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                     placeholder="이름을 입력하세요"
                     aria-label="이름"
                     onChange={(e) => setName(e.target.value)}
-                    className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-xs focus:border-rose-500 focus:outline-hidden focus:ring-1 focus:ring-rose-500"
+                    className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-xs focus:border-rose-500 focus:ring-1 focus:ring-rose-500 focus:outline-hidden"
                   />
                 </div>
 
@@ -151,7 +151,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                     placeholder="전화번호를 입력하세요"
                     aria-label="전화번호"
                     onChange={(e) => setPhoneNumber(e.target.value)}
-                    className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-xs focus:border-rose-500 focus:outline-hidden focus:ring-1 focus:ring-rose-500"
+                    className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-xs focus:border-rose-500 focus:ring-1 focus:ring-rose-500 focus:outline-hidden"
                   />
                 </div>
               </>
@@ -160,8 +160,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
             <button
               type="submit"
               disabled={isLoading}
-              className={`w-full rounded-lg bg-rose-500 px-4 py-2 text-white hover:bg-rose-600
-                ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`w-full rounded-lg bg-rose-500 px-4 py-2 text-white hover:bg-rose-600 ${isLoading ? 'cursor-not-allowed opacity-50' : ''}`}
             >
               {isLoading ? '처리 중...' : isLogin ? '로그인' : '회원가입'}
             </button>
@@ -197,7 +196,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
           <div className="mt-6 space-y-4">
             <button
               onClick={() => handleSocialLogin('naver')}
-              className="relative flex w-full items-center justify-start px-6 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg border border-gray-300 bg-white"
+              className="relative flex w-full items-center justify-start rounded-lg border border-gray-300 bg-white px-6 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
             >
               <div className="absolute left-6">
                 <svg
@@ -216,7 +215,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
 
             <button
               onClick={() => handleSocialLogin('google')}
-              className="relative flex w-full items-center justify-start px-6 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg border border-gray-300 bg-white"
+              className="relative flex w-full items-center justify-start rounded-lg border border-gray-300 bg-white px-6 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
             >
               <div className="absolute left-6">
                 <svg
@@ -252,7 +251,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
 
             <button
               onClick={() => handleSocialLogin('apple')}
-              className="relative flex w-full items-center justify-start px-6 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg border border-gray-300 bg-white"
+              className="relative flex w-full items-center justify-start rounded-lg border border-gray-300 bg-white px-6 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
             >
               <div className="absolute left-6">
                 <svg
@@ -271,7 +270,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
 
             <button
               onClick={() => handleSocialLogin('email')}
-              className="relative flex w-full items-center justify-start px-6 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg border border-gray-300 bg-white"
+              className="relative flex w-full items-center justify-start rounded-lg border border-gray-300 bg-white px-6 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
             >
               <div className="absolute left-6">
                 <svg
@@ -290,7 +289,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
 
             <button
               onClick={() => handleSocialLogin('facebook')}
-              className="relative flex w-full items-center justify-start px-6 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg border border-gray-300 bg-white"
+              className="relative flex w-full items-center justify-start rounded-lg border border-gray-300 bg-white px-6 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
             >
               <div className="absolute left-6">
                 <svg

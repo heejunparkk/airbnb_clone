@@ -58,16 +58,13 @@ export default function Header() {
 
   return (
     <header
-      className={`
-        fixed w-full px-20 bg-white border-b z-10 transition-all duration-200
-        ${isScrolled || pathname?.startsWith('/accommodation/') ? 'h-[80px]' : 'h-[168px]'}
-      `}
+      className={`fixed z-10 w-full border-b bg-white px-20 transition-all duration-200 ${isScrolled || pathname?.startsWith('/accommodation/') ? 'h-[80px]' : 'h-[168px]'} `}
     >
       {/* 상단 영역 - 고정 높이 */}
       <div className="h-[80px]">
-        <div className="flex items-center justify-between h-full relative">
+        <div className="relative flex h-full items-center justify-between">
           {/* 로고 */}
-          <div className="w-1/3 flex justify-start">
+          <div className="flex w-1/3 justify-start">
             <Link href="/" className="text-rose-500">
               <svg width="102" height="32" className="block">
                 {/* <path
@@ -84,26 +81,26 @@ export default function Header() {
 
           {/* 중앙 검색바 */}
           <div
-            className={`w-1/3 flex justify-center items-center ${
-              isScrolled ? '' : 'absolute left-1/2 top-4 -translate-x-1/2'
+            className={`flex w-1/3 items-center justify-center ${
+              isScrolled ? '' : 'absolute top-4 left-1/2 -translate-x-1/2'
             }`}
           >
             <SearchBar isScrolled={isScrolled} />
           </div>
 
           {/* 사용자 메뉴 */}
-          <div className="w-1/3 flex justify-end">
+          <div className="flex w-1/3 justify-end">
             <div className="flex items-center">
               <button
                 type="button"
-                className="hidden md:block hover:bg-gray-100 px-4 py-3 rounded-full text-sm cursor-pointer"
+                className="hidden cursor-pointer rounded-full px-4 py-3 text-sm hover:bg-gray-100 md:block"
               >
                 당신의 공간을 에어비앤비하세요
               </button>
               <button
                 type="button"
                 title="언어설정"
-                className="hover:bg-gray-100 p-3.5 mr-1 rounded-full text-sm cursor-pointer"
+                className="mr-1 cursor-pointer rounded-full p-3.5 text-sm hover:bg-gray-100"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -119,7 +116,7 @@ export default function Header() {
               <div className="relative inline-block">
                 <button
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
-                  className="flex items-center gap-3 p-2 pl-3 border border-gray-300 rounded-full hover:shadow-md cursor-pointer"
+                  className="flex cursor-pointer items-center gap-3 rounded-full border border-gray-300 p-2 pl-3 hover:shadow-md"
                   aria-label="사용자 메뉴"
                   title="사용자 메뉴"
                 >
@@ -128,22 +125,22 @@ export default function Header() {
                 </button>
 
                 {isMenuOpen && (
-                  <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-lg border">
+                  <div className="absolute right-0 mt-2 w-56 rounded-xl border bg-white shadow-lg">
                     <div className="py-1">
                       {session ? (
                         <>
-                          <div className="px-4 py-2 text-sm text-gray-700 border-b border-gray-100">
+                          <div className="border-b border-gray-100 px-4 py-2 text-sm text-gray-700">
                             {session.user?.name || session.user?.email}님 안녕하세요!
                           </div>
                           <button
                             onClick={handleLogout}
-                            className="w-full text-left px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                            className="w-full cursor-pointer px-4 py-2 text-left hover:bg-gray-100"
                           >
                             로그아웃
                           </button>
                           <Link
                             href="/profile"
-                            className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                            className="block w-full px-4 py-2 text-left hover:bg-gray-100"
                             onClick={() => setIsMenuOpen(false)}
                           >
                             프로필
@@ -156,7 +153,7 @@ export default function Header() {
                               openAuthModal();
                               setIsMenuOpen(false);
                             }}
-                            className="w-full text-left px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                            className="w-full cursor-pointer px-4 py-2 text-left hover:bg-gray-100"
                           >
                             로그인
                           </button>
@@ -165,7 +162,7 @@ export default function Header() {
                               openAuthModal();
                               setIsMenuOpen(false);
                             }}
-                            className="w-full text-left px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                            className="w-full cursor-pointer px-4 py-2 text-left hover:bg-gray-100"
                           >
                             회원가입
                           </button>
