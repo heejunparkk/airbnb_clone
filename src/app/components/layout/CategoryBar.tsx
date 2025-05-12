@@ -79,7 +79,7 @@ export default function CategoryBar() {
         {/* 왼쪽 화살표 */}
         <button
           onClick={() => scroll('left')}
-          className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 border border-gray-400 bg-white rounded-full p-2 hover:scale-105 transition-all duration-200 ${
+          className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 border border-gray-400 bg-white rounded-full p-2 hover:scale-105 transition-all duration-200 cursor-pointer ${
             isAtStart ? 'opacity-0 invisible' : 'opacity-100 visible'
           }`}
           aria-label="Scroll left"
@@ -102,7 +102,7 @@ export default function CategoryBar() {
             <button
               key={category.value}
               onClick={() => handleCategoryClick(category.name, category.value)}
-              className={`flex flex-col items-center mt-4 gap-2 min-w-[56px] pb-3 transition-colors
+              className={`flex flex-col items-center mt-4 gap-2 min-w-[56px] pb-3 transition-colors cursor-pointer
                 ${
                   isSelected(category.value)
                     ? 'text-black border-b-2 border-black'
@@ -124,7 +124,7 @@ export default function CategoryBar() {
         {/* 오른쪽 화살표 */}
         <button
           onClick={() => scroll('right')}
-          className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 border border-gray-400 bg-white rounded-full p-2 hover:scale-105 transition-all duration-200 ${
+          className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 border border-gray-400 bg-white rounded-full p-2 hover:scale-105 transition-all duration-200 cursor-pointer ${
             isAtEnd ? 'opacity-0 invisible' : 'opacity-100 visible'
           }`}
           aria-label="Scroll right"

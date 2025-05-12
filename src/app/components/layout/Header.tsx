@@ -94,10 +94,17 @@ export default function Header() {
           {/* 사용자 메뉴 */}
           <div className="w-1/3 flex justify-end">
             <div className="flex items-center">
-              <button type="button" className="hidden md:block hover:bg-gray-100 px-4 py-3 rounded-full text-sm">
+              <button
+                type="button"
+                className="hidden md:block hover:bg-gray-100 px-4 py-3 rounded-full text-sm cursor-pointer"
+              >
                 당신의 공간을 에어비앤비하세요
               </button>
-              <button type="button" title="언어설정" className="hover:bg-gray-100 p-3.5 mr-1 rounded-full text-sm">
+              <button
+                type="button"
+                title="언어설정"
+                className="hover:bg-gray-100 p-3.5 mr-1 rounded-full text-sm cursor-pointer"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 16 16"
@@ -112,7 +119,7 @@ export default function Header() {
               <div className="relative inline-block">
                 <button
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
-                  className="flex items-center gap-3 p-2 pl-3 border border-gray-300 rounded-full hover:shadow-md"
+                  className="flex items-center gap-3 p-2 pl-3 border border-gray-300 rounded-full hover:shadow-md cursor-pointer"
                   aria-label="사용자 메뉴"
                   title="사용자 메뉴"
                 >
@@ -128,7 +135,10 @@ export default function Header() {
                           <div className="px-4 py-2 text-sm text-gray-700 border-b border-gray-100">
                             {session.user?.name || session.user?.email}님 안녕하세요!
                           </div>
-                          <button onClick={handleLogout} className="w-full text-left px-4 py-2 hover:bg-gray-100">
+                          <button
+                            onClick={handleLogout}
+                            className="w-full text-left px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                          >
                             로그아웃
                           </button>
                           <Link
@@ -146,7 +156,7 @@ export default function Header() {
                               openAuthModal();
                               setIsMenuOpen(false);
                             }}
-                            className="w-full text-left px-4 py-2 hover:bg-gray-100"
+                            className="w-full text-left px-4 py-2 hover:bg-gray-100 cursor-pointer"
                           >
                             로그인
                           </button>
@@ -155,7 +165,7 @@ export default function Header() {
                               openAuthModal();
                               setIsMenuOpen(false);
                             }}
-                            className="w-full text-left px-4 py-2 hover:bg-gray-100"
+                            className="w-full text-left px-4 py-2 hover:bg-gray-100 cursor-pointer"
                           >
                             회원가입
                           </button>

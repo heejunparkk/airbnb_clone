@@ -104,7 +104,7 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
       <div ref={topButtonsRef} className="flex gap-1 mb-4">
         <button
           onClick={() => setSearchMode('stays')}
-          className={`py-3 px-4 rounded-full ${
+          className={`py-3 px-4 rounded-full cursor-pointer ${
             searchMode === 'stays' ? 'text-black' : 'text-gray-500 hover:text-black hover:bg-gray-100'
           }`}
         >
@@ -112,7 +112,7 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
         </button>
         <button
           onClick={() => setSearchMode('experiences')}
-          className={`py-3 px-4 rounded-full ${
+          className={`py-3 px-4 rounded-full cursor-pointer ${
             searchMode === 'experiences' ? 'text-black' : 'text-gray-500 hover:text-black hover:bg-gray-100'
           }`}
         >
