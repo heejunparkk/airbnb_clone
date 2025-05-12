@@ -81,7 +81,7 @@ export default function Header() {
 
           {/* 중앙 검색바 */}
           <div
-            className={`flex w-1/3 items-center justify-center ${
+            className={`flex items-center justify-center ${
               isScrolled ? '' : 'absolute top-4 left-1/2 -translate-x-1/2'
             }`}
           >
