@@ -100,11 +100,11 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
   );
 
   return (
-    <div ref={containerRef} className="flex transform flex-col items-center justify-center">
+    <div ref={containerRef} className="flex w-full transform flex-col items-center justify-center">
       <div ref={topButtonsRef} className="mb-4 flex gap-1">
         <button
           onClick={() => setSearchMode('stays')}
-          className={`cursor-pointer rounded-full px-3 py-2 text-sm sm:px-4 sm:py-3 sm:text-base ${
+          className={`cursor-pointer rounded-full px-3 py-2 text-sm ${
             searchMode === 'stays' ? 'text-black' : 'text-gray-500 hover:bg-gray-100 hover:text-black'
           }`}
         >
@@ -112,7 +112,7 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
         </button>
         <button
           onClick={() => setSearchMode('experiences')}
-          className={`cursor-pointer rounded-full px-3 py-2 text-sm sm:px-4 sm:py-3 sm:text-base ${
+          className={`cursor-pointer rounded-full px-3 py-2 text-sm ${
             searchMode === 'experiences' ? 'text-black' : 'text-gray-500 hover:bg-gray-100 hover:text-black'
           }`}
         >
@@ -122,9 +122,9 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
 
       <div
         ref={searchBarShellRef}
-        className={`cursor-pointer overflow-hidden rounded-full border border-gray-300 shadow-md hover:shadow-lg ${isScrolled ? 'h-12' : 'h-[56px] sm:h-[66px]'} ${activeTab ? 'bg-gray-200' : 'bg-white'}`}
+        className={`flex w-full cursor-pointer rounded-full border border-gray-300 shadow-md hover:shadow-lg ${isScrolled ? 'h-12' : 'h-[56px] sm:h-[66px]'} ${activeTab ? 'bg-gray-200' : 'bg-white'}`}
       >
-        <div className="relative flex h-full w-full items-center">
+        <div className="flex h-full w-full items-center">
           <div className={`flex w-full items-center text-sm sm:text-base`}>
             {isScrolled ? (
               <>
@@ -155,15 +155,15 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
             ) : (
               <div className="flex w-full items-center">
                 {/* 여행지 탭 */}
-                <div className="flex min-w-0 flex-1 rounded-full">
+                <div className="flex w-full rounded-full">
                   <div
-                    className={`flex min-w-0 flex-col rounded-full py-2 pl-4 transition-colors duration-200 sm:py-3.5 sm:pl-8 ${activeTab === 'location' ? 'bg-white font-medium text-rose-500 shadow-md' : 'hover:bg-gray-100'}`}
+                    className={`flex w-full flex-col rounded-full px-8 py-3.5 transition-colors duration-200 ${activeTab === 'location' ? 'bg-white font-medium text-rose-500 shadow-md' : 'hover:bg-gray-100'}`}
                     onClick={(e) => {
                       e.stopPropagation();
                       setActiveTab('location');
                     }}
                   >
-                    <span className="text-xs">여행지</span>
+                    <span className="w-full text-xs">여행지</span>
                     <input
                       type="text"
                       placeholder="여행지 검색"
@@ -182,7 +182,7 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
                     {/* 체크인 */}
                     <div className="flex rounded-full">
                       <div
-                        className={`flex flex-col rounded-full px-2 py-2 transition-colors duration-200 sm:px-5 sm:py-3.5 ${activeTab === 'checkin' ? 'bg-white font-medium text-rose-500 shadow-md' : 'hover:bg-gray-100'}`}
+                        className={`flex flex-col rounded-full px-8 py-3.5 transition-colors duration-200 ${activeTab === 'checkin' ? 'bg-white font-medium text-rose-500 shadow-md' : 'hover:bg-gray-100'}`}
                         onClick={(e) => {
                           e.stopPropagation();
                           handleTabClick('checkin');
@@ -200,7 +200,7 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
                     {/* 체크아웃 */}
                     <div className="flex rounded-full">
                       <div
-                        className={`flex flex-col rounded-full px-2 py-2 transition-colors duration-200 sm:px-5 sm:py-3.5 ${activeTab === 'checkout' ? 'bg-white font-medium text-rose-500 shadow-md' : 'hover:bg-gray-100'}`}
+                        className={`flex flex-col rounded-full px-8 py-3.5 transition-colors duration-200 ${activeTab === 'checkout' ? 'bg-white font-medium text-rose-500 shadow-md' : 'hover:bg-gray-100'}`}
                         onClick={(e) => {
                           e.stopPropagation();
                           handleTabClick('checkout');
@@ -213,9 +213,9 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
                   </div>
                 ) : (
                   // 체험 날짜
-                  <div className="flex min-w-0 flex-[1.2]">
+                  <div className="flex flex-[1.2]">
                     <div
-                      className={`flex min-w-0 flex-col rounded-full px-2 py-2 pr-4 transition-colors duration-200 sm:px-5 sm:py-3.5 sm:pr-10 ${activeTab === 'date' ? 'bg-white font-medium text-rose-500 shadow-md' : 'hover:bg-gray-100'}`}
+                      className={`flex flex-col rounded-full px-8 py-3.5 transition-colors duration-200 ${activeTab === 'date' ? 'bg-white font-medium text-rose-500 shadow-md' : 'hover:bg-gray-100'}`}
                       onClick={(e) => {
                         e.stopPropagation();
                         handleTabClick('date');
@@ -232,16 +232,16 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
                 />
 
                 {/* 여행자 탭 */}
-                <div className="flex min-w-0 flex-1">
+                <div className="flex w-full rounded-full">
                   <div
-                    className={`flex min-w-0 flex-col rounded-full py-2 pl-2 transition-colors duration-200 sm:py-3.5 sm:pl-5 ${activeTab === 'guest' ? 'bg-white font-medium text-rose-500 shadow-md' : 'hover:bg-gray-100'}`}
+                    className={`flex w-full flex-col rounded-full px-8 py-3.5 transition-colors duration-200 ${activeTab === 'guest' ? 'bg-white font-medium text-rose-500 shadow-md' : 'hover:bg-gray-100'}`}
                     onClick={(e) => {
                       e.stopPropagation();
                       handleTabClick('guest');
                     }}
                   >
-                    <span className="text-xs">여행자</span>
-                    <span className="truncate text-xs text-gray-500 sm:text-sm">게스트 추가</span>
+                    <span className="w-full text-xs">여행자</span>
+                    <span className="w-full truncate text-xs text-gray-500 sm:text-sm">게스트 추가</span>
                   </div>
                 </div>
               </div>

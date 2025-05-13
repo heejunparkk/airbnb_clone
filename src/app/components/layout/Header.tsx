@@ -61,10 +61,10 @@ export default function Header() {
       className={`fixed z-10 w-full border-b bg-white px-20 transition-all duration-200 ${isScrolled || pathname?.startsWith('/accommodation/') ? 'h-[80px]' : 'h-[168px]'} `}
     >
       {/* 상단 영역 - 고정 높이 */}
-      <div className="h-[80px]">
-        <div className="relative flex h-full items-center justify-between">
+      <div className="h-[80px] w-full">
+        <div className="relative flex h-full w-full items-center justify-between">
           {/* 로고 */}
-          <div className="flex w-1/3 justify-start">
+          <div className="z-10 flex justify-start">
             <Link href="/" className="text-rose-500">
               <svg width="102" height="32" className="block">
                 {/* <path
@@ -81,7 +81,7 @@ export default function Header() {
 
           {/* 중앙 검색바 */}
           <div
-            className={`flex items-center justify-center ${
+            className={`absolute flex w-full max-w-3xl items-center justify-center ${
               isScrolled ? '' : 'absolute top-4 left-1/2 -translate-x-1/2'
             }`}
           >
@@ -89,7 +89,7 @@ export default function Header() {
           </div>
 
           {/* 사용자 메뉴 */}
-          <div className="flex w-1/3 justify-end">
+          <div className="z-10 flex justify-end">
             <div className="flex items-center">
               <button
                 type="button"

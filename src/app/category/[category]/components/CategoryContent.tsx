@@ -46,7 +46,6 @@ export default function CategoryContent({ category }: CategoryContentProps) {
 
   return (
     <main className="px-20 pt-[200px]">
-      <h1 className="mb-8 text-2xl font-bold capitalize">{category}</h1>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
         {accommodations?.map(renderAccommodationCard)}
       </div>
