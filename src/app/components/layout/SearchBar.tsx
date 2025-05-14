@@ -125,7 +125,7 @@ export default function SearchBar({ isScrolled }: SearchBarProps) {
         className={`flex w-full cursor-pointer rounded-full border border-gray-300 shadow-md hover:shadow-lg ${isScrolled ? 'h-12' : 'h-[56px] sm:h-[66px]'} ${activeTab ? 'bg-gray-200' : 'bg-white'}`}
       >
         <div className="flex h-full w-full items-center">
-          <div className={`flex w-full items-center text-sm sm:text-base`}>
+          <div className={`flex w-full items-center justify-center text-sm sm:text-base`}>
             {isScrolled ? (
               <>
                 <button

@@ -82,7 +82,7 @@ export default function Header() {
           {/* 중앙 검색바 */}
           <div
             className={`absolute flex w-full max-w-3xl items-center justify-center ${
-              isScrolled ? '' : 'absolute top-4 left-1/2 -translate-x-1/2'
+              isScrolled ? 'absolute left-1/2 max-w-sm -translate-x-1/2' : 'absolute top-4 left-1/2 -translate-x-1/2'
             }`}
           >
             <SearchBar isScrolled={isScrolled} />
