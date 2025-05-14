@@ -63,12 +63,12 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-gray-100 border-t border-gray-200 pt-6 pb-8 mt-6">
+    <footer className="mt-6 border-t border-gray-200 bg-gray-100 pt-6 pb-8">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
           {footerLinks.map((section, index) => (
             <div key={index} className="mb-6">
-              <h3 className="text-sm font-semibold mb-4">{section.category}</h3>
+              <h3 className="mb-4 text-sm font-semibold">{section.category}</h3>
               <ul>
                 {section.links.map((link, idx) => (
                   <li key={idx} className="mb-2">
@@ -82,10 +82,10 @@ const Footer = () => {
           ))}
         </div>
 
-        <hr className="border-gray-200 my-6" />
+        <hr className="my-6 border-gray-200" />
 
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">
+        <div className="flex flex-col items-center justify-between md:flex-row">
+          <div className="flex flex-col items-center space-y-4 md:flex-row md:space-y-0 md:space-x-6">
             <div className="text-sm">© {new Date().getFullYear()} Airbnb, Inc. All rights reserved</div>
             <div className="flex items-center space-x-4">
               <Link href="/terms" className="text-sm text-gray-600 hover:underline">
@@ -102,7 +102,7 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="flex items-center space-x-4 mt-4 md:mt-0">
+          <div className="mt-4 flex items-center space-x-4 md:mt-0">
             <button
               className="flex items-center text-sm font-medium"
               onClick={() => handleLanguageChange(language === '한국어' ? 'English' : '한국어')}

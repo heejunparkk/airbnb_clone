@@ -5,7 +5,7 @@ import { IoSearch } from 'react-icons/io5';
 
 export default function AccommodationHeader() {
   return (
-    <header className="max-w-7xl mx-auto px-8 py-4">
+    <header className="mx-auto max-w-7xl px-8 py-4">
       <div className="flex items-center justify-between">
         <Link href="/" className="text-rose-500">
           <svg width="30" height="32" fill="currentColor">
@@ -14,10 +14,10 @@ export default function AccommodationHeader() {
         </Link>
 
         <div className="flex items-center gap-6">
-          <button className="hover:bg-gray-100 px-4 py-2 rounded-full text-sm font-medium">
+          <button className="rounded-full px-4 py-2 text-sm font-medium hover:bg-gray-100">
             당신의 공간을 에어비앤비하세요
           </button>
-          <button className="p-3 hover:bg-gray-100 rounded-full" title="검색">
+          <button className="rounded-full p-3 hover:bg-gray-100" title="검색">
             <IoSearch size={18} />
           </button>
         </div>

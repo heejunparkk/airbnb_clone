@@ -78,14 +78,14 @@ export default function ChatCommandInput() {
       {/* 채팅 버튼 */}
       <button
         onClick={toggleChatInput}
-        className="fixed bottom-6 left-6 z-20 p-4 rounded-full shadow-[0_0_10px_rgba(0,0,0,0.2)] bg-white hover:bg-gray-100"
+        className="fixed bottom-6 left-6 z-20 rounded-full bg-white p-4 shadow-[0_0_10px_rgba(0,0,0,0.2)] hover:bg-gray-100"
         aria-label={showInput ? '채팅 입력 닫기' : '채팅 입력 열기'}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="currentColor"
-          className="w-6 h-6 text-gray-700"
+          className="h-6 w-6 text-gray-700"
         >
           <path d="M4.913 2.658c2.075-.27 4.19-.408 6.337-.408 2.147 0 4.262.139 6.337.408 1.922.25 3.291 1.861 3.405 3.727a4.403 4.403 0 00-1.032-.211 50.89 50.89 0 00-8.42 0c-2.358.196-4.04 2.19-4.04 4.434v4.286a4.47 4.47 0 002.433 3.984L7.28 21.53A.75.75 0 016 21v-4.03a48.527 48.527 0 01-1.087-.128C2.905 16.58 1.5 14.833 1.5 12.862V6.638c0-1.97 1.405-3.718 3.413-3.979z" />
           <path d="M15.75 7.5c-1.376 0-2.739.057-4.086.169C10.124 7.797 9 9.103 9 10.609v4.285c0 1.507 1.128 2.814 2.67 2.94 1.243.102 2.5.157 3.768.165l2.782 2.781a.75.75 0 001.28-.53v-2.39l.33-.026c1.542-.125 2.67-1.433 2.67-2.94v-4.286c0-1.505-1.125-2.811-2.664-2.94A49.392 49.392 0 0015.75 7.5z" />
@@ -94,26 +94,26 @@ export default function ChatCommandInput() {
 
       {/* 채팅 입력 폼 */}
       {showInput && (
-        <form onSubmit={handleChatSubmit} className="fixed bottom-6 left-24 right-24 z-20 flex">
+        <form onSubmit={handleChatSubmit} className="fixed right-24 bottom-6 left-24 z-20 flex">
           <input
             type="text"
             value={chatInput}
             onChange={(e) => setChatInput(e.target.value)}
             placeholder="명령어를 입력하세요... (예: 한옥 카테고리 열어줘)"
-            className="grow p-3 rounded-l-lg border border-gray-300 focus:outline-hidden focus:ring-2 focus:ring-rose-500"
+            className="grow rounded-l-lg border border-gray-300 p-3 focus:ring-2 focus:ring-rose-500 focus:outline-hidden"
             autoFocus
           />
           <button
             type="submit"
-            className={`p-3 rounded-r-lg ${
+            className={`rounded-r-lg p-3 ${
               isProcessing ? 'bg-gray-400' : 'bg-rose-500 hover:bg-rose-600'
             } text-white transition-colors duration-200`}
             disabled={isProcessing}
           >
             {isProcessing ? (
-              <div className="w-6 h-6 rounded-full border-2 border-t-transparent border-white animate-spin"></div>
+              <div className="h-6 w-6 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
             ) : (
-              <IoSend className="w-6 h-6" />
+              <IoSend className="h-6 w-6" />
             )}
           </button>
         </form>
@@ -121,14 +121,14 @@ export default function ChatCommandInput() {
 
       {/* 피드백 표시 */}
       {(feedback || isProcessing) && showInput && (
-        <div className="fixed bottom-24 left-6 bg-white p-4 rounded-lg shadow-[0_0_10px_rgba(0,0,0,0.2)] max-w-xs z-20">
+        <div className="fixed bottom-24 left-6 z-20 max-w-xs rounded-lg bg-white p-4 shadow-[0_0_10px_rgba(0,0,0,0.2)]">
           {isProcessing ? (
             <div className="flex items-center text-gray-600">
-              <div className="mr-2 h-4 w-4 rounded-full border-2 border-t-transparent border-rose-500 animate-spin"></div>
+              <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-rose-500 border-t-transparent"></div>
               처리 중...
             </div>
           ) : (
-            <p className="text-gray-800 font-medium">{feedback}</p>
+            <p className="font-medium text-gray-800">{feedback}</p>
           )}
         </div>
       )}
